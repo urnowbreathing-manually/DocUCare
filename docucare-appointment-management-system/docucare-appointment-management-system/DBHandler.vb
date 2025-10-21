@@ -315,7 +315,7 @@ Public Class DBHandler
     ' Insert Doctor
     Public Function InsertDoctor(personnelName As String, verifiedID As String,
                                 password As String, role As String,
-                                 contactNo As Integer, schedule As String) As Boolean
+                                 contactNo As String, schedule As String) As Boolean
         Dim sql As String = "INSERT INTO personneltable (Personnel_Name, Verified_ID, Password, Role, ContactNo, Schedule) " &
                            "VALUES (@personnelName, @verifiedID, @password, @role, @contactNo, @schedule)"
 
@@ -514,4 +514,30 @@ Public Class DBHandler
             conn.Dispose()
         End If
     End Sub
+    ' Fetches the schedule string for a single doctor by their name
+    Public Function GetDoctorScheduleByName(ByVal doctorName As String) As String
+        Dim schedule As String = ""
+        Try
+            ' Assumes conn is your MySqlConnection object
+            conn.Open()
+            Dim query As String = "SELECT Schedule FROM personneltable WHERE Personnel_Name = @DoctorName AND Role = 'Doctor'"
+            Using cmd As New MySqlCommand(query, conn)
+                cmd.Parameters.AddWithValue("@DoctorName", doctorName)
+
+                Dim result As Object = cmd.ExecuteScalar()
+
+                If result IsNot Nothing AndAlso Not IsDBNull(result) Then
+                    schedule = result.ToString()
+                Else
+                    schedule = "Not Found"
+                End If
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error fetching doctor schedule: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            schedule = "Error"
+        Finally
+            conn.Close()
+        End Try
+        Return schedule
+    End Function
 End Class

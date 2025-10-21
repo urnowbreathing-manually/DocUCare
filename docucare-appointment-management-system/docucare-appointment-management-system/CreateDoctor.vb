@@ -1,25 +1,24 @@
 ﻿Imports System.Threading
 
 Public Class CreateDoctor
-    ' --- ADDED ---
     ' Create a single instance of the DBHandler
     Private db As New DBHandler()
-    ' --- END ADDED ---
 
     Private Sub CreateDoctor_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Apply time format + disable all pickers by default
         DisableAllDateTimePickers(Me)
     End Sub
 
-    ' Recursive function to apply settings even if controls are inside panels or table layouts
     ' --- MODIFIED ---
+    ' Recursive function to apply settings even if controls are inside panels or table layouts
     Private Sub DisableAllDateTimePickers(parent As Control)
         For Each ctrl As Control In parent.Controls
             If TypeOf ctrl Is DateTimePicker Then
                 Dim dtp As DateTimePicker = CType(ctrl, DateTimePicker)
                 dtp.Format = DateTimePickerFormat.Custom
-                ' --- CHANGED to 24-hour format ---
-                dtp.CustomFormat = "HH:mm" ' 24-hour format
+
+                ' --- CHANGED to 12-hour format for USER DISPLAY ---
+                dtp.CustomFormat = "hh:mm tt" ' 12-hour AM/PM format
                 dtp.ShowUpDown = True         ' clock-style time only
                 dtp.Enabled = False           ' disable by default
             End If
@@ -89,14 +88,10 @@ Public Class CreateDoctor
 
         If String.IsNullOrWhiteSpace(FirstName.Text) Then missingFields.Add("First Name")
         If String.IsNullOrWhiteSpace(LastName.Text) Then missingFields.Add("Last Name")
-        ' --- ADDED ---
-        ' This assumes you added a TextBox named VerificationID
         If String.IsNullOrWhiteSpace(VerificationID.Text) Then missingFields.Add("Verification ID")
-        ' --- END ADDED ---
         If String.IsNullOrWhiteSpace(ContactNum.Text) Then missingFields.Add("Contact Number")
         If String.IsNullOrWhiteSpace(Password.Text) Then missingFields.Add("Password")
         If String.IsNullOrWhiteSpace(ConfirmPassword.Text) Then missingFields.Add("Confirm Password")
-
 
         ' Check if passwords match
         If Password.Text <> ConfirmPassword.Text Then
@@ -112,33 +107,18 @@ Public Class CreateDoctor
             Exit Sub
         End If
 
-        ' --- MODIFIED ---
-        ' Build schedule summary in the new format
+        ' Build schedule summary in 24-HOUR format for the database
         Dim scheduleSummary As String = GetScheduleSummary()
-        ' --- END MODIFICATION ---
 
-        ' --- REPLACED DUMMY SAVE WITH DATABASE LOGIC ---
-
-        ' Get all form values
-        Dim fullName As String = FirstName.Text & " " & LastName.Text
-        ' This next line requires you to add the TextBox named 'VerificationID'
-        Dim vID As String = VerificationID.Text
-        Dim pass As String = Password.Text
-        Dim role As String = "doctor"
-        Dim contact As String = 0
-
-        ' **BUG WARNING:** Your DBHandler.InsertDoctor uses 'Integer' for ContactNo,
-        ' but your form allows 11 digits, which will crash an Integer (max 10 digits).
-        ' I am using TryParse to prevent a crash, but this field may not save correctly.
-        ' You should change 'contactNo As Integer' to 'contactNo As String' or 'contactNo As Long'
-        ' in your DBHandler.vb file to fix this.
-        If Not Integer.TryParse(ContactNum.Text, contact) Then
-            MessageBox.Show("Warning: Contact Number is too long to save as an Integer. Storing 0." & vbCrLf &
-                            "Please update DBHandler's InsertDoctor method to use 'Long' or 'String' for ContactNo.",
-                            "Data Type Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-        End If
+        ' Get all form values to match the personneltable schema
+        Dim fullName As String = FirstName.Text & " " & LastName.Text ' For Personnel_Name
+        Dim vID As String = VerificationID.Text                     ' For Verified_ID
+        Dim pass As String = Password.Text                          ' For Password
+        Dim role As String = "doctor"                               ' For Role
+        Dim contact As String = ContactNum.Text                     ' For ContactNo (VARCHAR(15))
 
         ' Call the DBHandler InsertDoctor function
+        ' (Assumes InsertDoctor signature is: (name, vID, pass, role, contact, schedule))
         If db.InsertDoctor(fullName, vID, pass, role, contact, scheduleSummary) Then
             MessageBox.Show("Doctor Account Saved to Database", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
             ClearAllFields()
@@ -146,44 +126,39 @@ Public Class CreateDoctor
         Else
             MessageBox.Show("Failed to save doctor to database. The Verification ID might already exist.", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
-        ' --- END REPLACEMENT ---
-
     End Sub
 
     ' ----- Utility: Build Schedule Summary -----
     ' --- MODIFIED ---
     Private Function GetScheduleSummary() As String
         Dim result As New List(Of String)
-        Dim format As String = "HH:mm"
 
-        ' Use .Value.ToString(format) to get 24-hour "HH:mm" format
-        If checkMonday.Checked Then result.Add($"MON-{MondayStart.Value.ToString(format)}-{MondayEnd.Value.ToString(format)}")
-        If checkTue.Checked Then result.Add($"TUE-{TueStart.Value.ToString(format)}-{TueEnd.Value.ToString(format)}")
-        If checkWed.Checked Then result.Add($"WED-{WedStart.Value.ToString(format)}-{WedEnd.Value.ToString(format)}")
-        If checkThu.Checked Then result.Add($"THU-{ThuStart.Value.ToString(format)}-{ThuEnd.Value.ToString(format)}")
-        If checkFri.Checked Then result.Add($"FRI-{FriStart.Value.ToString(format)}-{FridEnd.Value.ToString(format)}")
-        If checkSat.Checked Then result.Add($"SAT-{SatStart.Value.ToString(format)}-{SatEnd.Value.ToString(format)}")
-        If checkSun.Checked Then result.Add($"SUN-{SunStart.Value.ToString(format)}-{SunEnd.Value.ToString(format)}")
+        ' --- CHANGED to 24-hour format for DATABASE ---
+        Dim dbFormat As String = "HH:mm" ' 24-hour format
+
+        ' Use .Value.ToString(dbFormat) to get 24-hour "HH:mm" format
+        If checkMonday.Checked Then result.Add($"MON-{MondayStart.Value.ToString(dbFormat)}-{MondayEnd.Value.ToString(dbFormat)}")
+        If checkTue.Checked Then result.Add($"TUE-{TueStart.Value.ToString(dbFormat)}-{TueEnd.Value.ToString(dbFormat)}")
+        If checkWed.Checked Then result.Add($"WED-{WedStart.Value.ToString(dbFormat)}-{WedEnd.Value.ToString(dbFormat)}")
+        If checkThu.Checked Then result.Add($"THU-{ThuStart.Value.ToString(dbFormat)}-{ThuEnd.Value.ToString(dbFormat)}")
+        If checkFri.Checked Then result.Add($"FRI-{FriStart.Value.ToString(dbFormat)}-{FridEnd.Value.ToString(dbFormat)}")
+        If checkSat.Checked Then result.Add($"SAT-{SatStart.Value.ToString(dbFormat)}-{SatEnd.Value.ToString(dbFormat)}")
+        If checkSun.Checked Then result.Add($"SUN-{SunStart.Value.ToString(dbFormat)}-{SunEnd.Value.ToString(dbFormat)}")
 
         If result.Count = 0 Then
             Return "No schedule set."
         Else
-            ' Join with a pipe "|" instead of a new line
+            ' Join with a pipe "|"
             Return String.Join("|", result)
         End If
     End Function
     ' --- END MODIFICATION ---
 
-    ' ----- Utility: Clear all fields after pseudo-save -----
+    ' ----- Utility: Clear all fields after save -----
     Private Sub ClearAllFields()
         FirstName.Clear()
         LastName.Clear()
-        ' --- ADDED ---
-        ' Assumes you added a TextBox named VerificationID
-        If Me.Controls.ContainsKey("VerificationID") Then
-            Me.Controls("VerificationID").Text = ""
-        End If
-        ' --- END ADDED ---
+        VerificationID.Clear()
         ContactNum.Clear()
         Password.Clear()
         ConfirmPassword.Clear()
@@ -198,15 +173,16 @@ Public Class CreateDoctor
         checkSun.Checked = False
     End Sub
 
+    ' ----- Utility: Force Contact Number to be digits only -----
     Private Sub ContactNum_TextChanged(sender As Object, e As EventArgs) Handles ContactNum.TextChanged
         Dim tb As TextBox = DirectCast(sender, TextBox)
 
         ' Keep only digits
         tb.Text = System.Text.RegularExpressions.Regex.Replace(tb.Text, "[^\d]", "")
 
-        ' Limit to 11 digits (PH mobile format)
-        If tb.Text.Length > 11 Then
-            tb.Text = tb.Text.Substring(0, 11)
+        ' Limit to 15 digits (to match database VARCHAR(15))
+        If tb.Text.Length > 15 Then
+            tb.Text = tb.Text.Substring(0, 15)
         End If
 
         ' Keep cursor at the end

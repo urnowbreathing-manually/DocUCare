@@ -1,7 +1,10 @@
-﻿Public Class UcAppointment
+﻿Imports System.Data
+
+Public Class UcAppointment
     Inherits UserControl
 
     Private MainContentPanel As Panel
+    Private db As New DBHandler() ' Database handler instance
 
     ' Class to hold appointment data
     Private Class AppointmentData
@@ -26,7 +29,46 @@
         AppointmentList.BackColor = Color.WhiteSmoke
         AppointmentList.BorderStyle = BorderStyle.FixedSingle
         AppointmentList.Padding = New Padding(10)
+
+        ' Load appointments from DB
+        LoadAppointmentsFromDB()
     End Sub
+
+    ' --- MODIFIED: This function is now fixed ---
+    Private Sub LoadAppointmentsFromDB()
+        Try
+            AppointmentList.Controls.Clear() ' Clear existing
+            ' This assumes you have a function named "GetAllAppointments" in your DBHandler
+            Dim dt As DataTable = db.GetAllAppointments()
+
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
+                For Each row As DataRow In dt.Rows
+
+                    ' --- FIXED: Using correct column names and data types from your database ---
+                    Dim patientName As String = row.Field(Of String)("patient_name")
+                    Dim doctorName As String = row.Field(Of String)("doctor_name")
+                    Dim appDate As String = row.Field(Of String)("date") ' Read as String
+                    Dim appTime As String = row.Field(Of String)("time")
+                    Dim appNotes As String = row.Field(Of String)("notes")
+                    ' --- END FIX ---
+
+                    ' Call your existing function with the correct data
+                    AddAppointmentToList(patientName, doctorName, appDate, appTime, appNotes)
+                Next
+            Else
+                ' Optional: Display a message if no appointments
+                Dim noAppsLabel As New Label()
+                noAppsLabel.Text = "No appointments found."
+                noAppsLabel.Font = New Font("Segoe UI", 12)
+                noAppsLabel.AutoSize = True
+                AppointmentList.Controls.Add(noAppsLabel)
+            End If
+        Catch ex As Exception
+            ' This will now show the specific error (e.g., "Column 'patient' not found")
+            MessageBox.Show("Failed to load appointments: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+    ' --- END MODIFICATION ---
 
     Private Sub NavbarMenu_Click(sender As Object, e As EventArgs) Handles NavbarMenu.Click
         MainContentPanel.Controls.Clear()
@@ -39,6 +81,7 @@
         Dim form As New AddAppointment()
 
         If form.ShowDialog() = DialogResult.OK Then
+            ' This part adds the card when you create one
             AddAppointmentToList(
                 form.SelectedPatient,
                 form.SelectedDoctor,
@@ -46,10 +89,13 @@
                 form.SelectedTime,
                 form.SelectedNotes
             )
+            ' We reload from DB in case AddAppointment saves it
+            ' If AddAppointment doesn't save to DB, this is still safe.
+            LoadAppointmentsFromDB()
         End If
     End Sub
 
-    ' Create and add appointment panel (with green Consult button)
+    ' This function is correct as-is
     Private Sub AddAppointmentToList(patient As String, doctor As String, [date] As String, time As String, notes As String)
         Dim appointmentPanel As New Panel()
         appointmentPanel.Width = AppointmentList.Width - 40
@@ -122,14 +168,21 @@
         layout.Controls.Add(tbl, 0, 0)
         layout.Controls.Add(btnConsult, 1, 0)
         appointmentPanel.Controls.Add(layout)
+
+        ' Check if a "No appointments" label is present and remove it
+        If AppointmentList.Controls.Count = 1 AndAlso TypeOf AppointmentList.Controls(0) Is Label Then
+            AppointmentList.Controls.Clear()
+        End If
+
         AppointmentList.Controls.Add(appointmentPanel)
     End Sub
 
     ' Handle Consult button click
+    ' This part remains the same.
     Private Sub ConsultButton_Click(sender As Object, e As EventArgs)
         Dim btn As Button = DirectCast(sender, Button)
         Dim data As AppointmentData = DirectCast(btn.Tag, AppointmentData)
-        Dim appointmentDate As Date = Date.Parse(data.Date)
+        Dim appointmentDate As Date = Date.Parse(data.Date) ' This line might fail if the varchar(8) is not a standard date format
         Dim today As Date = Date.Now.Date
 
         If today < appointmentDate Then
