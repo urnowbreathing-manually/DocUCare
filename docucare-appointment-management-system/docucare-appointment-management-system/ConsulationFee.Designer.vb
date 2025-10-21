@@ -22,9 +22,132 @@ Partial Class ConsulationFee
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        components = New System.ComponentModel.Container
+        Me.Btn_Cancel = New System.Windows.Forms.Button()
+        Me.Btn_SaveFee = New System.Windows.Forms.Button()
+        Me.Lbl_PatientName = New System.Windows.Forms.Label()
+        Me.Lbl_Date = New System.Windows.Forms.Label()
+        Me.Lbl_Time = New System.Windows.Forms.Label()
+        Me.Lbl_StaffName = New System.Windows.Forms.Label()
+        Me.Lbl_ConsultationFee = New System.Windows.Forms.Label()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.SuspendLayout()
+        '
+        'Btn_Cancel
+        '
+        Me.Btn_Cancel.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.Btn_Cancel.FlatAppearance.BorderColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Btn_Cancel.FlatAppearance.BorderSize = 0
+        Me.Btn_Cancel.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Btn_Cancel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Btn_Cancel.Location = New System.Drawing.Point(165, 192)
+        Me.Btn_Cancel.Name = "Btn_Cancel"
+        Me.Btn_Cancel.Size = New System.Drawing.Size(142, 36)
+        Me.Btn_Cancel.TabIndex = 4
+        Me.Btn_Cancel.Text = "Cancel"
+        Me.Btn_Cancel.UseVisualStyleBackColor = False
+        '
+        'Btn_SaveFee
+        '
+        Me.Btn_SaveFee.BackColor = System.Drawing.SystemColors.HotTrack
+        Me.Btn_SaveFee.FlatAppearance.BorderColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Btn_SaveFee.FlatAppearance.BorderSize = 0
+        Me.Btn_SaveFee.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Btn_SaveFee.ForeColor = System.Drawing.SystemColors.Control
+        Me.Btn_SaveFee.Location = New System.Drawing.Point(12, 192)
+        Me.Btn_SaveFee.Name = "Btn_SaveFee"
+        Me.Btn_SaveFee.Size = New System.Drawing.Size(142, 36)
+        Me.Btn_SaveFee.TabIndex = 3
+        Me.Btn_SaveFee.Text = "Save"
+        Me.Btn_SaveFee.UseVisualStyleBackColor = False
+        '
+        'Lbl_PatientName
+        '
+        Me.Lbl_PatientName.AutoSize = True
+        Me.Lbl_PatientName.Location = New System.Drawing.Point(27, 34)
+        Me.Lbl_PatientName.Name = "Lbl_PatientName"
+        Me.Lbl_PatientName.Size = New System.Drawing.Size(77, 13)
+        Me.Lbl_PatientName.TabIndex = 17
+        Me.Lbl_PatientName.Text = "Patient Name: "
+        '
+        'Lbl_Date
+        '
+        Me.Lbl_Date.AutoSize = True
+        Me.Lbl_Date.Location = New System.Drawing.Point(68, 67)
+        Me.Lbl_Date.Name = "Lbl_Date"
+        Me.Lbl_Date.Size = New System.Drawing.Size(36, 13)
+        Me.Lbl_Date.TabIndex = 18
+        Me.Lbl_Date.Text = "Date: "
+        '
+        'Lbl_Time
+        '
+        Me.Lbl_Time.AutoSize = True
+        Me.Lbl_Time.Location = New System.Drawing.Point(68, 95)
+        Me.Lbl_Time.Name = "Lbl_Time"
+        Me.Lbl_Time.Size = New System.Drawing.Size(36, 13)
+        Me.Lbl_Time.TabIndex = 19
+        Me.Lbl_Time.Text = "Time: "
+        '
+        'Lbl_StaffName
+        '
+        Me.Lbl_StaffName.AutoSize = True
+        Me.Lbl_StaffName.Location = New System.Drawing.Point(38, 124)
+        Me.Lbl_StaffName.Name = "Lbl_StaffName"
+        Me.Lbl_StaffName.Size = New System.Drawing.Size(66, 13)
+        Me.Lbl_StaffName.TabIndex = 20
+        Me.Lbl_StaffName.Text = "Staff Name: "
+        '
+        'Lbl_ConsultationFee
+        '
+        Me.Lbl_ConsultationFee.AutoSize = True
+        Me.Lbl_ConsultationFee.Location = New System.Drawing.Point(12, 154)
+        Me.Lbl_ConsultationFee.Name = "Lbl_ConsultationFee"
+        Me.Lbl_ConsultationFee.Size = New System.Drawing.Size(92, 13)
+        Me.Lbl_ConsultationFee.TabIndex = 21
+        Me.Lbl_ConsultationFee.Text = "Consultation Fee: "
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(110, 121)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(197, 20)
+        Me.TextBox1.TabIndex = 1
+        '
+        'TextBox2
+        '
+        Me.TextBox2.Location = New System.Drawing.Point(110, 151)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(197, 20)
+        Me.TextBox2.TabIndex = 2
+        '
+        'ConsulationFee
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(319, 263)
+        Me.Controls.Add(Me.TextBox2)
+        Me.Controls.Add(Me.TextBox1)
+        Me.Controls.Add(Me.Lbl_ConsultationFee)
+        Me.Controls.Add(Me.Lbl_StaffName)
+        Me.Controls.Add(Me.Lbl_Time)
+        Me.Controls.Add(Me.Lbl_Date)
+        Me.Controls.Add(Me.Lbl_PatientName)
+        Me.Controls.Add(Me.Btn_Cancel)
+        Me.Controls.Add(Me.Btn_SaveFee)
+        Me.Name = "ConsulationFee"
         Me.Text = "ConsulationFee"
+        Me.ResumeLayout(False)
+        Me.PerformLayout()
+
     End Sub
+
+    Friend WithEvents Btn_Cancel As Button
+    Friend WithEvents Btn_SaveFee As Button
+    Friend WithEvents Lbl_PatientName As Label
+    Friend WithEvents Lbl_Date As Label
+    Friend WithEvents Lbl_Time As Label
+    Friend WithEvents Lbl_StaffName As Label
+    Friend WithEvents Lbl_ConsultationFee As Label
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents TextBox2 As TextBox
 End Class

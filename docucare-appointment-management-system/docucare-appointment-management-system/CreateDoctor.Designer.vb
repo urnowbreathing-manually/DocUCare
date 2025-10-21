@@ -95,14 +95,14 @@ Partial Class CreateDoctor
         Me.FirstName.Location = New System.Drawing.Point(15, 46)
         Me.FirstName.Name = "FirstName"
         Me.FirstName.Size = New System.Drawing.Size(390, 20)
-        Me.FirstName.TabIndex = 2
+        Me.FirstName.TabIndex = 1
         '
         'LastName
         '
         Me.LastName.Location = New System.Drawing.Point(15, 95)
         Me.LastName.Name = "LastName"
         Me.LastName.Size = New System.Drawing.Size(390, 20)
-        Me.LastName.TabIndex = 3
+        Me.LastName.TabIndex = 2
         '
         'Label2
         '
@@ -127,14 +127,14 @@ Partial Class CreateDoctor
         Me.Password.Location = New System.Drawing.Point(15, 145)
         Me.Password.Name = "Password"
         Me.Password.Size = New System.Drawing.Size(390, 20)
-        Me.Password.TabIndex = 6
+        Me.Password.TabIndex = 3
         '
         'ConfirmPassword
         '
         Me.ConfirmPassword.Location = New System.Drawing.Point(15, 196)
         Me.ConfirmPassword.Name = "ConfirmPassword"
         Me.ConfirmPassword.Size = New System.Drawing.Size(390, 20)
-        Me.ConfirmPassword.TabIndex = 7
+        Me.ConfirmPassword.TabIndex = 4
         '
         'Label4
         '
@@ -159,7 +159,7 @@ Partial Class CreateDoctor
         Me.ContactNum.Location = New System.Drawing.Point(15, 295)
         Me.ContactNum.Name = "ContactNum"
         Me.ContactNum.Size = New System.Drawing.Size(390, 20)
-        Me.ContactNum.TabIndex = 9
+        Me.ContactNum.TabIndex = 6
         '
         'TableLayoutPanel1
         '
@@ -230,7 +230,7 @@ Partial Class CreateDoctor
         Me.checkSun.Location = New System.Drawing.Point(4, 248)
         Me.checkSun.Name = "checkSun"
         Me.checkSun.Size = New System.Drawing.Size(13, 17)
-        Me.checkSun.TabIndex = 50
+        Me.checkSun.TabIndex = 25
         Me.checkSun.Text = "CheckBox8"
         Me.checkSun.UseVisualStyleBackColor = True
         '
@@ -241,7 +241,7 @@ Partial Class CreateDoctor
         Me.checkSat.Location = New System.Drawing.Point(4, 213)
         Me.checkSat.Name = "checkSat"
         Me.checkSat.Size = New System.Drawing.Size(13, 17)
-        Me.checkSat.TabIndex = 49
+        Me.checkSat.TabIndex = 22
         Me.checkSat.Text = "CheckBox7"
         Me.checkSat.UseVisualStyleBackColor = True
         '
@@ -252,7 +252,7 @@ Partial Class CreateDoctor
         Me.checkFri.Location = New System.Drawing.Point(4, 179)
         Me.checkFri.Name = "checkFri"
         Me.checkFri.Size = New System.Drawing.Size(13, 17)
-        Me.checkFri.TabIndex = 48
+        Me.checkFri.TabIndex = 19
         Me.checkFri.Text = "CheckBox6"
         Me.checkFri.UseVisualStyleBackColor = True
         '
@@ -263,7 +263,7 @@ Partial Class CreateDoctor
         Me.checkThu.Location = New System.Drawing.Point(4, 145)
         Me.checkThu.Name = "checkThu"
         Me.checkThu.Size = New System.Drawing.Size(13, 17)
-        Me.checkThu.TabIndex = 47
+        Me.checkThu.TabIndex = 16
         Me.checkThu.Text = "CheckBox5"
         Me.checkThu.UseVisualStyleBackColor = True
         '
@@ -274,7 +274,7 @@ Partial Class CreateDoctor
         Me.checkWed.Location = New System.Drawing.Point(4, 111)
         Me.checkWed.Name = "checkWed"
         Me.checkWed.Size = New System.Drawing.Size(13, 17)
-        Me.checkWed.TabIndex = 46
+        Me.checkWed.TabIndex = 13
         Me.checkWed.Text = "CheckBox4"
         Me.checkWed.UseVisualStyleBackColor = True
         '
@@ -286,7 +286,7 @@ Partial Class CreateDoctor
         Me.MondayEnd.Name = "MondayEnd"
         Me.MondayEnd.ShowUpDown = True
         Me.MondayEnd.Size = New System.Drawing.Size(86, 20)
-        Me.MondayEnd.TabIndex = 30
+        Me.MondayEnd.TabIndex = 9
         '
         'TueEnd
         '
@@ -296,7 +296,7 @@ Partial Class CreateDoctor
         Me.TueEnd.Name = "TueEnd"
         Me.TueEnd.ShowUpDown = True
         Me.TueEnd.Size = New System.Drawing.Size(86, 20)
-        Me.TueEnd.TabIndex = 32
+        Me.TueEnd.TabIndex = 12
         '
         'WedEnd
         '
@@ -306,7 +306,7 @@ Partial Class CreateDoctor
         Me.WedEnd.Name = "WedEnd"
         Me.WedEnd.ShowUpDown = True
         Me.WedEnd.Size = New System.Drawing.Size(86, 20)
-        Me.WedEnd.TabIndex = 34
+        Me.WedEnd.TabIndex = 15
         '
         'ThuEnd
         '
@@ -316,7 +316,7 @@ Partial Class CreateDoctor
         Me.ThuEnd.Name = "ThuEnd"
         Me.ThuEnd.ShowUpDown = True
         Me.ThuEnd.Size = New System.Drawing.Size(86, 20)
-        Me.ThuEnd.TabIndex = 36
+        Me.ThuEnd.TabIndex = 18
         '
         'FridEnd
         '
@@ -326,7 +326,7 @@ Partial Class CreateDoctor
         Me.FridEnd.Name = "FridEnd"
         Me.FridEnd.ShowUpDown = True
         Me.FridEnd.Size = New System.Drawing.Size(86, 20)
-        Me.FridEnd.TabIndex = 38
+        Me.FridEnd.TabIndex = 21
         '
         'SatEnd
         '
@@ -336,7 +336,7 @@ Partial Class CreateDoctor
         Me.SatEnd.Name = "SatEnd"
         Me.SatEnd.ShowUpDown = True
         Me.SatEnd.Size = New System.Drawing.Size(86, 20)
-        Me.SatEnd.TabIndex = 40
+        Me.SatEnd.TabIndex = 24
         '
         'SunEnd
         '
@@ -346,7 +346,7 @@ Partial Class CreateDoctor
         Me.SunEnd.Name = "SunEnd"
         Me.SunEnd.ShowUpDown = True
         Me.SunEnd.Size = New System.Drawing.Size(86, 20)
-        Me.SunEnd.TabIndex = 42
+        Me.SunEnd.TabIndex = 27
         '
         'Label17
         '
@@ -456,7 +456,7 @@ Partial Class CreateDoctor
         Me.MondayStart.Name = "MondayStart"
         Me.MondayStart.ShowUpDown = True
         Me.MondayStart.Size = New System.Drawing.Size(86, 20)
-        Me.MondayStart.TabIndex = 29
+        Me.MondayStart.TabIndex = 8
         '
         'TueStart
         '
@@ -466,7 +466,7 @@ Partial Class CreateDoctor
         Me.TueStart.Name = "TueStart"
         Me.TueStart.ShowUpDown = True
         Me.TueStart.Size = New System.Drawing.Size(86, 20)
-        Me.TueStart.TabIndex = 31
+        Me.TueStart.TabIndex = 11
         '
         'WedStart
         '
@@ -476,7 +476,7 @@ Partial Class CreateDoctor
         Me.WedStart.Name = "WedStart"
         Me.WedStart.ShowUpDown = True
         Me.WedStart.Size = New System.Drawing.Size(86, 20)
-        Me.WedStart.TabIndex = 33
+        Me.WedStart.TabIndex = 14
         '
         'ThuStart
         '
@@ -486,7 +486,7 @@ Partial Class CreateDoctor
         Me.ThuStart.Name = "ThuStart"
         Me.ThuStart.ShowUpDown = True
         Me.ThuStart.Size = New System.Drawing.Size(86, 20)
-        Me.ThuStart.TabIndex = 35
+        Me.ThuStart.TabIndex = 17
         '
         'FriStart
         '
@@ -496,7 +496,7 @@ Partial Class CreateDoctor
         Me.FriStart.Name = "FriStart"
         Me.FriStart.ShowUpDown = True
         Me.FriStart.Size = New System.Drawing.Size(86, 20)
-        Me.FriStart.TabIndex = 37
+        Me.FriStart.TabIndex = 20
         '
         'SatStart
         '
@@ -506,7 +506,7 @@ Partial Class CreateDoctor
         Me.SatStart.Name = "SatStart"
         Me.SatStart.ShowUpDown = True
         Me.SatStart.Size = New System.Drawing.Size(86, 20)
-        Me.SatStart.TabIndex = 39
+        Me.SatStart.TabIndex = 23
         '
         'SunStart
         '
@@ -516,7 +516,7 @@ Partial Class CreateDoctor
         Me.SunStart.Name = "SunStart"
         Me.SunStart.ShowUpDown = True
         Me.SunStart.Size = New System.Drawing.Size(86, 20)
-        Me.SunStart.TabIndex = 41
+        Me.SunStart.TabIndex = 26
         '
         'Label6
         '
@@ -605,7 +605,7 @@ Partial Class CreateDoctor
         Me.checkMonday.Location = New System.Drawing.Point(4, 43)
         Me.checkMonday.Name = "checkMonday"
         Me.checkMonday.Size = New System.Drawing.Size(13, 17)
-        Me.checkMonday.TabIndex = 43
+        Me.checkMonday.TabIndex = 7
         Me.checkMonday.Text = "CheckBox1"
         Me.checkMonday.UseVisualStyleBackColor = True
         '
@@ -616,7 +616,7 @@ Partial Class CreateDoctor
         Me.checkTue.Location = New System.Drawing.Point(4, 77)
         Me.checkTue.Name = "checkTue"
         Me.checkTue.Size = New System.Drawing.Size(13, 17)
-        Me.checkTue.TabIndex = 44
+        Me.checkTue.TabIndex = 10
         Me.checkTue.Text = "CheckBox2"
         Me.checkTue.UseVisualStyleBackColor = True
         '
@@ -640,7 +640,7 @@ Partial Class CreateDoctor
         Me.CreateDoctorBtn.Location = New System.Drawing.Point(12, 631)
         Me.CreateDoctorBtn.Name = "CreateDoctorBtn"
         Me.CreateDoctorBtn.Size = New System.Drawing.Size(241, 36)
-        Me.CreateDoctorBtn.TabIndex = 13
+        Me.CreateDoctorBtn.TabIndex = 28
         Me.CreateDoctorBtn.Text = "Create Doctor Account"
         Me.CreateDoctorBtn.UseVisualStyleBackColor = False
         '
@@ -654,7 +654,7 @@ Partial Class CreateDoctor
         Me.Cancel.Location = New System.Drawing.Point(259, 631)
         Me.Cancel.Name = "Cancel"
         Me.Cancel.Size = New System.Drawing.Size(157, 36)
-        Me.Cancel.TabIndex = 14
+        Me.Cancel.TabIndex = 29
         Me.Cancel.Text = "Cancel"
         Me.Cancel.UseVisualStyleBackColor = False
         '
@@ -672,7 +672,7 @@ Partial Class CreateDoctor
         Me.VerificationID.Location = New System.Drawing.Point(15, 244)
         Me.VerificationID.Name = "VerificationID"
         Me.VerificationID.Size = New System.Drawing.Size(390, 20)
-        Me.VerificationID.TabIndex = 15
+        Me.VerificationID.TabIndex = 5
         '
         'CreateDoctor
         '
