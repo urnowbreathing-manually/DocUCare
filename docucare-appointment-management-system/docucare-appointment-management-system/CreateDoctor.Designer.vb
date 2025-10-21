@@ -76,6 +76,8 @@ Partial Class CreateDoctor
         Me.Label20 = New System.Windows.Forms.Label()
         Me.CreateDoctorBtn = New System.Windows.Forms.Button()
         Me.Cancel = New System.Windows.Forms.Button()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.VerificationID = New System.Windows.Forms.TextBox()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -146,7 +148,7 @@ Partial Class CreateDoctor
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(12, 228)
+        Me.Label5.Location = New System.Drawing.Point(12, 279)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(67, 13)
         Me.Label5.TabIndex = 10
@@ -154,7 +156,7 @@ Partial Class CreateDoctor
         '
         'ContactNum
         '
-        Me.ContactNum.Location = New System.Drawing.Point(15, 244)
+        Me.ContactNum.Location = New System.Drawing.Point(15, 295)
         Me.ContactNum.Name = "ContactNum"
         Me.ContactNum.Size = New System.Drawing.Size(390, 20)
         Me.ContactNum.TabIndex = 9
@@ -207,7 +209,7 @@ Partial Class CreateDoctor
         Me.TableLayoutPanel1.Controls.Add(Me.Label15, 1, 7)
         Me.TableLayoutPanel1.Controls.Add(Me.checkMonday, 0, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.checkTue, 0, 2)
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(12, 290)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(12, 341)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 8
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5!))
@@ -622,7 +624,7 @@ Partial Class CreateDoctor
         '
         Me.Label20.AutoSize = True
         Me.Label20.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label20.Location = New System.Drawing.Point(181, 271)
+        Me.Label20.Location = New System.Drawing.Point(181, 322)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(72, 16)
         Me.Label20.TabIndex = 12
@@ -630,13 +632,12 @@ Partial Class CreateDoctor
         '
         'CreateDoctorBtn
         '
-        Me.CreateDoctorBtn.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.CreateDoctorBtn.BackColor = System.Drawing.SystemColors.HotTrack
         Me.CreateDoctorBtn.FlatAppearance.BorderColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.CreateDoctorBtn.FlatAppearance.BorderSize = 0
         Me.CreateDoctorBtn.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CreateDoctorBtn.ForeColor = System.Drawing.SystemColors.Control
-        Me.CreateDoctorBtn.Location = New System.Drawing.Point(12, 585)
+        Me.CreateDoctorBtn.Location = New System.Drawing.Point(12, 631)
         Me.CreateDoctorBtn.Name = "CreateDoctorBtn"
         Me.CreateDoctorBtn.Size = New System.Drawing.Size(241, 36)
         Me.CreateDoctorBtn.TabIndex = 13
@@ -650,18 +651,36 @@ Partial Class CreateDoctor
         Me.Cancel.FlatAppearance.BorderSize = 0
         Me.Cancel.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Cancel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Cancel.Location = New System.Drawing.Point(259, 585)
+        Me.Cancel.Location = New System.Drawing.Point(259, 631)
         Me.Cancel.Name = "Cancel"
         Me.Cancel.Size = New System.Drawing.Size(157, 36)
         Me.Cancel.TabIndex = 14
         Me.Cancel.Text = "Cancel"
         Me.Cancel.UseVisualStyleBackColor = False
         '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.Location = New System.Drawing.Point(12, 228)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(76, 13)
+        Me.Label25.TabIndex = 16
+        Me.Label25.Text = "Verification ID:"
+        '
+        'VerificationID
+        '
+        Me.VerificationID.Location = New System.Drawing.Point(15, 244)
+        Me.VerificationID.Name = "VerificationID"
+        Me.VerificationID.Size = New System.Drawing.Size(390, 20)
+        Me.VerificationID.TabIndex = 15
+        '
         'CreateDoctor
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(428, 662)
+        Me.ClientSize = New System.Drawing.Size(428, 678)
+        Me.Controls.Add(Me.Label25)
+        Me.Controls.Add(Me.VerificationID)
         Me.Controls.Add(Me.Cancel)
         Me.Controls.Add(Me.CreateDoctorBtn)
         Me.Controls.Add(Me.Label20)
@@ -740,4 +759,6 @@ Partial Class CreateDoctor
     Friend WithEvents Label20 As Label
     Friend WithEvents CreateDoctorBtn As Button
     Friend WithEvents Cancel As Button
+    Friend WithEvents Label25 As Label
+    Friend WithEvents VerificationID As TextBox
 End Class
