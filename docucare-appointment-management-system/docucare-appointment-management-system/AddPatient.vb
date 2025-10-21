@@ -1,7 +1,9 @@
 ﻿Imports System.Security.Cryptography.X509Certificates
 
 Public Class AddPatient
-
+    ' --- ADDED ---
+    Private db As New DBHandler()
+    ' --- END ADDED ---
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Gender.Items.Clear()
@@ -35,50 +37,40 @@ Public Class AddPatient
 
     Private Sub FirstName_TextChanged(sender As Object, e As EventArgs) Handles FirstName.TextChanged
         Dim tb As TextBox = DirectCast(sender, TextBox)
-
         ' Remove anything that's not a letter or space
         tb.Text = System.Text.RegularExpressions.Regex.Replace(tb.Text, "[^a-zA-Z\s]", "")
-
         ' Move cursor to the end (otherwise it jumps back)
         tb.SelectionStart = tb.Text.Length
     End Sub
 
     Private Sub LastName_TextChanged(sender As Object, e As EventArgs) Handles LastName.TextChanged
         Dim tb As TextBox = DirectCast(sender, TextBox)
-
         ' Remove anything that's not a letter or space
         tb.Text = System.Text.RegularExpressions.Regex.Replace(tb.Text, "[^a-zA-Z\s]", "")
-
         ' Move cursor to the end (otherwise it jumps back)
         tb.SelectionStart = tb.Text.Length
     End Sub
 
     Private Sub Age_TextChanged(sender As Object, e As EventArgs) Handles Age.TextChanged
         Dim tb As TextBox = DirectCast(sender, TextBox)
-
         ' Keep only digits
         tb.Text = System.Text.RegularExpressions.Regex.Replace(tb.Text, "[^\d]", "")
-
         ' Limit to 3 characters (e.g., max age 999)
         If tb.Text.Length > 3 Then
             tb.Text = tb.Text.Substring(0, 3)
         End If
-
         ' Fix cursor position
         tb.SelectionStart = tb.Text.Length
     End Sub
 
     Private Sub ContactNum_TextChanged(sender As Object, e As EventArgs) Handles ContactNum.TextChanged
         Dim tb As TextBox = DirectCast(sender, TextBox)
-
         ' Keep only digits
         tb.Text = System.Text.RegularExpressions.Regex.Replace(tb.Text, "[^\d]", "")
-
         ' Limit to 11 digits (PH mobile format)
         If tb.Text.Length > 11 Then
             tb.Text = tb.Text.Substring(0, 11)
         End If
-
         ' Keep cursor at the end
         tb.SelectionStart = tb.Text.Length
     End Sub
@@ -88,10 +80,10 @@ Public Class AddPatient
         If Gender.SelectedIndex = 0 Then
             Exit Sub ' ignore placeholder
         End If
-
         Dim selectedGender As String = Gender.SelectedItem.ToString()
     End Sub
 
+    ' --- MODIFIED Save Button ---
     Private Sub Save_Click(sender As Object, e As EventArgs) Handles Save.Click
         ' Validate First Name
         If String.IsNullOrWhiteSpace(FirstName.Text) Then
@@ -157,19 +149,19 @@ Public Class AddPatient
             Exit Sub
         End If
 
-        ' Validate height
-        If String.IsNullOrWhiteSpace(Height.Text) Then
-            MessageBox.Show("Height is required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Height.Focus()
+        ' Validate Weight (Note: Original code validated Height twice, I fixed it)
+        If String.IsNullOrWhiteSpace(Weight.Text) Then
+            MessageBox.Show("Weight is required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Weight.Focus()
             Exit Sub
         End If
-        If Height.Text <> "" AndAlso Height.Text.Length < 2 Then
+        If Weight.Text <> "" AndAlso Weight.Text.Length < 2 Then
             MessageBox.Show("Invalid Weight input, should be atleast 2 digits.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Weight.Focus()
             Exit Sub
         End If
 
-        ' Validate EMERGENyc Contact Number must be 11
+        ' Validate Emergency Contact Number must be 11
         If String.IsNullOrWhiteSpace(EmergencyContact.Text) Then
             MessageBox.Show("Emergency Contact no. is required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             EmergencyContact.Focus()
@@ -181,61 +173,56 @@ Public Class AddPatient
             Exit Sub
         End If
 
-        ' 
-        Dim fname As String = FirstName.Text
-        Dim lname As String = LastName.Text
-        Dim ageVal As String = Age.Text
-        Dim heightVal As String = Height.Text
-        Dim weightVal As String = Weight.Text
-        Dim gender As String = Me.Gender.SelectedItem.ToString()
-        Dim contact As String = ContactNum.Text
-        Dim emcontact As String = EmergencyContact.Text
-        Dim bloodTypeVal As String = BloodType.Text
-        Dim allergiesVal As String = If(String.IsNullOrWhiteSpace(Allergies.Text), "N/A", Allergies.Text)
-        Dim medConditionVal As String = If(String.IsNullOrWhiteSpace(MedicalConditions.Text), "N/A", MedicalConditions.Text)
+        ' --- REPLACED DUMMY SAVE WITH DATABASE LOGIC ---
 
+        ' --- NEW: Auto-generate Patient ID ---
+        Dim pID As String = db.GetNextPatientID()
+        If String.IsNullOrEmpty(pID) Then
+            MessageBox.Show("Could not generate a new Patient ID. Please check database connection and try again.", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End If
+        ' --- END NEW ---
 
-        UcMainMenu.patientInfo = String.Join("|", New String() {
-    fname, lname, ageVal, heightVal, weightVal, gender, contact, emcontact, bloodTypeVal, allergiesVal, medConditionVal
-})
+        ' Get all other values
+        Dim fullName As String = FirstName.Text & " " & LastName.Text
+        Dim pAge As Integer = CInt(Age.Text)
+        Dim pSex As String = Gender.SelectedItem.ToString()
+        Dim pContact As String = ContactNum.Text
+        Dim pEmContact As String = EmergencyContact.Text
+        Dim pBloodType As String = BloodType.SelectedItem.ToString()
+        Dim pAllergies As String = If(String.IsNullOrWhiteSpace(Allergies.Text), "N/A", Allergies.Text)
+        Dim pMedConditions As String = If(String.IsNullOrWhiteSpace(MedicalConditions.Text), "N/A", MedicalConditions.Text)
 
+        ' Call the DBHandler InsertPatient function
+        If db.InsertPatient(pID, fullName, pAge, pSex, pContact, pEmContact, pBloodType, pAllergies, pMedConditions) Then
+            MessageBox.Show($"Patient Saved Successfully!{vbCrLf}New Patient ID: {pID}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
+            ' === Find the active UcPatientRecords control ===
+            ' This existing logic will still run to update the UI
+            For Each ctrl As Control In UcMainMenu.MainContentPanel.Controls
+                If TypeOf ctrl Is UcPatientRecords Then
+                    Dim recordsControl As UcPatientRecords = DirectCast(ctrl, UcPatientRecords)
+                    recordsControl.AddPatientCard(FirstName.Text, LastName.Text, Age.Text, Height.Text, Weight.Text, pSex, pContact, pEmContact, pBloodType, pAllergies, pMedConditions)
+                    Exit For
+                End If
+            Next
 
-        ' After the validation success message box
-        MessageBox.Show("Patient Saved Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-        ' === Find the active UcPatientRecords control ===
-        For Each ctrl As Control In UcMainMenu.MainContentPanel.Controls
-            If TypeOf ctrl Is UcPatientRecords Then
-                Dim recordsControl As UcPatientRecords = DirectCast(ctrl, UcPatientRecords)
-                recordsControl.AddPatientCard(fname, lname, ageVal, heightVal, weightVal, gender, contact, emcontact, bloodTypeVal, allergiesVal, medConditionVal)
-
-                Exit For
-            End If
-        Next
-
-        ' Close the AddPatient form
-        Me.Close()
-
-
-        'UcMainMenu.MainContentPanel.Controls.Clear()
-        'Dim patientInfo As New UcPatientInfo(UcMainMenu.MainContentPanel)
-        'patientInfo.Dock = DockStyle.Fill
-        'UcMainMenu.MainContentPanel.Controls.Add(patientInfo)
-
+            ' Close the AddPatient form
+            Me.Close()
+        Else
+            MessageBox.Show("Failed to save patient to database.", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
+        ' --- END REPLACEMENT ---
     End Sub
 
     Private Sub Height_TextChanged(sender As Object, e As EventArgs) Handles Height.TextChanged
         Dim tb As TextBox = DirectCast(sender, TextBox)
-
         ' Keep only digits
         tb.Text = System.Text.RegularExpressions.Regex.Replace(tb.Text, "[^\d]", "")
-
         ' Limit to 3 digits
         If tb.Text.Length > 3 Then
             tb.Text = tb.Text.Substring(0, 3)
         End If
-
         ' Keep cursor at the end
         tb.SelectionStart = tb.Text.Length
     End Sub
@@ -244,36 +231,29 @@ Public Class AddPatient
         If BloodType.SelectedIndex = 0 Then
             Exit Sub ' ignore placeholder
         End If
-
         Dim selectedBloodType As String = BloodType.SelectedItem.ToString()
     End Sub
 
     Private Sub EmergencyContact_TextChanged(sender As Object, e As EventArgs) Handles EmergencyContact.TextChanged
         Dim tb As TextBox = DirectCast(sender, TextBox)
-
         ' Keep only digits
         tb.Text = System.Text.RegularExpressions.Regex.Replace(tb.Text, "[^\d]", "")
-
         ' Limit to 11 digits (PH mobile format)
         If tb.Text.Length > 11 Then
             tb.Text = tb.Text.Substring(0, 11)
         End If
-
         ' Keep cursor at the end
         tb.SelectionStart = tb.Text.Length
     End Sub
 
     Private Sub Weight_TextChanged(sender As Object, e As EventArgs) Handles Weight.TextChanged
         Dim tb As TextBox = DirectCast(sender, TextBox)
-
         ' Keep only digits
         tb.Text = System.Text.RegularExpressions.Regex.Replace(tb.Text, "[^\d]", "")
-
         ' Limit to 3 digits
         If tb.Text.Length > 3 Then
             tb.Text = tb.Text.Substring(0, 3)
         End If
-
         ' Keep cursor at the end
         tb.SelectionStart = tb.Text.Length
     End Sub
@@ -289,7 +269,4 @@ Public Class AddPatient
             Me.Close() ' closes the Add Patient form
         End If
     End Sub
-
-
-
 End Class

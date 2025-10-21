@@ -457,4 +457,54 @@ Public Class DBHandler
             conn.Dispose()
         End If
     End Sub
+    ' ==================== NEW FUNCTION: GENERATE PATIENT ID ====================
+    ' Generates a unique Patient ID in the format P-MMDDYYYY-XXXX
+    Public Function GetNextPatientID() As String
+        Dim datePrefix As String = "P-" & DateTime.Now.ToString("MMddyyyy") & "-"
+        Dim nextID As String = datePrefix & "0001" ' Default for first patient of the day
+
+        Dim sql As String = "SELECT patient_id FROM patient WHERE patient_id LIKE @prefix ORDER BY patient_id DESC LIMIT 1"
+
+        Try
+            conn.Open()
+            Using cmd As New MySqlCommand(sql, conn)
+                cmd.Parameters.AddWithValue("@prefix", datePrefix & "%")
+
+                Using dReader As MySqlDataReader = cmd.ExecuteReader()
+                    If dReader.Read() Then
+                        ' A patient ID for today already exists
+                        Dim lastID As String = dReader("patient_id").ToString()
+                        ' Get the last 4 chars (e.g., "0001")
+                        Dim lastNumStr As String = lastID.Substring(lastID.Length - 4)
+                        ' Convert to integer (1), add 1 (2)
+                        Dim nextNum As Integer = CInt(lastNumStr) + 1
+                        ' Format back to 4 digits ( "0002" ) and create new ID
+                        nextID = datePrefix & nextNum.ToString("D4")
+                    Else
+                        ' No patient ID found for today, nextID is already "P-MMDDYYYY-0001"
+                    End If
+                End Using
+            End Using
+        Catch ex As Exception
+            MsgBox("Error generating patient ID: " & ex.Message, MsgBoxStyle.Exclamation)
+            Return Nothing ' Return Nothing on error
+        Finally
+            If conn.State = ConnectionState.Open Then
+                conn.Close()
+            End If
+        End Try
+
+        Return nextID
+    End Function
+
+    ' ==================== NEW FUNCTION: UPDATE APPOINTMENT FEE ====================
+    ' Updates the fee of an existing appointment (used for billing)
+    Public Function UpdateAppointmentFee(appointmentID As Integer, consultFee As Decimal) As Boolean
+        Dim sql As String = "UPDATE appointments SET consult_fee = @consultFee WHERE appointment_id = @appointmentID"
+        Dim parameters As New Dictionary(Of String, Object) From {
+            {"@consultFee", consultFee},
+            {"@appointmentID", appointmentID}
+        }
+        Return ExecuteNonQueryWithParameters(sql, parameters) > 0
+    End Function
 End Class

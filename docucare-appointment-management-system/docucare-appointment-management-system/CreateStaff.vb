@@ -1,8 +1,14 @@
 ﻿Public Class CreateStaff
+    ' --- ADDED ---
+    ' Create a single instance of the DBHandler
+    Private db As New DBHandler()
+    ' --- END ADDED ---
+
     Private Sub CreateStaff_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Optional: Any initialization code can go here
     End Sub
 
+    ' --- MODIFIED Save (CreateStaffBtn) ---
     Private Sub CreateStaffBtn_Click(sender As Object, e As EventArgs) Handles CreateStaffBtn.Click
         ' Validate all textboxes are filled
         If String.IsNullOrWhiteSpace(FirstName.Text) OrElse
@@ -27,20 +33,28 @@
             Exit Sub
         End If
 
-        ' Pseudo save confirmation (no database yet)
-        MessageBox.Show(
-            $"Staff account created successfully!" & vbCrLf &
-            $"Name: {FirstName.Text} {LastName.Text}" & vbCrLf &
-            $"Verification ID: {VerificationID.Text}" & vbCrLf &
-            vbCrLf & "Information has been saved successfully (pseudo).",
-            "Information Saved",
-            MessageBoxButtons.OK,
-            MessageBoxIcon.Information
-        )
+        ' --- REPLACED DUMMY SAVE WITH DATABASE LOGIC ---
 
-        ' Optional: close form after saving
-        Me.Close()
+        ' Get all form values
+        Dim fullName As String = FirstName.Text & " " & LastName.Text
+        Dim vID As String = VerificationID.Text
+        Dim pass As String = Password.Text
+        Dim role As String = "staff" ' Hardcode role for this form
 
+        ' Call the DBHandler InsertStaff function
+        If db.InsertStaff(fullName, vID, pass, role) Then
+            MessageBox.Show("Staff account created successfully and saved to database.",
+                            "Success",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
+            Me.Close()
+        Else
+            MessageBox.Show("Failed to save staff account to database. The Verification ID might already exist.",
+                            "Database Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error)
+        End If
+        ' --- END REPLACEMENT ---
     End Sub
 
     Private Sub Cancel_Click(sender As Object, e As EventArgs) Handles Cancel.Click

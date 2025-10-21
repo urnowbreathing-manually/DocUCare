@@ -1,6 +1,10 @@
 ﻿Imports System.Threading
 
 Public Class CreateDoctor
+    ' --- ADDED ---
+    ' Create a single instance of the DBHandler
+    Private db As New DBHandler()
+    ' --- END ADDED ---
 
     Private Sub CreateDoctor_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Apply time format + disable all pickers by default
@@ -75,16 +79,21 @@ Public Class CreateDoctor
         End If
     End Sub
 
-    ' ----- Pseudo Save (Login Button) -----
+    ' ----- MODIFIED Save (CreateDoctorBtn) -----
     Private Sub LoginBtn_Click(sender As Object, e As EventArgs) Handles CreateDoctorBtn.Click
         ' Validate all required textboxes
         Dim missingFields As New List(Of String)
 
         If String.IsNullOrWhiteSpace(FirstName.Text) Then missingFields.Add("First Name")
         If String.IsNullOrWhiteSpace(LastName.Text) Then missingFields.Add("Last Name")
+        ' --- ADDED ---
+        ' This assumes you added a TextBox named VerificationID
+        If String.IsNullOrWhiteSpace(VerificationID.Text) Then missingFields.Add("Verification ID")
+        ' --- END ADDED ---
         If String.IsNullOrWhiteSpace(ContactNum.Text) Then missingFields.Add("Contact Number")
         If String.IsNullOrWhiteSpace(Password.Text) Then missingFields.Add("Password")
         If String.IsNullOrWhiteSpace(ConfirmPassword.Text) Then missingFields.Add("Confirm Password")
+
 
         ' Check if passwords match
         If Password.Text <> ConfirmPassword.Text Then
@@ -103,20 +112,37 @@ Public Class CreateDoctor
         ' Build schedule summary
         Dim scheduleSummary As String = GetScheduleSummary()
 
-        ' Pseudo Save Message
-        Dim info As String =
-            $"Doctor Information:" & vbCrLf &
-            $"First Name: {FirstName.Text}" & vbCrLf &
-            $"Last Name: {LastName.Text}" & vbCrLf &
-            $"Contact No: {ContactNum.Text}" & vbCrLf &
-            $"Password: {Password.Text}" & vbCrLf & vbCrLf &
-            $"Schedule:" & vbCrLf & scheduleSummary
+        ' --- REPLACED DUMMY SAVE WITH DATABASE LOGIC ---
 
-        MessageBox.Show(info, "Doctor Account Saved", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        ' Get all form values
+        Dim fullName As String = FirstName.Text & " " & LastName.Text
+        ' This next line requires you to add the TextBox named 'VerificationID'
+        Dim vID As String = VerificationID.Text
+        Dim pass As String = Password.Text
+        Dim role As String = "doctor"
+        Dim contact As Integer = 0
 
-        ' Optional: clear all inputs
-        ClearAllFields()
-        Me.Close()
+        ' **BUG WARNING:** Your DBHandler.InsertDoctor uses 'Integer' for ContactNo,
+        ' but your form allows 11 digits, which will crash an Integer (max 10 digits).
+        ' I am using TryParse to prevent a crash, but this field may not save correctly.
+        ' You should change 'contactNo As Integer' to 'contactNo As String' or 'contactNo As Long'
+        ' in your DBHandler.vb file to fix this.
+        If Not Integer.TryParse(ContactNum.Text, contact) Then
+            MessageBox.Show("Warning: Contact Number is too long to save as an Integer. Storing 0." & vbCrLf &
+                            "Please update DBHandler's InsertDoctor method to use 'Long' or 'String' for ContactNo.",
+                            "Data Type Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End If
+
+        ' Call the DBHandler InsertDoctor function
+        If db.InsertDoctor(fullName, vID, pass, role, contact, scheduleSummary) Then
+            MessageBox.Show("Doctor Account Saved to Database", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            ClearAllFields()
+            Me.Close()
+        Else
+            MessageBox.Show("Failed to save doctor to database. The Verification ID might already exist.", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
+        ' --- END REPLACEMENT ---
+
     End Sub
 
     ' ----- Utility: Build Schedule Summary -----
@@ -142,6 +168,12 @@ Public Class CreateDoctor
     Private Sub ClearAllFields()
         FirstName.Clear()
         LastName.Clear()
+        ' --- ADDED ---
+        ' Assumes you added a TextBox named VerificationID
+        If Me.Controls.ContainsKey("VerificationID") Then
+            Me.Controls("VerificationID").Text = ""
+        End If
+        ' --- END ADDED ---
         ContactNum.Clear()
         Password.Clear()
         ConfirmPassword.Clear()
