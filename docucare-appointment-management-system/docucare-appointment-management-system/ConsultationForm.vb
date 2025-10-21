@@ -1,9 +1,18 @@
 ﻿Public Class ConsultationForm
+    ' Public properties to receive appointment data
+    Public Property PatientName As String
+    Public Property DoctorName As String
+    Public Property AppointmentDate As String
+    Public Property AppointmentTime As String
+    Public Property Notes As String
 
     Private Sub ConsultationForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-
-
+        ' Automatically fill textboxes when the form opens
+        lblPatient.Text = "Patient Name: " & PatientName
+        lblDoctor.Text = "Assigned Doctor: " & DoctorName
+        lblDate.Text = "Date: " & AppointmentDate
+        lblTime.Text = "Time: " & AppointmentTime
+        lblNotes.Text = "Reason: " & Notes
     End Sub
 
 
@@ -29,7 +38,7 @@
 
 
         summary &= Environment.NewLine & "Additional Notes: " &
-                   If(String.IsNullOrWhiteSpace(Notes.Text), "None", Notes.Text) & Environment.NewLine
+                   If(String.IsNullOrWhiteSpace(DrugPrescriptionNotes.Text), "None", DrugPrescriptionNotes.Text) & Environment.NewLine
 
         MessageBox.Show(summary, "Consultation Saved", MessageBoxButtons.OK, MessageBoxIcon.Information)
         Me.Close()
@@ -49,6 +58,18 @@
     End Sub
 
     Private Sub FlowPanelPrescriptions_Paint(sender As Object, e As PaintEventArgs)
+
+    End Sub
+
+    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles lblPatient.Click
+
+    End Sub
+
+    Private Sub Label11_Click(sender As Object, e As EventArgs) Handles lblNotes.Click
+
+    End Sub
+
+    Private Sub DrugPrescriptionNotes_TextChanged(sender As Object, e As EventArgs) Handles DrugPrescriptionNotes.TextChanged
 
     End Sub
 End Class

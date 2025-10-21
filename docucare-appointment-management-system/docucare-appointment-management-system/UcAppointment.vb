@@ -3,6 +3,15 @@
 
     Private MainContentPanel As Panel
 
+    ' Class to hold appointment data
+    Private Class AppointmentData
+        Public Property Patient As String
+        Public Property Doctor As String
+        Public Property [Date] As String
+        Public Property Time As String
+        Public Property Notes As String
+    End Class
+
     ' Constructor receives parent panel
     Public Sub New(parent As Panel)
         InitializeComponent()
@@ -86,17 +95,26 @@
         tbl.Controls.Add(New Label() With {.Text = "Notes:", .Font = New Font("Segoe UI", 9, FontStyle.Bold), .AutoSize = True}, 0, 4)
         tbl.Controls.Add(New Label() With {.Text = notes, .AutoSize = True}, 1, 4)
 
+        ' Create AppointmentData object and assign to Tag
+        Dim info As New AppointmentData With {
+            .Patient = patient,
+            .Doctor = doctor,
+            .Date = [date],
+            .Time = time,
+            .Notes = notes
+        }
+
         ' Green "Consult" button
         Dim btnConsult As New Button()
         btnConsult.Text = "Consult"
-        btnConsult.BackColor = Color.MediumSeaGreen
+        btnConsult.BackColor = Color.Blue
         btnConsult.ForeColor = Color.White
         btnConsult.Font = New Font("Microsoft Sans Serif", 9.75, FontStyle.Bold)
         btnConsult.FlatStyle = FlatStyle.Standard
         btnConsult.FlatAppearance.BorderSize = 0
         btnConsult.Dock = DockStyle.Fill
         btnConsult.Margin = New Padding(10)
-        btnConsult.Tag = [date] ' store appointment date for validation
+        btnConsult.Tag = info
 
         AddHandler btnConsult.Click, AddressOf ConsultButton_Click
 
@@ -110,7 +128,8 @@
     ' Handle Consult button click
     Private Sub ConsultButton_Click(sender As Object, e As EventArgs)
         Dim btn As Button = DirectCast(sender, Button)
-        Dim appointmentDate As Date = Date.Parse(btn.Tag.ToString())
+        Dim data As AppointmentData = DirectCast(btn.Tag, AppointmentData)
+        Dim appointmentDate As Date = Date.Parse(data.Date)
         Dim today As Date = Date.Now.Date
 
         If today < appointmentDate Then
@@ -124,6 +143,15 @@
             If result = DialogResult.No Then Return
         End If
 
-        MessageBox.Show("Consultation started for this patient.", "Consult", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        ' Create Consultation Form and pass appointment data
+        Dim form As New ConsultationForm()
+        form.PatientName = data.Patient
+        form.DoctorName = data.Doctor
+        form.AppointmentDate = data.Date
+        form.AppointmentTime = data.Time
+        form.Notes = data.Notes
+
+        form.ShowDialog()
     End Sub
+
 End Class
