@@ -4,7 +4,7 @@ Public Class UcAuthForm
     Private MainContentPanel As Panel
     ' Constructor receives parent panel
 
-    Dim ConnectionString As String = "server=localhost;user=root;database=DocUCare;port=3306;password=washer22456;"
+    Dim ConnectionString As String = "server=localhost;user=root;database=DocUCare;port=3306;password=;"
     Dim conn As New MySqlConnection(ConnectionString)
     Dim cmd As MySqlCommand
     Dim da As New MySqlDataAdapter
