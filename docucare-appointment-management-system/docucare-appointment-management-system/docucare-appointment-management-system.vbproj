@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{96491DF5-4928-49EA-ADB2-75AAB5FC4645}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>docucare_appointment_management_system.My.MyApplication</StartupObject>
+    <RootNamespace>docucare_appointment_management_system</RootNamespace>
+    <AssemblyName>docucare-appointment-management-system</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>docucare-appointment-management-system.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>docucare-appointment-management-system.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MySql.Data, Version=9.4.0.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Downloads\mysql.data.dll-65036\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddAppointment.Designer.vb">
+      <DependentUpon>AddAppointment.vb</DependentUpon>
+    </Compile>
+    <Compile Include="AddAppointment.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddPatient.Designer.vb">
+      <DependentUpon>AddPatient.vb</DependentUpon>
+    </Compile>
+    <Compile Include="AddPatient.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConsultationForm.Designer.vb">
+      <DependentUpon>ConsultationForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ConsultationForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateDoctor.Designer.vb">
+      <DependentUpon>CreateDoctor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CreateDoctor.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateStaff.Designer.vb">
+      <DependentUpon>CreateStaff.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CreateStaff.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataStore.vb" />
+    <Compile Include="EditPatientInfo.Designer.vb">
+      <DependentUpon>EditPatientInfo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="EditPatientInfo.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.vb">
+      <DependentUpon>MainForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PatientInfo.Designer.vb">
+      <DependentUpon>PatientInfo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PatientInfo.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UcAuthForm.Designer.vb">
+      <DependentUpon>UcAuthForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UcAuthForm.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UcHistory.Designer.vb">
+      <DependentUpon>UcHistory.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UcHistory.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UcPatientRecords.Designer.vb">
+      <DependentUpon>UcPatientRecords.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UcPatientRecords.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Prescriptions.Designer.vb">
+      <DependentUpon>Prescriptions.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Prescriptions.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Startup_Fade.Designer.vb">
+      <DependentUpon>Startup_Fade.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Startup_Fade.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="UcAppointment.Designer.vb">
+      <DependentUpon>UcAppointment.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UcAppointment.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UcMainMenu.Designer.vb">
+      <DependentUpon>UcMainMenu.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UcMainMenu.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AddAppointment.resx">
+      <DependentUpon>AddAppointment.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddPatient.resx">
+      <DependentUpon>AddPatient.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConsultationForm.resx">
+      <DependentUpon>ConsultationForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateDoctor.resx">
+      <DependentUpon>CreateDoctor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateStaff.resx">
+      <DependentUpon>CreateStaff.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditPatientInfo.resx">
+      <DependentUpon>EditPatientInfo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PatientInfo.resx">
+      <DependentUpon>PatientInfo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Prescriptions.resx">
+      <DependentUpon>Prescriptions.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Startup_Fade.resx">
+      <DependentUpon>Startup_Fade.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UcAppointment.resx">
+      <DependentUpon>UcAppointment.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UcAuthForm.resx">
+      <DependentUpon>UcAuthForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UcHistory.resx">
+      <DependentUpon>UcHistory.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UcMainMenu.resx">
+      <DependentUpon>UcMainMenu.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UcPatientRecords.resx">
+      <DependentUpon>UcPatientRecords.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\DataSources\Prescriptions.datasource" />
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Doc U Care.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\banner.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bg_alt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\menu_buttons.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\patient-profile-template.jpg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+</Project>
