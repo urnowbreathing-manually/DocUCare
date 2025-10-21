@@ -199,23 +199,26 @@ Public Class AddPatient
         MsgBox(UcMainMenu.patientInfo)
 
 
-        ' SAve message
-        MessageBox.Show("Patient Saved Successfully!" & vbCrLf &
-                "Name: " & fname & " " & lname & vbCrLf &
-                "Age: " & ageVal & vbCrLf &
-                "Gender: " & gender & vbCrLf &
-                "Height: " & heightVal & vbCrLf &
-                "Weight: " & weightVal & vbCrLf &
-                "Contact: " & contact & vbCrLf &
-                "Contact: " & emcontact & vbCrLf &
-                "Blood Type: " & bloodTypeVal & vbCrLf &
-                "Allergies: " & allergiesVal & vbCrLf &
-                "Medical Conditions: " & medConditionVal,
-                "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        ' After the validation success message box
+        MessageBox.Show("Patient Saved Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
+        ' === Find the active UcPatientRecords control ===
+        For Each ctrl As Control In UcMainMenu.MainContentPanel.Controls
+            If TypeOf ctrl Is UcPatientRecords Then
+                Dim recordsControl As UcPatientRecords = DirectCast(ctrl, UcPatientRecords)
+                recordsControl.AddPatientCard(fname, lname)
+                Exit For
+            End If
+        Next
+
+        ' Close the AddPatient form
         Me.Close()
 
-        PatientInfo.Show()
+
+        'UcMainMenu.MainContentPanel.Controls.Clear()
+        'Dim patientInfo As New UcPatientInfo(UcMainMenu.MainContentPanel)
+        'patientInfo.Dock = DockStyle.Fill
+        'UcMainMenu.MainContentPanel.Controls.Add(patientInfo)
 
     End Sub
 
