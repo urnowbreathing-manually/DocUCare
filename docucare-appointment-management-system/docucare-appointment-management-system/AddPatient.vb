@@ -195,8 +195,10 @@ Public Class AddPatient
         Dim medConditionVal As String = If(String.IsNullOrWhiteSpace(MedicalConditions.Text), "N/A", MedicalConditions.Text)
 
 
-        UcMainMenu.patientInfo = UcMainMenu.patientInfo.Join("|", fname, lname, ageVal, heightVal, weightVal, gender, contact, emcontact, bloodTypeVal, allergiesVal, medConditionVal)
-        MsgBox(UcMainMenu.patientInfo)
+        UcMainMenu.patientInfo = String.Join("|", New String() {
+    fname, lname, ageVal, heightVal, weightVal, gender, contact, emcontact, bloodTypeVal, allergiesVal, medConditionVal
+})
+
 
 
         ' After the validation success message box
@@ -206,7 +208,8 @@ Public Class AddPatient
         For Each ctrl As Control In UcMainMenu.MainContentPanel.Controls
             If TypeOf ctrl Is UcPatientRecords Then
                 Dim recordsControl As UcPatientRecords = DirectCast(ctrl, UcPatientRecords)
-                recordsControl.AddPatientCard(fname, lname)
+                recordsControl.AddPatientCard(fname, lname, ageVal, heightVal, weightVal, gender, contact, emcontact, bloodTypeVal, allergiesVal, medConditionVal)
+
                 Exit For
             End If
         Next

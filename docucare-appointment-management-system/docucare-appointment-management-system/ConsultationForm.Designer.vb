@@ -25,13 +25,11 @@ Partial Class ConsultationForm
         Me.components = New System.ComponentModel.Container()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblNotes = New System.Windows.Forms.Label()
+        Me.lblTime = New System.Windows.Forms.Label()
+        Me.lblDate = New System.Windows.Forms.Label()
+        Me.lblDoctor = New System.Windows.Forms.Label()
+        Me.lblPatient = New System.Windows.Forms.Label()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.Diagnosis = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -40,7 +38,7 @@ Partial Class ConsultationForm
         Me.Label14 = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.Notes = New System.Windows.Forms.TextBox()
+        Me.DrugPrescriptionNotes = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.CreateConsultation = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
@@ -71,89 +69,69 @@ Partial Class ConsultationForm
         Me.TableLayoutPanel2.ColumnCount = 2
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel2.Controls.Add(Me.Label11, 0, 3)
-        Me.TableLayoutPanel2.Controls.Add(Me.Label5, 0, 2)
-        Me.TableLayoutPanel2.Controls.Add(Me.Label6, 1, 2)
-        Me.TableLayoutPanel2.Controls.Add(Me.Label4, 1, 1)
-        Me.TableLayoutPanel2.Controls.Add(Me.Label3, 0, 1)
-        Me.TableLayoutPanel2.Controls.Add(Me.Label2, 1, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.Label1, 0, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblTime, 1, 1)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblDate, 0, 1)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblDoctor, 1, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblPatient, 0, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblNotes, 0, 2)
         Me.TableLayoutPanel2.Location = New System.Drawing.Point(4, 45)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
-        Me.TableLayoutPanel2.RowCount = 4
+        Me.TableLayoutPanel2.RowCount = 3
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(628, 86)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(628, 117)
         Me.TableLayoutPanel2.TabIndex = 0
         '
-        'Label11
+        'lblNotes
         '
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(4, 64)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(47, 13)
-        Me.Label11.TabIndex = 12
-        Me.Label11.Text = "Reason:"
+        Me.lblNotes.AutoSize = True
+        Me.lblNotes.Location = New System.Drawing.Point(4, 47)
+        Me.lblNotes.Name = "lblNotes"
+        Me.lblNotes.Size = New System.Drawing.Size(47, 13)
+        Me.lblNotes.TabIndex = 12
+        Me.lblNotes.Text = "Reason:"
         '
-        'Label5
+        'lblTime
         '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(4, 27)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(49, 13)
-        Me.Label5.TabIndex = 11
-        Me.Label5.Text = "Allergies:"
+        Me.lblTime.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.lblTime.AutoSize = True
+        Me.lblTime.Location = New System.Drawing.Point(317, 28)
+        Me.lblTime.Name = "lblTime"
+        Me.lblTime.Size = New System.Drawing.Size(33, 13)
+        Me.lblTime.TabIndex = 8
+        Me.lblTime.Text = "Time:"
         '
-        'Label6
+        'lblDate
         '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(317, 27)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(99, 13)
-        Me.Label6.TabIndex = 10
-        Me.Label6.Text = "Medical Conditions:"
+        Me.lblDate.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.lblDate.AutoSize = True
+        Me.lblDate.Location = New System.Drawing.Point(4, 28)
+        Me.lblDate.Name = "lblDate"
+        Me.lblDate.Size = New System.Drawing.Size(33, 13)
+        Me.lblDate.TabIndex = 7
+        Me.lblDate.Text = "Date:"
         '
-        'Label4
+        'lblDoctor
         '
-        Me.Label4.Anchor = System.Windows.Forms.AnchorStyles.Left
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(317, 14)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(29, 12)
-        Me.Label4.TabIndex = 8
-        Me.Label4.Text = "Age:"
+        Me.lblDoctor.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.lblDoctor.AutoSize = True
+        Me.lblDoctor.Location = New System.Drawing.Point(317, 5)
+        Me.lblDoctor.Name = "lblDoctor"
+        Me.lblDoctor.Size = New System.Drawing.Size(88, 13)
+        Me.lblDoctor.TabIndex = 2
+        Me.lblDoctor.Text = "Assigned Doctor:"
         '
-        'Label3
+        'lblPatient
         '
-        Me.Label3.Anchor = System.Windows.Forms.AnchorStyles.Left
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(4, 14)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(45, 12)
-        Me.Label3.TabIndex = 7
-        Me.Label3.Text = "Gender:"
-        '
-        'Label2
-        '
-        Me.Label2.Anchor = System.Windows.Forms.AnchorStyles.Left
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(317, 1)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(57, 12)
-        Me.Label2.TabIndex = 2
-        Me.Label2.Text = "Full Name:"
-        '
-        'Label1
-        '
-        Me.Label1.Anchor = System.Windows.Forms.AnchorStyles.Left
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(4, 1)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(57, 12)
-        Me.Label1.TabIndex = 1
-        Me.Label1.Text = "Patient ID:"
+        Me.lblPatient.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.lblPatient.AutoSize = True
+        Me.lblPatient.Location = New System.Drawing.Point(4, 5)
+        Me.lblPatient.Name = "lblPatient"
+        Me.lblPatient.Size = New System.Drawing.Size(74, 13)
+        Me.lblPatient.TabIndex = 1
+        Me.lblPatient.Text = "Patient Name:"
         '
         'TableLayoutPanel3
         '
@@ -235,33 +213,33 @@ Partial Class ConsultationForm
         '
         Me.TableLayoutPanel1.ColumnCount = 1
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.Notes, 0, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.DrugPrescriptionNotes, 0, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.Label10, 0, 0)
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(4, 368)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 2
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.028369!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 93.97163!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(628, 282)
         Me.TableLayoutPanel1.TabIndex = 11
         '
-        'Notes
+        'DrugPrescriptionNotes
         '
-        Me.Notes.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Notes.Location = New System.Drawing.Point(5, 132)
-        Me.Notes.Multiline = True
-        Me.Notes.Name = "Notes"
-        Me.Notes.Size = New System.Drawing.Size(618, 73)
-        Me.Notes.TabIndex = 15
+        Me.DrugPrescriptionNotes.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.DrugPrescriptionNotes.Location = New System.Drawing.Point(5, 24)
+        Me.DrugPrescriptionNotes.Multiline = True
+        Me.DrugPrescriptionNotes.Name = "DrugPrescriptionNotes"
+        Me.DrugPrescriptionNotes.Size = New System.Drawing.Size(618, 251)
+        Me.DrugPrescriptionNotes.TabIndex = 15
         '
         'Label10
         '
         Me.Label10.AutoSize = True
         Me.Label10.Location = New System.Drawing.Point(3, 0)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(87, 13)
+        Me.Label10.Size = New System.Drawing.Size(93, 13)
         Me.Label10.TabIndex = 14
-        Me.Label10.Text = "Additional Notes:"
+        Me.Label10.Text = "Drug Prescriptions"
         '
         'CreateConsultation
         '
@@ -330,12 +308,10 @@ Partial Class ConsultationForm
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents Label7 As Label
     Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
-    Friend WithEvents Label5 As Label
-    Friend WithEvents Label6 As Label
-    Friend WithEvents Label4 As Label
-    Friend WithEvents Label3 As Label
-    Friend WithEvents Label2 As Label
-    Friend WithEvents Label1 As Label
+    Friend WithEvents lblTime As Label
+    Friend WithEvents lblDate As Label
+    Friend WithEvents lblDoctor As Label
+    Friend WithEvents lblPatient As Label
     Friend WithEvents TableLayoutPanel3 As TableLayoutPanel
     Friend WithEvents Diagnosis As TextBox
     Friend WithEvents Label8 As Label
@@ -345,9 +321,9 @@ Partial Class ConsultationForm
     Friend WithEvents PrescriptionsBindingSource1 As BindingSource
     Friend WithEvents PrescriptionsBindingSource As BindingSource
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
-    Friend WithEvents Notes As TextBox
+    Friend WithEvents DrugPrescriptionNotes As TextBox
     Friend WithEvents Label10 As Label
     Friend WithEvents CreateConsultation As Button
-    Friend WithEvents Label11 As Label
+    Friend WithEvents lblNotes As Label
     Friend WithEvents Button2 As Button
 End Class
