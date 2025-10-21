@@ -10,13 +10,12 @@ Public Class DBHandler
 
     ' Method to authenticate user
     Public Function AuthenticateUser(username As String, password As String, verifiedID As String) As Boolean
-        Dim sql As String = "SELECT Personnel_Name, Password, Verified_ID FROM PersonnelTable WHERE Personnel_Name = @username AND Password = @password AND Verified_ID = @verifiedID"
+        Dim sql As String = "SELECT Personnel_Name, Password, Verified_ID, Role FROM personneltable WHERE Personnel_Name = @username AND Password = @password AND Verified_ID = @verifiedID"
         Dim authenticated As Boolean = False
 
         Try
             conn.Open()
             Using cmd As New MySqlCommand(sql, conn)
-                ' Use parameterized queries to prevent SQL injection
                 cmd.Parameters.AddWithValue("@username", username)
                 cmd.Parameters.AddWithValue("@password", password)
                 cmd.Parameters.AddWithValue("@verifiedID", verifiedID)
@@ -24,8 +23,8 @@ Public Class DBHandler
                 Using dReader As MySqlDataReader = cmd.ExecuteReader()
                     If dReader.Read() Then
                         authenticated = True
-                        ' Store user data if needed
-                        DataStore.currentUser = {dReader("Personnel_Name").ToString(), password, verifiedID, ""}
+                        ' Store user data with role
+                        DataStore.currentUser = {dReader("Personnel_Name").ToString(), password, verifiedID, dReader("Role").ToString()}
                     End If
                 End Using
             End Using
@@ -39,6 +38,280 @@ Public Class DBHandler
 
         Return authenticated
     End Function
+
+    ' ==================== PATIENT METHODS ====================
+
+    ' Insert Patient
+    Public Function InsertPatient(patientID As String, patientName As String, age As Integer,
+                                  sex As String, contact As String, emContact As String,
+                                  bloodType As String, allergies As String,
+                                  medicalConditions As String) As Boolean
+        Dim sql As String = "INSERT INTO patient (patient_id, patient_name, age, sex, contact, em_contact, blood_type, allergies, medical_conditions) " &
+                           "VALUES (@patientID, @patientName, @age, @sex, @contact, @emContact, @bloodType, @allergies, @medicalConditions)"
+
+        Dim parameters As New Dictionary(Of String, Object) From {
+            {"@patientID", patientID},
+            {"@patientName", patientName},
+            {"@age", age},
+            {"@sex", sex},
+            {"@contact", contact},
+            {"@emContact", emContact},
+            {"@bloodType", bloodType},
+            {"@allergies", allergies},
+            {"@medicalConditions", medicalConditions}
+        }
+
+        Return ExecuteNonQueryWithParameters(sql, parameters) > 0
+    End Function
+
+    ' Get All Patients
+    Public Function GetAllPatients() As DataTable
+        Dim sql As String = "SELECT * FROM patient ORDER BY patient_name"
+        Return Read(sql)
+    End Function
+
+    ' Get Patient by ID
+    Public Function GetPatientByID(patientID As String) As DataTable
+        Dim sql As String = "SELECT * FROM patient WHERE patient_id = @patientID"
+        Dim parameters As New Dictionary(Of String, Object) From {
+            {"@patientID", patientID}
+        }
+        Return ReadWithParameters(sql, parameters)
+    End Function
+
+    ' Update Patient
+    Public Function UpdatePatient(patientID As String, patientName As String, age As Integer,
+                                  sex As String, contact As String, emContact As String,
+                                  bloodType As String, allergies As String,
+                                  medicalConditions As String) As Boolean
+        Dim sql As String = "UPDATE patient SET patient_name = @patientName, age = @age, sex = @sex, " &
+                           "contact = @contact, em_contact = @emContact, blood_type = @bloodType, " &
+                           "allergies = @allergies, medical_conditions = @medicalConditions " &
+                           "WHERE patient_id = @patientID"
+
+        Dim parameters As New Dictionary(Of String, Object) From {
+            {"@patientID", patientID},
+            {"@patientName", patientName},
+            {"@age", age},
+            {"@sex", sex},
+            {"@contact", contact},
+            {"@emContact", emContact},
+            {"@bloodType", bloodType},
+            {"@allergies", allergies},
+            {"@medicalConditions", medicalConditions}
+        }
+
+        Return ExecuteNonQueryWithParameters(sql, parameters) > 0
+    End Function
+
+    ' Delete Patient
+    Public Function DeletePatient(patientID As String) As Boolean
+        Dim sql As String = "DELETE FROM patient WHERE patient_id = @patientID"
+        Dim parameters As New Dictionary(Of String, Object) From {
+            {"@patientID", patientID}
+        }
+        Return DeleteWithParameters("patient", "patient_id = @patientID", parameters)
+    End Function
+
+    ' ==================== APPOINTMENT METHODS ====================
+
+    ' Insert Appointment
+    Public Function InsertAppointment(patientName As String, patientID As String,
+                                     doctorName As String, verifiedID As String,
+                                     appointmentDate As String, appointmentTime As String,
+                                     status As String, notes As String,
+                                     consultFee As Decimal) As Integer
+        Dim sql As String = "INSERT INTO appointments (patient_name, patient_id, doctor_name, Verified_ID, date, time, status, notes, consult_fee) " &
+                           "VALUES (@patientName, @patientID, @doctorName, @verifiedID, @date, @time, @status, @notes, @consultFee); " &
+                           "SELECT LAST_INSERT_ID();"
+
+        Dim parameters As New Dictionary(Of String, Object) From {
+            {"@patientName", patientName},
+            {"@patientID", patientID},
+            {"@doctorName", doctorName},
+            {"@verifiedID", verifiedID},
+            {"@date", appointmentDate},
+            {"@time", appointmentTime},
+            {"@status", status},
+            {"@notes", notes},
+            {"@consultFee", consultFee}
+        }
+
+        Try
+            conn.Open()
+            Using cmd As New MySqlCommand(sql, conn)
+                For Each param In parameters
+                    cmd.Parameters.AddWithValue(param.Key, param.Value)
+                Next
+                Return Convert.ToInt32(cmd.ExecuteScalar())
+            End Using
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Exclamation)
+            Return -1
+        Finally
+            If conn.State = ConnectionState.Open Then
+                conn.Close()
+            End If
+        End Try
+    End Function
+
+    ' Get All Appointments
+    Public Function GetAllAppointments() As DataTable
+        Dim sql As String = "SELECT * FROM appointments ORDER BY date DESC, time DESC"
+        Return Read(sql)
+    End Function
+
+    ' Get Appointments by Patient ID
+    Public Function GetAppointmentsByPatientID(patientID As String) As DataTable
+        Dim sql As String = "SELECT * FROM appointments WHERE patient_id = @patientID ORDER BY date DESC"
+        Dim parameters As New Dictionary(Of String, Object) From {
+            {"@patientID", patientID}
+        }
+        Return ReadWithParameters(sql, parameters)
+    End Function
+
+    ' Get Appointments by Doctor
+    Public Function GetAppointmentsByDoctor(verifiedID As String) As DataTable
+        Dim sql As String = "SELECT * FROM appointments WHERE Verified_ID = @verifiedID ORDER BY date DESC"
+        Dim parameters As New Dictionary(Of String, Object) From {
+            {"@verifiedID", verifiedID}
+        }
+        Return ReadWithParameters(sql, parameters)
+    End Function
+
+    ' Update Appointment Status
+    Public Function UpdateAppointmentStatus(appointmentID As Integer, status As String) As Boolean
+        Dim sql As String = "UPDATE appointments SET status = @status WHERE appointment_id = @appointmentID"
+        Dim parameters As New Dictionary(Of String, Object) From {
+            {"@status", status},
+            {"@appointmentID", appointmentID}
+        }
+        Return ExecuteNonQueryWithParameters(sql, parameters) > 0
+    End Function
+
+    ' Delete Appointment
+    Public Function DeleteAppointment(appointmentID As Integer) As Boolean
+        Dim sql As String = "DELETE FROM appointments WHERE appointment_id = @appointmentID"
+        Dim parameters As New Dictionary(Of String, Object) From {
+            {"@appointmentID", appointmentID}
+        }
+        Return DeleteWithParameters("appointments", "appointment_id = @appointmentID", parameters)
+    End Function
+
+    ' ==================== CONSULTATION METHODS ====================
+
+    ' Insert Consultation
+    Public Function InsertConsultation(patientName As String, patientID As String,
+                                      symptoms As String, diagnosis As String,
+                                      drugsPrescription As String, doctorName As String,
+                                      verifiedID As String, consultDate As Date,
+                                      consultTime As TimeSpan, notesFromAppointment As String,
+                                      appointmentID As Integer) As Boolean
+        Dim sql As String = "INSERT INTO consultation (Patient_Name, Patient_ID, Symptoms, Diagnosis, Drugs_Prescription, " &
+                           "Doctor_Name, Verified_ID, Date, Time, Notes_From_Appointments, Appointment_ID) " &
+                           "VALUES (@patientName, @patientID, @symptoms, @diagnosis, @drugsPrescription, " &
+                           "@doctorName, @verifiedID, @date, @time, @notes, @appointmentID)"
+
+        Dim parameters As New Dictionary(Of String, Object) From {
+            {"@patientName", patientName},
+            {"@patientID", patientID},
+            {"@symptoms", symptoms},
+            {"@diagnosis", diagnosis},
+            {"@drugsPrescription", drugsPrescription},
+            {"@doctorName", doctorName},
+            {"@verifiedID", verifiedID},
+            {"@date", consultDate},
+            {"@time", consultTime},
+            {"@notes", notesFromAppointment},
+            {"@appointmentID", appointmentID}
+        }
+
+        Return ExecuteNonQueryWithParameters(sql, parameters) > 0
+    End Function
+
+    ' Get All Consultations
+    Public Function GetAllConsultations() As DataTable
+        Dim sql As String = "SELECT * FROM consultation ORDER BY Date DESC, Time DESC"
+        Return Read(sql)
+    End Function
+
+    ' Get Consultations by Patient ID
+    Public Function GetConsultationsByPatientID(patientID As String) As DataTable
+        Dim sql As String = "SELECT * FROM consultation WHERE Patient_ID = @patientID ORDER BY Date DESC"
+        Dim parameters As New Dictionary(Of String, Object) From {
+            {"@patientID", patientID}
+        }
+        Return ReadWithParameters(sql, parameters)
+    End Function
+
+    ' Get Consultation by Consult ID
+    Public Function GetConsultationByID(consultID As Integer) As DataTable
+        Dim sql As String = "SELECT * FROM consultation WHERE Consult_ID = @consultID"
+        Dim parameters As New Dictionary(Of String, Object) From {
+            {"@consultID", consultID}
+        }
+        Return ReadWithParameters(sql, parameters)
+    End Function
+
+    ' ==================== PERSONNEL METHODS ====================
+
+    ' Insert Doctor
+    Public Function InsertDoctor(personnelName As String, verifiedID As String,
+                                password As String, role As String,
+                                contactNo As Integer, schedule As String) As Boolean
+        Dim sql As String = "INSERT INTO personneltable (Personnel_Name, Verified_ID, Password, Role, ContactNo, Schedule) " &
+                           "VALUES (@personnelName, @verifiedID, @password, @role, @contactNo, @schedule)"
+
+        Dim parameters As New Dictionary(Of String, Object) From {
+            {"@personnelName", personnelName},
+            {"@verifiedID", verifiedID},
+            {"@password", password},
+            {"@role", role},
+            {"@contactNo", contactNo},
+            {"@schedule", schedule}
+        }
+
+        Return ExecuteNonQueryWithParameters(sql, parameters) > 0
+    End Function
+
+    ' Insert Staff
+    Public Function InsertStaff(personnelName As String, verifiedID As String,
+                               password As String, role As String) As Boolean
+        Dim sql As String = "INSERT INTO personneltable (Personnel_Name, Verified_ID, Password, Role) " &
+                           "VALUES (@personnelName, @verifiedID, @password, @role)"
+
+        Dim parameters As New Dictionary(Of String, Object) From {
+            {"@personnelName", personnelName},
+            {"@verifiedID", verifiedID},
+            {"@password", password},
+            {"@role", role}
+        }
+
+        Return ExecuteNonQueryWithParameters(sql, parameters) > 0
+    End Function
+
+    ' Get All Personnel
+    Public Function GetAllPersonnel() As DataTable
+        Dim sql As String = "SELECT * FROM personneltable ORDER BY Role, Personnel_Name"
+        Return Read(sql)
+    End Function
+
+    ' Get Personnel by Verified ID
+    Public Function GetPersonnelByVerifiedID(verifiedID As String) As DataTable
+        Dim sql As String = "SELECT * FROM personneltable WHERE Verified_ID = @verifiedID"
+        Dim parameters As New Dictionary(Of String, Object) From {
+            {"@verifiedID", verifiedID}
+        }
+        Return ReadWithParameters(sql, parameters)
+    End Function
+
+    ' Get All Doctors
+    Public Function GetAllDoctors() As DataTable
+        Dim sql As String = "SELECT * FROM personneltable WHERE Role = 'doctor' ORDER BY Personnel_Name"
+        Return Read(sql)
+    End Function
+
+    ' ==================== GENERIC METHODS ====================
 
     ' Generic Read method - returns DataTable
     Public Function Read(sql As String) As DataTable
@@ -69,7 +342,6 @@ Public Class DBHandler
         Try
             conn.Open()
             Using cmd As New MySqlCommand(sql, conn)
-                ' Add parameters
                 For Each param In parameters
                     cmd.Parameters.AddWithValue(param.Key, param.Value)
                 Next
@@ -116,7 +388,6 @@ Public Class DBHandler
         Try
             conn.Open()
             Using cmd As New MySqlCommand(sql, conn)
-                ' Add parameters
                 For Each param In parameters
                     cmd.Parameters.AddWithValue(param.Key, param.Value)
                 Next
