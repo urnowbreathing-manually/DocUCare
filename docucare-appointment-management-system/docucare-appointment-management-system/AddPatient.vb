@@ -149,7 +149,7 @@ Public Class AddPatient
             Exit Sub
         End If
 
-        ' Validate Weight (Note: Original code validated Height twice, I fixed it)
+        ' Validate Weight
         If String.IsNullOrWhiteSpace(Weight.Text) Then
             MessageBox.Show("Weight is required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Weight.Focus()
@@ -193,8 +193,14 @@ Public Class AddPatient
         Dim pAllergies As String = If(String.IsNullOrWhiteSpace(Allergies.Text), "N/A", Allergies.Text)
         Dim pMedConditions As String = If(String.IsNullOrWhiteSpace(MedicalConditions.Text), "N/A", MedicalConditions.Text)
 
-        ' Call the DBHandler InsertPatient function
-        If db.InsertPatient(pID, fullName, pAge, pSex, pContact, pEmContact, pBloodType, pAllergies, pMedConditions) Then
+        ' --- ADDED: Get Height and Weight values ---
+        Dim heightVal As String = Height.Text
+        Dim weightVal As String = Weight.Text
+        ' --- END ADDED ---
+
+
+        ' --- MODIFIED: Pass new height and weight values to the database ---
+        If db.InsertPatient(pID, fullName, pAge, pSex, pContact, pEmContact, pBloodType, pAllergies, pMedConditions, heightVal, weightVal) Then
             MessageBox.Show($"Patient Saved Successfully!{vbCrLf}New Patient ID: {pID}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
             ' === Find the active UcPatientRecords control ===
@@ -202,7 +208,8 @@ Public Class AddPatient
             For Each ctrl As Control In UcMainMenu.MainContentPanel.Controls
                 If TypeOf ctrl Is UcPatientRecords Then
                     Dim recordsControl As UcPatientRecords = DirectCast(ctrl, UcPatientRecords)
-                    recordsControl.AddPatientCard(FirstName.Text, LastName.Text, Age.Text, Height.Text, Weight.Text, pSex, pContact, pEmContact, pBloodType, pAllergies, pMedConditions)
+                    ' Pass the new values to the card
+                    recordsControl.AddPatientCard(FirstName.Text, LastName.Text, Age.Text, heightVal, weightVal, pSex, pContact, pEmContact, pBloodType, pAllergies, pMedConditions)
                     Exit For
                 End If
             Next

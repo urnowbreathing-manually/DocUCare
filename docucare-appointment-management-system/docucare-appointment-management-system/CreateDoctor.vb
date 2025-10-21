@@ -12,12 +12,14 @@ Public Class CreateDoctor
     End Sub
 
     ' Recursive function to apply settings even if controls are inside panels or table layouts
+    ' --- MODIFIED ---
     Private Sub DisableAllDateTimePickers(parent As Control)
         For Each ctrl As Control In parent.Controls
             If TypeOf ctrl Is DateTimePicker Then
                 Dim dtp As DateTimePicker = CType(ctrl, DateTimePicker)
                 dtp.Format = DateTimePickerFormat.Custom
-                dtp.CustomFormat = "hh:mm tt" ' 12-hour with AM/PM
+                ' --- CHANGED to 24-hour format ---
+                dtp.CustomFormat = "HH:mm" ' 24-hour format
                 dtp.ShowUpDown = True         ' clock-style time only
                 dtp.Enabled = False           ' disable by default
             End If
@@ -28,6 +30,7 @@ Public Class CreateDoctor
             End If
         Next
     End Sub
+    ' --- END MODIFICATION ---
 
     ' ----- Checkbox Event Handlers -----
     Private Sub checkMonday_CheckedChanged(sender As Object, e As EventArgs) Handles checkMonday.CheckedChanged
@@ -109,8 +112,10 @@ Public Class CreateDoctor
             Exit Sub
         End If
 
-        ' Build schedule summary
+        ' --- MODIFIED ---
+        ' Build schedule summary in the new format
         Dim scheduleSummary As String = GetScheduleSummary()
+        ' --- END MODIFICATION ---
 
         ' --- REPLACED DUMMY SAVE WITH DATABASE LOGIC ---
 
@@ -120,7 +125,7 @@ Public Class CreateDoctor
         Dim vID As String = VerificationID.Text
         Dim pass As String = Password.Text
         Dim role As String = "doctor"
-        Dim contact As Integer = 0
+        Dim contact As String = 0
 
         ' **BUG WARNING:** Your DBHandler.InsertDoctor uses 'Integer' for ContactNo,
         ' but your form allows 11 digits, which will crash an Integer (max 10 digits).
@@ -146,23 +151,28 @@ Public Class CreateDoctor
     End Sub
 
     ' ----- Utility: Build Schedule Summary -----
+    ' --- MODIFIED ---
     Private Function GetScheduleSummary() As String
         Dim result As New List(Of String)
+        Dim format As String = "HH:mm"
 
-        If checkMonday.Checked Then result.Add($"Monday: {MondayStart.Text} - {MondayEnd.Text}")
-        If checkTue.Checked Then result.Add($"Tuesday: {TueStart.Text} - {TueEnd.Text}")
-        If checkWed.Checked Then result.Add($"Wednesday: {WedStart.Text} - {WedEnd.Text}")
-        If checkThu.Checked Then result.Add($"Thursday: {ThuStart.Text} - {ThuEnd.Text}")
-        If checkFri.Checked Then result.Add($"Friday: {FriStart.Text} - {FridEnd.Text}")
-        If checkSat.Checked Then result.Add($"Saturday: {SatStart.Text} - {SatEnd.Text}")
-        If checkSun.Checked Then result.Add($"Sunday: {SunStart.Text} - {SunEnd.Text}")
+        ' Use .Value.ToString(format) to get 24-hour "HH:mm" format
+        If checkMonday.Checked Then result.Add($"MON-{MondayStart.Value.ToString(format)}-{MondayEnd.Value.ToString(format)}")
+        If checkTue.Checked Then result.Add($"TUE-{TueStart.Value.ToString(format)}-{TueEnd.Value.ToString(format)}")
+        If checkWed.Checked Then result.Add($"WED-{WedStart.Value.ToString(format)}-{WedEnd.Value.ToString(format)}")
+        If checkThu.Checked Then result.Add($"THU-{ThuStart.Value.ToString(format)}-{ThuEnd.Value.ToString(format)}")
+        If checkFri.Checked Then result.Add($"FRI-{FriStart.Value.ToString(format)}-{FridEnd.Value.ToString(format)}")
+        If checkSat.Checked Then result.Add($"SAT-{SatStart.Value.ToString(format)}-{SatEnd.Value.ToString(format)}")
+        If checkSun.Checked Then result.Add($"SUN-{SunStart.Value.ToString(format)}-{SunEnd.Value.ToString(format)}")
 
         If result.Count = 0 Then
             Return "No schedule set."
         Else
-            Return String.Join(vbCrLf, result)
+            ' Join with a pipe "|" instead of a new line
+            Return String.Join("|", result)
         End If
     End Function
+    ' --- END MODIFICATION ---
 
     ' ----- Utility: Clear all fields after pseudo-save -----
     Private Sub ClearAllFields()
