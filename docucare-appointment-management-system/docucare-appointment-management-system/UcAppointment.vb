@@ -38,6 +38,16 @@ Public Class UcAppointment
 
         ' Load appointments from DB
         LoadAppointmentsFromDB()
+
+        Select Case DataStore.currentUser(3)
+            Case "Admin"
+                addAppointmentBtn.Show()
+            Case "Doctor"
+                addAppointmentBtn.Hide()
+            Case "Staff"
+                addAppointmentBtn.Show()
+        End Select
+
     End Sub
 
     ' --- MODIFIED: This function is now fixed ---
@@ -102,6 +112,9 @@ Public Class UcAppointment
     End Sub
 
     Private Sub addAppointmentBtn_Click(sender As Object, e As EventArgs) Handles addAppointmentBtn.Click
+
+
+
         Dim form As New AddAppointment()
 
         If form.ShowDialog() = DialogResult.OK Then
@@ -138,8 +151,9 @@ Public Class UcAppointment
 
         ' Layout container for info + button
         Dim layout As New TableLayoutPanel()
+        'layout.BorderStyle = BorderStyle.FixedSingle
         layout.Dock = DockStyle.Fill
-        layout.ColumnCount = 2
+        layout.ColumnCount = 4
         layout.RowCount = 1
         layout.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 75))
         layout.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 25))
@@ -188,24 +202,62 @@ Public Class UcAppointment
         }
         ' --- END MODIFICATION ---
 
-        ' Green "Consult" button
+        ' "Consult" button
         Dim btnConsult As New Button()
         btnConsult.Text = "Consult"
         btnConsult.BackColor = Color.Blue
         btnConsult.ForeColor = Color.White
-        btnConsult.Font = New Font("Microsoft Sans Serif", 9.75, FontStyle.Bold)
+        btnConsult.Font = New Font("Microsoft Sans Serif", 7.0, FontStyle.Bold)
         btnConsult.FlatStyle = FlatStyle.Standard
         btnConsult.FlatAppearance.BorderSize = 0
-        btnConsult.Dock = DockStyle.Fill
+        'btnConsult.Dock = DockStyle.Fill
         btnConsult.Margin = New Padding(10)
         btnConsult.Tag = info ' The 'info' object now contains all IDs
+        btnConsult.Width = 60
+        btnConsult.Height = 30
 
         AddHandler btnConsult.Click, AddressOf ConsultButton_Click
+
+        ' "Payment" button
+        Dim btnPayment As New Button()
+        btnPayment.Text = "Payment"
+        btnPayment.BackColor = Color.Blue
+        btnPayment.ForeColor = Color.White
+        btnPayment.Font = New Font("Microsoft Sans Serif", 6.75, FontStyle.Bold)
+        btnPayment.FlatStyle = FlatStyle.Standard
+        btnPayment.FlatAppearance.BorderSize = 0
+        'btnPayment.Dock = DockStyle.Fill
+        btnPayment.Margin = New Padding(10)
+        btnPayment.Tag = info ' The 'info' object now contains all IDs
+        btnPayment.Width = 60
+        btnPayment.Height = 30
+
+        AddHandler btnPayment.Click, AddressOf btnPayment_Click
+
+        ' "Modify" button
+        Dim btnModify As New Button()
+        btnModify.Text = "Modify"
+        btnModify.BackColor = Color.Blue
+        btnModify.ForeColor = Color.White
+        btnModify.Font = New Font("Microsoft Sans Serif", 7.0, FontStyle.Bold)
+        btnModify.FlatStyle = FlatStyle.Standard
+        btnModify.FlatAppearance.BorderSize = 0
+        'btnModify.Dock = DockStyle.Fill
+        btnModify.Margin = New Padding(10)
+        btnModify.Tag = info ' The 'info' object now contains all IDs
+        btnModify.Width = 60
+        btnModify.Height = 30
+
+        'AddHandler btnModify.Click, AddressOf ConsultButton_Click
+
+
 
         ' Add controls
         layout.Controls.Add(tbl, 0, 0)
 
-        layout.Controls.Add(btnConsult, 1, 0)
+        layout.Controls.Add(btnConsult, 3, 0)
+        layout.Controls.Add(btnPayment, 2, 0)
+        layout.Controls.Add(btnModify, 1, 0)
         appointmentPanel.Controls.Add(layout)
 
         ' Check if a "No appointments" label is present and remove it
@@ -262,6 +314,11 @@ Public Class UcAppointment
 
         form.ShowDialog()
         ' --- END MODIFICATION ---
+    End Sub
+
+    Private Sub btnPayment_Click(sender As Object, e As EventArgs)
+        Dim form As New ConsulationFee()
+        form.ShowDialog()
     End Sub
 
 End Class
