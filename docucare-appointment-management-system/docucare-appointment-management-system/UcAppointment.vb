@@ -1,5 +1,5 @@
 ﻿Imports System.Data
-Imports System.Globalization ' --- ADDED THIS LINE ---
+Imports System.Globalization
 
 Public Class UcAppointment
     Inherits UserControl
@@ -7,14 +7,19 @@ Public Class UcAppointment
     Private MainContentPanel As Panel
     Private db As New DBHandler() ' Database handler instance
 
-    ' Class to hold appointment data
+    ' --- MODIFIED: Added properties for the IDs ---
     Private Class AppointmentData
         Public Property Patient As String
         Public Property Doctor As String
         Public Property [Date] As String
         Public Property Time As String
         Public Property Notes As String
+        ' --- NEW ---
+        Public Property AppointmentID As Integer
+        Public Property PatientID As String
+        Public Property DoctorVID As String
     End Class
+    ' --- END MODIFICATION ---
 
     ' Constructor receives parent panel
     Public Sub New(parent As Panel)
@@ -47,14 +52,20 @@ Public Class UcAppointment
                 For Each row As DataRow In dt.Rows
 
 
-                    ' --- FIXED: Using correct column names and data types from your database ---
+                    ' --- FIXED: Reading all required data including IDs ---
                     Dim patientName As String = row.Field(Of String)("patient_name")
                     Dim doctorName As String = row.Field(Of String)("doctor_name")
                     Dim appDate As String = row.Field(Of String)("date") ' Read as String
-
                     Dim appTime24 As String = row.Field(Of String)("time") ' Read the 24-hour string
+                    Dim appNotes As String = row.Field(Of String)("notes")
 
-                    ' --- NEW: Convert 24-hour string to 12-hour string for display ---
+                    ' --- NEW: Read the IDs from the database row ---
+                    Dim apptID As Integer = row.Field(Of Integer)("appointment_id")
+                    Dim patID As String = row.Field(Of String)("patient_id")
+                    Dim docVID As String = row.Field(Of String)("Verified_ID")
+                    ' --- END NEW ---
+
+                    ' --- Convert 24-hour string to 12-hour string for display ---
                     Dim appTime12 As String
                     Try
                         ' Parse the "HH:mm" string and format it as "hh:mm tt" (e.g., "02:30 PM")
@@ -62,14 +73,10 @@ Public Class UcAppointment
                     Catch ex As Exception
                         appTime12 = appTime24 ' Fallback to raw data if parsing fails
                     End Try
-                    ' --- END NEW ---
+                    ' --- END ---
 
-                    Dim appNotes As String = row.Field(Of String)("notes")
-                    ' --- END FIX ---
-
-                    ' Call your existing function with the correct (12-hour) data
-
-                    AddAppointmentToList(patientName, doctorName, appDate, appTime12, appNotes)
+                    ' Call your existing function with the correct (12-hour) data AND the new IDs
+                    AddAppointmentToList(patientName, doctorName, appDate, appTime12, appNotes, apptID, patID, docVID)
                 Next
             Else
                 ' Optional: Display a message if no appointments
@@ -81,7 +88,7 @@ Public Class UcAppointment
                 AppointmentList.Controls.Add(noAppsLabel)
             End If
         Catch ex As Exception
-            ' This will now show the specific error (e.g., "Column 'patient' not found")
+            ' This will now show the specific error
             MessageBox.Show("Failed to load appointments: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
@@ -99,21 +106,27 @@ Public Class UcAppointment
 
         If form.ShowDialog() = DialogResult.OK Then
             ' This part adds the card when you create one
+            ' --- MODIFIED: Pass the new IDs from the form ---
             AddAppointmentToList(
                 form.SelectedPatient,
                 form.SelectedDoctor,
                 form.SelectedDate,
                 form.SelectedTime,
-                form.SelectedNotes
+                form.SelectedNotes,
+                form.NewAppointmentID,  ' Pass the new Appointment ID
+                form.SelectedPatientID, ' Pass the Patient ID
+                form.SelectedDoctorVID  ' Pass the Doctor VID
             )
+            ' --- END MODIFICATION ---
+
             ' We reload from DB in case AddAppointment saves it
             ' If AddAppointment doesn't save to DB, this is still safe.
             LoadAppointmentsFromDB()
         End If
     End Sub
 
-    ' This function is correct as-is
-    Private Sub AddAppointmentToList(patient As String, doctor As String, [date] As String, time As String, notes As String)
+    ' --- MODIFIED: Updated signature to accept new IDs ---
+    Private Sub AddAppointmentToList(patient As String, doctor As String, [date] As String, time As String, notes As String, apptID As Integer, patID As String, docVID As String)
         Dim appointmentPanel As New Panel()
         appointmentPanel.Width = AppointmentList.Width - 40
         appointmentPanel.Height = 120
@@ -162,14 +175,18 @@ Public Class UcAppointment
         tbl.Controls.Add(New Label() With {.Text = "Notes:", .Font = New Font("Segoe UI", 9, FontStyle.Bold), .AutoSize = True}, 0, 4)
         tbl.Controls.Add(New Label() With {.Text = notes, .AutoSize = True}, 1, 4)
 
-        ' Create AppointmentData object and assign to Tag
+        ' --- MODIFIED: Create AppointmentData object and assign all data to Tag ---
         Dim info As New AppointmentData With {
             .Patient = patient,
             .Doctor = doctor,
             .Date = [date],
             .Time = time,
-            .Notes = notes
+            .Notes = notes,
+            .AppointmentID = apptID, ' Store the ID
+            .PatientID = patID,     ' Store the ID
+            .DoctorVID = docVID     ' Store the ID
         }
+        ' --- END MODIFICATION ---
 
         ' Green "Consult" button
         Dim btnConsult As New Button()
@@ -181,7 +198,7 @@ Public Class UcAppointment
         btnConsult.FlatAppearance.BorderSize = 0
         btnConsult.Dock = DockStyle.Fill
         btnConsult.Margin = New Padding(10)
-        btnConsult.Tag = info
+        btnConsult.Tag = info ' The 'info' object now contains all IDs
 
         AddHandler btnConsult.Click, AddressOf ConsultButton_Click
 
@@ -199,15 +216,10 @@ Public Class UcAppointment
         AppointmentList.Controls.Add(appointmentPanel)
     End Sub
 
-    ' Handle Consult button click
-    ' This part remains the same.
+    ' --- MODIFIED: Handle Consult button click ---
     Private Sub ConsultButton_Click(sender As Object, e As EventArgs)
         Dim btn As Button = DirectCast(sender, Button)
-        Dim data As AppointmentData = DirectCast(btn.Tag, AppointmentData)
-        ' --- THIS LINE IS THE PROBLEM ---
-        ' It receives the 12-hour string (e.g., "02:30 PM") which parses correctly.
-        ' The Date.Parse for the date string might still fail if the format is not "MMddyyyy"
-        ' but the TIME string is now correct.
+        Dim data As AppointmentData = DirectCast(btn.Tag, AppointmentData) ' Get all data
 
         Dim appointmentDate As Date
         Try
@@ -233,16 +245,23 @@ Public Class UcAppointment
             If result = DialogResult.No Then Return
         End If
 
-        ' Create Consultation Form and pass appointment data
+        ' --- MODIFIED: Create Consultation Form and pass ALL data, including IDs ---
         Dim form As New ConsultationForm()
+        ' Pass display info
         form.PatientName = data.Patient
         form.DoctorName = data.Doctor
         form.AppointmentDate = data.Date
         form.AppointmentTime = data.Time
         form.Notes = data.Notes
 
+        ' --- NEW: Pass the IDs ---
+        form.AppointmentID = data.AppointmentID
+        form.PatientID = data.PatientID
+        form.DoctorVID = data.DoctorVID
+        ' --- END NEW ---
 
         form.ShowDialog()
+        ' --- END MODIFICATION ---
     End Sub
 
 End Class
