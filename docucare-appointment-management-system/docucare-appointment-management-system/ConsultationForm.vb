@@ -100,7 +100,7 @@ Public Class ConsultationForm
 
 
             ' As a final step, update the original appointment status to "Completed"
-            db.UpdateAppointmentStatus(Me.AppointmentID, "Completed")
+            db.UpdateAppointmentStatus(Me.AppointmentID, "Done")
 
             Me.Close()
         Else

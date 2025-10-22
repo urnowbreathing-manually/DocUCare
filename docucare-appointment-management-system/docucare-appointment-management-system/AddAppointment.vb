@@ -279,7 +279,7 @@ Public Class AddAppointment
         SelectedNotes = Notes.Text
 
         Try
-            Me.NewAppointmentID = db.InsertAppointment(SelectedPatient, SelectedPatientID, SelectedDoctor, SelectedDoctorVID, SelectedDate, SelectedTime, "Scheduled", SelectedNotes, 0)
+            Me.NewAppointmentID = db.InsertAppointment(SelectedPatient, SelectedPatientID, SelectedDoctor, SelectedDoctorVID, SelectedDate, SelectedTime, "On-Going", SelectedNotes, 0)
             If Me.NewAppointmentID > 0 Then
                 MessageBox.Show("Appointment saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Me.DialogResult = DialogResult.OK
