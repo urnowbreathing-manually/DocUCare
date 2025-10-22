@@ -1,4 +1,6 @@
 ﻿Public Class EditPatientInfo
+    ' Public property to hold primary key (patient_id)
+    Public Property PatientID As String
 
     Public Property TxtFirstName As String
     Public Property TxtLastName As String
@@ -11,7 +13,6 @@
     Public Property TxtMedicalConditions As String
     Public Property TxtContactNum As String
     Public Property TxtEmergencyContact As String
-
 
     Private Sub EditPatientInfo_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         FirstName.Text = TxtFirstName
@@ -27,8 +28,8 @@
         EmergencyContact.Text = TxtEmergencyContact
     End Sub
 
-
     Private Sub Save_Click(sender As Object, e As EventArgs) Handles Save.Click
+        ' Basic validation placeholder (add more as needed)
         TxtFirstName = FirstName.Text.Trim()
         TxtLastName = LastName.Text.Trim()
         TxtAge = Age.Text.Trim()
@@ -41,10 +42,15 @@
         TxtContactNum = ContactNum.Text.Trim()
         TxtEmergencyContact = EmergencyContact.Text.Trim()
 
+        ' Optionally validate PatientID exists
+        If String.IsNullOrWhiteSpace(PatientID) Then
+            MessageBox.Show("Cannot save patient: missing Patient ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+
         Me.DialogResult = DialogResult.OK
         Me.Close()
     End Sub
-
 
     Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles BtnCancel.Click
         Me.DialogResult = DialogResult.Cancel

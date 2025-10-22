@@ -1,6 +1,11 @@
 ﻿Public Class UcMainMenu
+
     Inherits UserControl
-    Public Shared patientInfo As String = ""
+    'original
+    'Public Shared patientInfo As String = ""
+
+    'new testing
+    Public Shared patientInfo As String = String.Empty
 
     Public Shared MainContentPanel As Panel
     ' Constructor receives parent panel

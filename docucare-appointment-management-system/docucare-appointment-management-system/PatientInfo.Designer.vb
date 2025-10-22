@@ -23,6 +23,9 @@ Partial Class PatientInfo
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.PatientInfoPanel = New System.Windows.Forms.Panel()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.Label11 = New System.Windows.Forms.Label()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.Patient = New System.Windows.Forms.TabPage()
         Me.Panel3 = New System.Windows.Forms.Panel()
@@ -72,6 +75,8 @@ Partial Class PatientInfo
         Me.Label18 = New System.Windows.Forms.Label()
         Me.CloseBtn = New System.Windows.Forms.Button()
         Me.PatientInfoPanel.SuspendLayout()
+        Me.Panel1.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControl1.SuspendLayout()
         Me.Patient.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -91,11 +96,44 @@ Partial Class PatientInfo
         'PatientInfoPanel
         '
         Me.PatientInfoPanel.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.PatientInfoPanel.Controls.Add(Me.Panel1)
         Me.PatientInfoPanel.Controls.Add(Me.TabControl1)
-        Me.PatientInfoPanel.Location = New System.Drawing.Point(8, 25)
+        Me.PatientInfoPanel.Location = New System.Drawing.Point(11, 31)
+        Me.PatientInfoPanel.Margin = New System.Windows.Forms.Padding(4)
         Me.PatientInfoPanel.Name = "PatientInfoPanel"
-        Me.PatientInfoPanel.Size = New System.Drawing.Size(784, 400)
+        Me.PatientInfoPanel.Size = New System.Drawing.Size(1045, 492)
         Me.PatientInfoPanel.TabIndex = 4
+        '
+        'Panel1
+        '
+        Me.Panel1.Controls.Add(Me.PictureBox1)
+        Me.Panel1.Controls.Add(Me.Label11)
+        Me.Panel1.Location = New System.Drawing.Point(33, 0)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(583, 69)
+        Me.Panel1.TabIndex = 8
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.BackgroundImage = Global.docucare_appointment_management_system.My.Resources.Resources.Doc_U_Care
+        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.PictureBox1.Location = New System.Drawing.Point(3, 0)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(100, 66)
+        Me.PictureBox1.TabIndex = 2
+        Me.PictureBox1.TabStop = False
+        '
+        'Label11
+        '
+        Me.Label11.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.Label11.AutoSize = True
+        Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label11.Location = New System.Drawing.Point(137, 17)
+        Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(272, 32)
+        Me.Label11.TabIndex = 1
+        Me.Label11.Text = "Patient Information"
         '
         'TabControl1
         '
@@ -103,10 +141,11 @@ Partial Class PatientInfo
         Me.TabControl1.Controls.Add(Me.Consultation)
         Me.TabControl1.Controls.Add(Me.Billing)
         Me.TabControl1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TabControl1.Location = New System.Drawing.Point(25, 27)
+        Me.TabControl1.Location = New System.Drawing.Point(33, 33)
+        Me.TabControl1.Margin = New System.Windows.Forms.Padding(4)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(732, 336)
+        Me.TabControl1.Size = New System.Drawing.Size(976, 414)
         Me.TabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed
         Me.TabControl1.TabIndex = 4
         '
@@ -114,10 +153,11 @@ Partial Class PatientInfo
         '
         Me.Patient.Controls.Add(Me.Panel3)
         Me.Patient.Controls.Add(Me.Panel6)
-        Me.Patient.Location = New System.Drawing.Point(4, 27)
+        Me.Patient.Location = New System.Drawing.Point(4, 33)
+        Me.Patient.Margin = New System.Windows.Forms.Padding(4)
         Me.Patient.Name = "Patient"
-        Me.Patient.Padding = New System.Windows.Forms.Padding(3)
-        Me.Patient.Size = New System.Drawing.Size(724, 305)
+        Me.Patient.Padding = New System.Windows.Forms.Padding(4)
+        Me.Patient.Size = New System.Drawing.Size(968, 377)
         Me.Patient.TabIndex = 0
         Me.Patient.Text = "Patient"
         Me.Patient.UseVisualStyleBackColor = True
@@ -127,9 +167,10 @@ Partial Class PatientInfo
         Me.Panel3.Controls.Add(Me.EditPatientBtn)
         Me.Panel3.Controls.Add(Me.TableLayoutPanel2)
         Me.Panel3.Controls.Add(Me.TableLayoutPanel1)
-        Me.Panel3.Location = New System.Drawing.Point(-2, -3)
+        Me.Panel3.Location = New System.Drawing.Point(-3, -4)
+        Me.Panel3.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(670, 316)
+        Me.Panel3.Size = New System.Drawing.Size(893, 389)
         Me.Panel3.TabIndex = 6
         '
         'EditPatientBtn
@@ -140,9 +181,10 @@ Partial Class PatientInfo
         Me.EditPatientBtn.FlatAppearance.BorderSize = 0
         Me.EditPatientBtn.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.EditPatientBtn.ForeColor = System.Drawing.SystemColors.Control
-        Me.EditPatientBtn.Location = New System.Drawing.Point(370, 271)
+        Me.EditPatientBtn.Location = New System.Drawing.Point(493, 334)
+        Me.EditPatientBtn.Margin = New System.Windows.Forms.Padding(4)
         Me.EditPatientBtn.Name = "EditPatientBtn"
-        Me.EditPatientBtn.Size = New System.Drawing.Size(293, 36)
+        Me.EditPatientBtn.Size = New System.Drawing.Size(391, 44)
         Me.EditPatientBtn.TabIndex = 6
         Me.EditPatientBtn.Text = "Edit Info"
         Me.EditPatientBtn.UseVisualStyleBackColor = False
@@ -154,13 +196,14 @@ Partial Class PatientInfo
         Me.TableLayoutPanel2.Controls.Add(Me.Lbl_Header_3, 0, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.Allergies_Lbl, 0, 1)
         Me.TableLayoutPanel2.Controls.Add(Me.MedCond_Lbl, 0, 2)
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(361, 0)
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(481, 0)
+        Me.TableLayoutPanel2.Margin = New System.Windows.Forms.Padding(4)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 3
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(309, 158)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(412, 194)
         Me.TableLayoutPanel2.TabIndex = 5
         '
         'Lbl_Header_3
@@ -168,9 +211,10 @@ Partial Class PatientInfo
         Me.Lbl_Header_3.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Lbl_Header_3.AutoSize = True
         Me.Lbl_Header_3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Header_3.Location = New System.Drawing.Point(3, 16)
+        Me.Lbl_Header_3.Location = New System.Drawing.Point(4, 19)
+        Me.Lbl_Header_3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Lbl_Header_3.Name = "Lbl_Header_3"
-        Me.Lbl_Header_3.Size = New System.Drawing.Size(167, 20)
+        Me.Lbl_Header_3.Size = New System.Drawing.Size(200, 25)
         Me.Lbl_Header_3.TabIndex = 1
         Me.Lbl_Header_3.Text = "Medical Information"
         '
@@ -178,9 +222,10 @@ Partial Class PatientInfo
         '
         Me.Allergies_Lbl.AutoSize = True
         Me.Allergies_Lbl.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Allergies_Lbl.Location = New System.Drawing.Point(3, 52)
+        Me.Allergies_Lbl.Location = New System.Drawing.Point(4, 64)
+        Me.Allergies_Lbl.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Allergies_Lbl.Name = "Allergies_Lbl"
-        Me.Allergies_Lbl.Size = New System.Drawing.Size(49, 13)
+        Me.Allergies_Lbl.Size = New System.Drawing.Size(66, 17)
         Me.Allergies_Lbl.TabIndex = 2
         Me.Allergies_Lbl.Text = "Allergies:"
         '
@@ -188,9 +233,10 @@ Partial Class PatientInfo
         '
         Me.MedCond_Lbl.AutoSize = True
         Me.MedCond_Lbl.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MedCond_Lbl.Location = New System.Drawing.Point(3, 104)
+        Me.MedCond_Lbl.Location = New System.Drawing.Point(4, 128)
+        Me.MedCond_Lbl.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.MedCond_Lbl.Name = "MedCond_Lbl"
-        Me.MedCond_Lbl.Size = New System.Drawing.Size(99, 13)
+        Me.MedCond_Lbl.Size = New System.Drawing.Size(130, 17)
         Me.MedCond_Lbl.TabIndex = 3
         Me.MedCond_Lbl.Text = "Medical Conditions:"
         '
@@ -208,7 +254,8 @@ Partial Class PatientInfo
         Me.TableLayoutPanel1.Controls.Add(Me.Age_Lbl, 0, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.FullName_Lbl, 0, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.Lbl_Header1, 0, 0)
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(2, 3)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(3, 4)
+        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(4)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 10
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.0!))
@@ -221,8 +268,8 @@ Partial Class PatientInfo
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(362, 316)
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(483, 389)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'BloodType_Lbl
@@ -230,9 +277,10 @@ Partial Class PatientInfo
         Me.BloodType_Lbl.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.BloodType_Lbl.AutoSize = True
         Me.BloodType_Lbl.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BloodType_Lbl.Location = New System.Drawing.Point(3, 291)
+        Me.BloodType_Lbl.Location = New System.Drawing.Point(4, 357)
+        Me.BloodType_Lbl.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.BloodType_Lbl.Name = "BloodType_Lbl"
-        Me.BloodType_Lbl.Size = New System.Drawing.Size(64, 13)
+        Me.BloodType_Lbl.Size = New System.Drawing.Size(84, 17)
         Me.BloodType_Lbl.TabIndex = 9
         Me.BloodType_Lbl.Text = "Blood Type:"
         '
@@ -241,9 +289,10 @@ Partial Class PatientInfo
         Me.Weight_Lbl.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Weight_Lbl.AutoSize = True
         Me.Weight_Lbl.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Weight_Lbl.Location = New System.Drawing.Point(3, 257)
+        Me.Weight_Lbl.Location = New System.Drawing.Point(4, 314)
+        Me.Weight_Lbl.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Weight_Lbl.Name = "Weight_Lbl"
-        Me.Weight_Lbl.Size = New System.Drawing.Size(44, 13)
+        Me.Weight_Lbl.Size = New System.Drawing.Size(56, 17)
         Me.Weight_Lbl.TabIndex = 8
         Me.Weight_Lbl.Text = "Weight:"
         '
@@ -252,9 +301,10 @@ Partial Class PatientInfo
         Me.Height_Lbl.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Height_Lbl.AutoSize = True
         Me.Height_Lbl.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Height_Lbl.Location = New System.Drawing.Point(3, 226)
+        Me.Height_Lbl.Location = New System.Drawing.Point(4, 276)
+        Me.Height_Lbl.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Height_Lbl.Name = "Height_Lbl"
-        Me.Height_Lbl.Size = New System.Drawing.Size(41, 13)
+        Me.Height_Lbl.Size = New System.Drawing.Size(53, 17)
         Me.Height_Lbl.TabIndex = 7
         Me.Height_Lbl.Text = "Height:"
         '
@@ -263,9 +313,10 @@ Partial Class PatientInfo
         Me.Lbl_Header2.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Lbl_Header2.AutoSize = True
         Me.Lbl_Header2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Header2.Location = New System.Drawing.Point(3, 191)
+        Me.Lbl_Header2.Location = New System.Drawing.Point(4, 234)
+        Me.Lbl_Header2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Lbl_Header2.Name = "Lbl_Header2"
-        Me.Lbl_Header2.Size = New System.Drawing.Size(159, 20)
+        Me.Lbl_Header2.Size = New System.Drawing.Size(187, 25)
         Me.Lbl_Header2.TabIndex = 6
         Me.Lbl_Header2.Text = "Health Information"
         '
@@ -274,9 +325,10 @@ Partial Class PatientInfo
         Me.EmContactNo_Lbl.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.EmContactNo_Lbl.AutoSize = True
         Me.EmContactNo_Lbl.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.EmContactNo_Lbl.Location = New System.Drawing.Point(3, 164)
+        Me.EmContactNo_Lbl.Location = New System.Drawing.Point(4, 200)
+        Me.EmContactNo_Lbl.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.EmContactNo_Lbl.Name = "EmContactNo_Lbl"
-        Me.EmContactNo_Lbl.Size = New System.Drawing.Size(123, 13)
+        Me.EmContactNo_Lbl.Size = New System.Drawing.Size(161, 17)
         Me.EmContactNo_Lbl.TabIndex = 5
         Me.EmContactNo_Lbl.Text = "Emergency Contact No.:"
         '
@@ -285,9 +337,10 @@ Partial Class PatientInfo
         Me.ContactNo_Lbl.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.ContactNo_Lbl.AutoSize = True
         Me.ContactNo_Lbl.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ContactNo_Lbl.Location = New System.Drawing.Point(3, 133)
+        Me.ContactNo_Lbl.Location = New System.Drawing.Point(4, 162)
+        Me.ContactNo_Lbl.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.ContactNo_Lbl.Name = "ContactNo_Lbl"
-        Me.ContactNo_Lbl.Size = New System.Drawing.Size(67, 13)
+        Me.ContactNo_Lbl.Size = New System.Drawing.Size(86, 17)
         Me.ContactNo_Lbl.TabIndex = 4
         Me.ContactNo_Lbl.Text = "Contact No.:"
         '
@@ -296,9 +349,10 @@ Partial Class PatientInfo
         Me.Gender_Lbl.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Gender_Lbl.AutoSize = True
         Me.Gender_Lbl.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Gender_Lbl.Location = New System.Drawing.Point(3, 102)
+        Me.Gender_Lbl.Location = New System.Drawing.Point(4, 124)
+        Me.Gender_Lbl.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Gender_Lbl.Name = "Gender_Lbl"
-        Me.Gender_Lbl.Size = New System.Drawing.Size(45, 13)
+        Me.Gender_Lbl.Size = New System.Drawing.Size(60, 17)
         Me.Gender_Lbl.TabIndex = 3
         Me.Gender_Lbl.Text = "Gender:"
         '
@@ -307,9 +361,10 @@ Partial Class PatientInfo
         Me.Age_Lbl.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Age_Lbl.AutoSize = True
         Me.Age_Lbl.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Age_Lbl.Location = New System.Drawing.Point(3, 71)
+        Me.Age_Lbl.Location = New System.Drawing.Point(4, 86)
+        Me.Age_Lbl.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Age_Lbl.Name = "Age_Lbl"
-        Me.Age_Lbl.Size = New System.Drawing.Size(29, 13)
+        Me.Age_Lbl.Size = New System.Drawing.Size(37, 17)
         Me.Age_Lbl.TabIndex = 2
         Me.Age_Lbl.Text = "Age:"
         '
@@ -318,9 +373,10 @@ Partial Class PatientInfo
         Me.FullName_Lbl.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.FullName_Lbl.AutoSize = True
         Me.FullName_Lbl.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FullName_Lbl.Location = New System.Drawing.Point(3, 40)
+        Me.FullName_Lbl.Location = New System.Drawing.Point(4, 48)
+        Me.FullName_Lbl.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.FullName_Lbl.Name = "FullName_Lbl"
-        Me.FullName_Lbl.Size = New System.Drawing.Size(74, 13)
+        Me.FullName_Lbl.Size = New System.Drawing.Size(97, 17)
         Me.FullName_Lbl.TabIndex = 1
         Me.FullName_Lbl.Text = "Patient Name:"
         '
@@ -329,29 +385,32 @@ Partial Class PatientInfo
         Me.Lbl_Header1.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Lbl_Header1.AutoSize = True
         Me.Lbl_Header1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Header1.Location = New System.Drawing.Point(3, 5)
+        Me.Lbl_Header1.Location = New System.Drawing.Point(4, 6)
+        Me.Lbl_Header1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Lbl_Header1.Name = "Lbl_Header1"
-        Me.Lbl_Header1.Size = New System.Drawing.Size(176, 20)
+        Me.Lbl_Header1.Size = New System.Drawing.Size(210, 25)
         Me.Lbl_Header1.TabIndex = 0
         Me.Lbl_Header1.Text = "Personal Information"
         '
         'Panel6
         '
-        Me.Panel6.Location = New System.Drawing.Point(-5, 149)
+        Me.Panel6.Location = New System.Drawing.Point(-7, 183)
+        Me.Panel6.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(365, 27)
+        Me.Panel6.Size = New System.Drawing.Size(487, 33)
         Me.Panel6.TabIndex = 5
         '
         'Consultation
         '
         Me.Consultation.Controls.Add(Me.TableLayoutPanel4)
         Me.Consultation.Controls.Add(Me.TableLayoutPanel3)
-        Me.Consultation.Location = New System.Drawing.Point(4, 27)
+        Me.Consultation.Location = New System.Drawing.Point(4, 33)
+        Me.Consultation.Margin = New System.Windows.Forms.Padding(4)
         Me.Consultation.Name = "Consultation"
-        Me.Consultation.Padding = New System.Windows.Forms.Padding(3)
-        Me.Consultation.Size = New System.Drawing.Size(724, 305)
+        Me.Consultation.Padding = New System.Windows.Forms.Padding(4)
+        Me.Consultation.Size = New System.Drawing.Size(968, 377)
         Me.Consultation.TabIndex = 1
-        Me.Consultation.Text = "Consultation"
+        Me.Consultation.Text = "Appointments"
         Me.Consultation.UseVisualStyleBackColor = True
         '
         'TableLayoutPanel4
@@ -361,13 +420,14 @@ Partial Class PatientInfo
         Me.TableLayoutPanel4.Controls.Add(Me.DataGridViewPrescriptions, 0, 1)
         Me.TableLayoutPanel4.Controls.Add(Me.Label3, 0, 0)
         Me.TableLayoutPanel4.Controls.Add(Me.Label17, 0, 2)
-        Me.TableLayoutPanel4.Location = New System.Drawing.Point(362, 0)
+        Me.TableLayoutPanel4.Location = New System.Drawing.Point(483, 0)
+        Me.TableLayoutPanel4.Margin = New System.Windows.Forms.Padding(4)
         Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
         Me.TableLayoutPanel4.RowCount = 3
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.0!))
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40.0!))
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(362, 310)
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(483, 382)
         Me.TableLayoutPanel4.TabIndex = 2
         '
         'DataGridViewPrescriptions
@@ -377,9 +437,11 @@ Partial Class PatientInfo
         Me.DataGridViewPrescriptions.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         Me.DataGridViewPrescriptions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridViewPrescriptions.GridColor = System.Drawing.SystemColors.ActiveCaption
-        Me.DataGridViewPrescriptions.Location = New System.Drawing.Point(3, 34)
+        Me.DataGridViewPrescriptions.Location = New System.Drawing.Point(4, 42)
+        Me.DataGridViewPrescriptions.Margin = New System.Windows.Forms.Padding(4)
         Me.DataGridViewPrescriptions.Name = "DataGridViewPrescriptions"
-        Me.DataGridViewPrescriptions.Size = New System.Drawing.Size(356, 149)
+        Me.DataGridViewPrescriptions.RowHeadersWidth = 51
+        Me.DataGridViewPrescriptions.Size = New System.Drawing.Size(475, 183)
         Me.DataGridViewPrescriptions.TabIndex = 11
         '
         'Label3
@@ -387,9 +449,10 @@ Partial Class PatientInfo
         Me.Label3.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(3, 5)
+        Me.Label3.Location = New System.Drawing.Point(4, 6)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(113, 20)
+        Me.Label3.Size = New System.Drawing.Size(137, 25)
         Me.Label3.TabIndex = 0
         Me.Label3.Text = "Prescriptions"
         '
@@ -397,9 +460,10 @@ Partial Class PatientInfo
         '
         Me.Label17.AutoSize = True
         Me.Label17.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label17.Location = New System.Drawing.Point(3, 186)
+        Me.Label17.Location = New System.Drawing.Point(4, 229)
+        Me.Label17.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(87, 13)
+        Me.Label17.Size = New System.Drawing.Size(115, 17)
         Me.Label17.TabIndex = 1
         Me.Label17.Text = "Additional Notes:"
         '
@@ -416,6 +480,7 @@ Partial Class PatientInfo
         Me.TableLayoutPanel3.Controls.Add(Me.Label8, 0, 3)
         Me.TableLayoutPanel3.Controls.Add(Me.Label9, 0, 2)
         Me.TableLayoutPanel3.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel3.Margin = New System.Windows.Forms.Padding(4)
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
         Me.TableLayoutPanel3.RowCount = 8
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.0!))
@@ -428,8 +493,8 @@ Partial Class PatientInfo
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.0!))
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.0!))
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.0!))
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(362, 316)
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(483, 389)
         Me.TableLayoutPanel3.TabIndex = 1
         '
         'Label1
@@ -437,9 +502,10 @@ Partial Class PatientInfo
         Me.Label1.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(3, 52)
+        Me.Label1.Location = New System.Drawing.Point(4, 63)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(82, 13)
+        Me.Label1.Size = New System.Drawing.Size(107, 17)
         Me.Label1.TabIndex = 11
         Me.Label1.Text = "Consultation ID:"
         '
@@ -448,20 +514,22 @@ Partial Class PatientInfo
         Me.Label10.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(3, 9)
+        Me.Label10.Location = New System.Drawing.Point(4, 11)
+        Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(207, 20)
+        Me.Label10.Size = New System.Drawing.Size(257, 25)
         Me.Label10.TabIndex = 0
-        Me.Label10.Text = "Consultation Information"
+        Me.Label10.Text = "Appointments Information"
         '
         'Label4
         '
         Me.Label4.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(3, 288)
+        Me.Label4.Location = New System.Drawing.Point(4, 354)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(56, 13)
+        Me.Label4.Size = New System.Drawing.Size(74, 17)
         Me.Label4.TabIndex = 10
         Me.Label4.Text = "Diagnosis:"
         '
@@ -470,9 +538,10 @@ Partial Class PatientInfo
         Me.Label5.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(3, 247)
+        Me.Label5.Location = New System.Drawing.Point(4, 303)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(58, 13)
+        Me.Label5.Size = New System.Drawing.Size(77, 17)
         Me.Label5.TabIndex = 5
         Me.Label5.Text = "Symptoms:"
         '
@@ -481,9 +550,10 @@ Partial Class PatientInfo
         Me.Label6.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(3, 208)
+        Me.Label6.Location = New System.Drawing.Point(4, 255)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(47, 13)
+        Me.Label6.Size = New System.Drawing.Size(61, 17)
         Me.Label6.TabIndex = 4
         Me.Label6.Text = "Reason:"
         '
@@ -492,9 +562,10 @@ Partial Class PatientInfo
         Me.Label7.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(3, 169)
+        Me.Label7.Location = New System.Drawing.Point(4, 207)
+        Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(45, 13)
+        Me.Label7.Size = New System.Drawing.Size(60, 17)
         Me.Label7.TabIndex = 3
         Me.Label7.Text = "Gender:"
         '
@@ -503,9 +574,10 @@ Partial Class PatientInfo
         Me.Label8.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(3, 130)
+        Me.Label8.Location = New System.Drawing.Point(4, 159)
+        Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(29, 13)
+        Me.Label8.Size = New System.Drawing.Size(37, 17)
         Me.Label8.TabIndex = 2
         Me.Label8.Text = "Age:"
         '
@@ -514,9 +586,10 @@ Partial Class PatientInfo
         Me.Label9.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(3, 91)
+        Me.Label9.Location = New System.Drawing.Point(4, 111)
+        Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(74, 13)
+        Me.Label9.Size = New System.Drawing.Size(97, 17)
         Me.Label9.TabIndex = 1
         Me.Label9.Text = "Patient Name:"
         '
@@ -525,9 +598,10 @@ Partial Class PatientInfo
         Me.Billing.Controls.Add(Me.TableLayoutPanel7)
         Me.Billing.Controls.Add(Me.TableLayoutPanel6)
         Me.Billing.Controls.Add(Me.TableLayoutPanel5)
-        Me.Billing.Location = New System.Drawing.Point(4, 27)
+        Me.Billing.Location = New System.Drawing.Point(4, 33)
+        Me.Billing.Margin = New System.Windows.Forms.Padding(4)
         Me.Billing.Name = "Billing"
-        Me.Billing.Size = New System.Drawing.Size(724, 305)
+        Me.Billing.Size = New System.Drawing.Size(968, 377)
         Me.Billing.TabIndex = 2
         Me.Billing.Text = "Billing"
         Me.Billing.UseVisualStyleBackColor = True
@@ -538,6 +612,7 @@ Partial Class PatientInfo
         Me.TableLayoutPanel7.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel7.Controls.Add(Me.Label2, 0, 0)
         Me.TableLayoutPanel7.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel7.Margin = New System.Windows.Forms.Padding(4)
         Me.TableLayoutPanel7.Name = "TableLayoutPanel7"
         Me.TableLayoutPanel7.RowCount = 1
         Me.TableLayoutPanel7.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.0!))
@@ -550,8 +625,8 @@ Partial Class PatientInfo
         Me.TableLayoutPanel7.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.0!))
         Me.TableLayoutPanel7.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.0!))
         Me.TableLayoutPanel7.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.0!))
-        Me.TableLayoutPanel7.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 54.0!))
-        Me.TableLayoutPanel7.Size = New System.Drawing.Size(724, 54)
+        Me.TableLayoutPanel7.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 66.0!))
+        Me.TableLayoutPanel7.Size = New System.Drawing.Size(965, 66)
         Me.TableLayoutPanel7.TabIndex = 3
         '
         'Label2
@@ -559,9 +634,10 @@ Partial Class PatientInfo
         Me.Label2.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(282, 17)
+        Me.Label2.Location = New System.Drawing.Point(387, 20)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(159, 20)
+        Me.Label2.Size = New System.Drawing.Size(190, 25)
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "Billing Information:"
         '
@@ -570,7 +646,8 @@ Partial Class PatientInfo
         Me.TableLayoutPanel6.ColumnCount = 1
         Me.TableLayoutPanel6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel6.Controls.Add(Me.DataGridView1, 0, 0)
-        Me.TableLayoutPanel6.Location = New System.Drawing.Point(362, 60)
+        Me.TableLayoutPanel6.Location = New System.Drawing.Point(483, 74)
+        Me.TableLayoutPanel6.Margin = New System.Windows.Forms.Padding(4)
         Me.TableLayoutPanel6.Name = "TableLayoutPanel6"
         Me.TableLayoutPanel6.RowCount = 1
         Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.0!))
@@ -583,8 +660,8 @@ Partial Class PatientInfo
         Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.0!))
         Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.0!))
         Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.0!))
-        Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 250.0!))
-        Me.TableLayoutPanel6.Size = New System.Drawing.Size(362, 250)
+        Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 308.0!))
+        Me.TableLayoutPanel6.Size = New System.Drawing.Size(483, 308)
         Me.TableLayoutPanel6.TabIndex = 2
         '
         'DataGridView1
@@ -593,31 +670,40 @@ Partial Class PatientInfo
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Description, Me.Quantity, Me.UnitPrice, Me.Subtotal})
         Me.DataGridView1.GridColor = System.Drawing.SystemColors.ActiveBorder
-        Me.DataGridView1.Location = New System.Drawing.Point(3, 3)
+        Me.DataGridView1.Location = New System.Drawing.Point(4, 4)
+        Me.DataGridView1.Margin = New System.Windows.Forms.Padding(4)
         Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(356, 244)
+        Me.DataGridView1.RowHeadersWidth = 51
+        Me.DataGridView1.Size = New System.Drawing.Size(475, 300)
         Me.DataGridView1.TabIndex = 7
         '
         'Description
         '
         Me.Description.HeaderText = "Description"
+        Me.Description.MinimumWidth = 6
         Me.Description.Name = "Description"
+        Me.Description.Width = 125
         '
         'Quantity
         '
         Me.Quantity.HeaderText = "Quantity"
+        Me.Quantity.MinimumWidth = 6
         Me.Quantity.Name = "Quantity"
         Me.Quantity.Width = 60
         '
         'UnitPrice
         '
         Me.UnitPrice.HeaderText = "Unit Price"
+        Me.UnitPrice.MinimumWidth = 6
         Me.UnitPrice.Name = "UnitPrice"
+        Me.UnitPrice.Width = 125
         '
         'Subtotal
         '
         Me.Subtotal.HeaderText = "Subtotal"
+        Me.Subtotal.MinimumWidth = 6
         Me.Subtotal.Name = "Subtotal"
+        Me.Subtotal.Width = 125
         '
         'TableLayoutPanel5
         '
@@ -626,7 +712,8 @@ Partial Class PatientInfo
         Me.TableLayoutPanel5.Controls.Add(Me.Label20, 0, 0)
         Me.TableLayoutPanel5.Controls.Add(Me.Label19, 0, 1)
         Me.TableLayoutPanel5.Controls.Add(Me.Label18, 0, 2)
-        Me.TableLayoutPanel5.Location = New System.Drawing.Point(0, 60)
+        Me.TableLayoutPanel5.Location = New System.Drawing.Point(0, 74)
+        Me.TableLayoutPanel5.Margin = New System.Windows.Forms.Padding(4)
         Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
         Me.TableLayoutPanel5.RowCount = 3
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.0!))
@@ -639,8 +726,8 @@ Partial Class PatientInfo
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.0!))
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.0!))
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.0!))
-        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel5.Size = New System.Drawing.Size(362, 121)
+        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
+        Me.TableLayoutPanel5.Size = New System.Drawing.Size(483, 149)
         Me.TableLayoutPanel5.TabIndex = 1
         '
         'Label20
@@ -648,9 +735,10 @@ Partial Class PatientInfo
         Me.Label20.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Label20.AutoSize = True
         Me.Label20.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label20.Location = New System.Drawing.Point(3, 13)
+        Me.Label20.Location = New System.Drawing.Point(4, 16)
+        Me.Label20.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(51, 13)
+        Me.Label20.Size = New System.Drawing.Size(66, 17)
         Me.Label20.TabIndex = 1
         Me.Label20.Text = "Billing ID:"
         '
@@ -659,9 +747,10 @@ Partial Class PatientInfo
         Me.Label19.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Label19.AutoSize = True
         Me.Label19.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label19.Location = New System.Drawing.Point(3, 53)
+        Me.Label19.Location = New System.Drawing.Point(4, 65)
+        Me.Label19.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(74, 13)
+        Me.Label19.Size = New System.Drawing.Size(97, 17)
         Me.Label19.TabIndex = 2
         Me.Label19.Text = "Patient Name:"
         '
@@ -670,9 +759,10 @@ Partial Class PatientInfo
         Me.Label18.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Label18.AutoSize = True
         Me.Label18.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label18.Location = New System.Drawing.Point(3, 94)
+        Me.Label18.Location = New System.Drawing.Point(4, 115)
+        Me.Label18.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(33, 13)
+        Me.Label18.Size = New System.Drawing.Size(42, 17)
         Me.Label18.TabIndex = 3
         Me.Label18.Text = "Date:"
         '
@@ -681,23 +771,30 @@ Partial Class PatientInfo
         Me.CloseBtn.BackColor = System.Drawing.Color.IndianRed
         Me.CloseBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.CloseBtn.ForeColor = System.Drawing.SystemColors.Control
-        Me.CloseBtn.Location = New System.Drawing.Point(717, 12)
+        Me.CloseBtn.Location = New System.Drawing.Point(956, 15)
+        Me.CloseBtn.Margin = New System.Windows.Forms.Padding(4)
         Me.CloseBtn.Name = "CloseBtn"
-        Me.CloseBtn.Size = New System.Drawing.Size(75, 29)
+        Me.CloseBtn.Size = New System.Drawing.Size(100, 36)
         Me.CloseBtn.TabIndex = 7
         Me.CloseBtn.Text = "Close"
         Me.CloseBtn.UseVisualStyleBackColor = False
         '
         'PatientInfo
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(1067, 554)
         Me.Controls.Add(Me.CloseBtn)
         Me.Controls.Add(Me.PatientInfoPanel)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "PatientInfo"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "PatientInfo"
         Me.PatientInfoPanel.ResumeLayout(False)
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabControl1.ResumeLayout(False)
         Me.Patient.ResumeLayout(False)
         Me.Panel3.ResumeLayout(False)
@@ -771,4 +868,7 @@ Partial Class PatientInfo
     Friend WithEvents Label19 As Label
     Friend WithEvents Label18 As Label
     Friend WithEvents CloseBtn As Button
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents Label11 As Label
 End Class

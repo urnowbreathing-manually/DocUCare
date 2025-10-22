@@ -15,7 +15,7 @@ Public Class UcPatientRecords
         LoadPatientsFromDB()
     End Sub
 
-    ' --- MODIFIED: This function is now fixed for all data types ---
+    ' --- FIXED: robust DB reading and include patient_id in Tag ---
     Private Sub LoadPatientsFromDB()
         Try
             patientLayout.Controls.Clear() ' Clear existing cards
@@ -23,14 +23,23 @@ Public Class UcPatientRecords
 
             If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
                 For Each row As DataRow In dt.Rows
+                    ' Safely get columns (handle DBNull)
+                    Dim patientID As String = If(row.Table.Columns.Contains("patient_id") AndAlso Not row.IsNull("patient_id"), Convert.ToString(row("patient_id")), "")
+                    Dim fullName As String = If(row.Table.Columns.Contains("patient_name") AndAlso Not row.IsNull("patient_name"), Convert.ToString(row("patient_name")), "")
+                    Dim ageStr As String = If(row.Table.Columns.Contains("age") AndAlso Not row.IsNull("age"), Convert.ToString(row("age")), "")
+                    Dim heightStr As String = If(row.Table.Columns.Contains("height") AndAlso Not row.IsNull("height"), Convert.ToString(row("height")), "")
+                    Dim weightStr As String = If(row.Table.Columns.Contains("weight") AndAlso Not row.IsNull("weight"), Convert.ToString(row("weight")), "")
+                    Dim sexStr As String = If(row.Table.Columns.Contains("sex") AndAlso Not row.IsNull("sex"), Convert.ToString(row("sex")), "")
+                    Dim contactStr As String = If(row.Table.Columns.Contains("contact") AndAlso Not row.IsNull("contact"), Convert.ToString(row("contact")), "")
+                    Dim emergencyContactStr As String = If(row.Table.Columns.Contains("em_contact") AndAlso Not row.IsNull("em_contact"), Convert.ToString(row("em_contact")), "")
+                    Dim bloodTypeStr As String = If(row.Table.Columns.Contains("blood_type") AndAlso Not row.IsNull("blood_type"), Convert.ToString(row("blood_type")), "")
+                    Dim allergiesStr As String = If(row.Table.Columns.Contains("allergies") AndAlso Not row.IsNull("allergies"), Convert.ToString(row("allergies")), "")
+                    Dim medicalConditionsStr As String = If(row.Table.Columns.Contains("medical_conditions") AndAlso Not row.IsNull("medical_conditions"), Convert.ToString(row("medical_conditions")), "")
 
-                    ' --- Read the single 'patient_name' column (String) ---
-                    Dim fullName As String = row.Field(Of String)("patient_name")
+                    ' Split full name into first/last for display
                     Dim firstName As String = ""
                     Dim lastName As String = ""
-
-                    ' --- Split the full name back into first and last ---
-                    Dim firstSpaceIndex As Integer = fullName.IndexOf(" ")
+                    Dim firstSpaceIndex As Integer = fullName.IndexOf(" "c)
                     If firstSpaceIndex > -1 Then
                         firstName = fullName.Substring(0, firstSpaceIndex)
                         lastName = fullName.Substring(firstSpaceIndex + 1)
@@ -39,21 +48,9 @@ Public Class UcPatientRecords
                         lastName = ""
                     End If
 
-                    ' --- FIX: Read correct data types and convert to String ---
-                    Dim ageStr As String = row.Field(Of Integer)("age").ToString()
-                    Dim heightStr As String = row.Field(Of Decimal)("height").ToString()
-                    Dim weightStr As String = row.Field(Of Decimal)("weight").ToString()
-
-                    ' --- Read all other fields as String ---
-                    Dim sexStr As String = row.Field(Of String)("sex")
-                    Dim contactStr As String = row.Field(Of String)("contact")
-                    Dim emergencyContactStr As String = row.Field(Of String)("em_contact")
-                    Dim bloodTypeStr As String = row.Field(Of String)("blood_type")
-                    Dim allergiesStr As String = row.Field(Of String)("allergies")
-                    Dim medicalConditionsStr As String = row.Field(Of String)("medical_conditions")
-
-                    ' Call your existing function with all String values
+                    ' Call AddPatientCard now with patientID included
                     AddPatientCard(
+                        patientID,
                         firstName,
                         lastName,
                         ageStr,
@@ -89,8 +86,9 @@ Public Class UcPatientRecords
         MainContentPanel.Controls.Add(addMainMenu)
     End Sub
 
-    ' This function is correct as-is. It receives the data and creates the card.
-    Public Sub AddPatientCard(firstName As String, lastName As String,
+    ' This function receives the data and creates the card.
+    ' NOTE: first parameter now is patientID and it is stored as the first element in Tag
+    Public Sub AddPatientCard(patientID As String, firstName As String, lastName As String,
                               age As String, height As String, weight As String,
                               sex As String, contact As String, emergencyContact As String,
                               bloodType As String, allergies As String, medicalConditions As String)
@@ -117,9 +115,9 @@ Public Class UcPatientRecords
         btnView.Dock = DockStyle.Bottom
         btnView.Height = 30
 
-        ' Store all info in Tag (so PatientInfo can read it)
+        ' Store all info in Tag (patientID is first)
         btnView.Tag = String.Join("|", New String() {
-            firstName, lastName, age, height, weight, sex,
+            patientID, firstName, lastName, age, height, weight, sex,
             contact, emergencyContact, bloodType, allergies, medicalConditions
         })
 
@@ -142,14 +140,20 @@ Public Class UcPatientRecords
         Dim btn As Button = CType(sender, Button)
         Dim parts() As String = btn.Tag.ToString().Split("|"c)
 
-        If parts.Length < 11 Then
+        ' We expect 12 parts with patient_id included
+        If parts.Length < 12 Then
             MessageBox.Show("Incomplete patient data. Please re-add the patient.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
+        ' Set global patientInfo (same format used by PatientInfo/Editor)
         UcMainMenu.patientInfo = String.Join("|", parts)
+
         Dim infoForm As New PatientInfo()
         infoForm.ShowDialog()
+
+        ' After the dialog closes, reload the list to reflect possible updates
+        LoadPatientsFromDB()
     End Sub
 
     Private Sub addPatientBtn_Click(sender As Object, e As EventArgs) Handles addPatientBtn.Click

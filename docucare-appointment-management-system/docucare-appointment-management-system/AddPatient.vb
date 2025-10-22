@@ -209,7 +209,7 @@ Public Class AddPatient
                 If TypeOf ctrl Is UcPatientRecords Then
                     Dim recordsControl As UcPatientRecords = DirectCast(ctrl, UcPatientRecords)
                     ' Pass the new values to the card
-                    recordsControl.AddPatientCard(FirstName.Text, LastName.Text, Age.Text, heightVal, weightVal, pSex, pContact, pEmContact, pBloodType, pAllergies, pMedConditions)
+                    recordsControl.AddPatientCard(pID, FirstName.Text, LastName.Text, Age.Text, heightVal, weightVal, pSex, pContact, pEmContact, pBloodType, pAllergies, pMedConditions)
                     Exit For
                 End If
             Next

@@ -8,7 +8,7 @@ Public Class DBHandler
         conn = New MySqlConnection(ConnectionString)
     End Sub
 
-    ' Method to authenticate user
+    ' Method to authenticate user (unchanged)
     Public Function AuthenticateUser(username As String, password As String, verifiedID As String) As Boolean
         Dim sql As String = "SELECT Personnel_Name, Password, Verified_ID, Role FROM personneltable WHERE Personnel_Name = @username AND Password = @password AND Verified_ID = @verifiedID"
         Dim authenticated As Boolean = False
@@ -23,7 +23,6 @@ Public Class DBHandler
                 Using dReader As MySqlDataReader = cmd.ExecuteReader()
                     If dReader.Read() Then
                         authenticated = True
-                        ' Store user data with role
                         DataStore.currentUser = {dReader("Personnel_Name").ToString(), password, verifiedID, dReader("Role").ToString()}
                     End If
                 End Using
@@ -41,7 +40,6 @@ Public Class DBHandler
 
     ' ==================== PATIENT METHODS ====================
 
-    ' --- MODIFIED: Added height and weight parameters ---
     Public Function InsertPatient(patientID As String, patientName As String, age As Integer,
                                   sex As String, contact As String, emContact As String,
                                   bloodType As String, allergies As String,
@@ -67,7 +65,6 @@ Public Class DBHandler
         Return ExecuteNonQueryWithParameters(sql, parameters) > 0
     End Function
 
-    ' --- NEW FUNCTION: GENERATE PATIENT ID ---
     ' Generates a unique Patient ID in the format P-MMDDYYYY-XXXX
     Public Function GetNextPatientID() As String
         Dim datePrefix As String = "P-" & DateTime.Now.ToString("MMddyyyy") & "-"
@@ -82,22 +79,16 @@ Public Class DBHandler
 
                 Using dReader As MySqlDataReader = cmd.ExecuteReader()
                     If dReader.Read() Then
-                        ' A patient ID for today already exists
                         Dim lastID As String = dReader("patient_id").ToString()
-                        ' Get the last 4 chars (e.g., "0001")
                         Dim lastNumStr As String = lastID.Substring(lastID.Length - 4)
-                        ' Convert to integer (1), add 1 (2)
                         Dim nextNum As Integer = CInt(lastNumStr) + 1
-                        ' Format back to 4 digits ( "0002" ) and create new ID
                         nextID = datePrefix & nextNum.ToString("D4")
-                    Else
-                        ' No patient ID found for today, nextID is already "P-MMDDYYYY-0001"
                     End If
                 End Using
             End Using
         Catch ex As Exception
             MsgBox("Error generating patient ID: " & ex.Message, MsgBoxStyle.Exclamation)
-            Return Nothing ' Return Nothing on error
+            Return Nothing
         Finally
             If conn.State = ConnectionState.Open Then
                 conn.Close()
@@ -160,8 +151,7 @@ Public Class DBHandler
     End Function
 
     ' ==================== APPOINTMENT METHODS ====================
-
-    ' Insert Appointment
+    ' (unchanged from your original — kept for completeness)
     Public Function InsertAppointment(patientName As String, patientID As String,
                                      doctorName As String, verifiedID As String,
                                      appointmentDate As String, appointmentTime As String,
@@ -201,13 +191,11 @@ Public Class DBHandler
         End Try
     End Function
 
-    ' Get All Appointments
     Public Function GetAllAppointments() As DataTable
         Dim sql As String = "SELECT * FROM appointments ORDER BY date DESC, time DESC"
         Return Read(sql)
     End Function
 
-    ' Get Appointments by Patient ID
     Public Function GetAppointmentsByPatientID(patientID As String) As DataTable
         Dim sql As String = "SELECT * FROM appointments WHERE patient_id = @patientID ORDER BY date DESC"
         Dim parameters As New Dictionary(Of String, Object) From {
@@ -216,7 +204,6 @@ Public Class DBHandler
         Return ReadWithParameters(sql, parameters)
     End Function
 
-    ' Get Appointments by Doctor
     Public Function GetAppointmentsByDoctor(verifiedID As String) As DataTable
         Dim sql As String = "SELECT * FROM appointments WHERE Verified_ID = @verifiedID ORDER BY date DESC"
         Dim parameters As New Dictionary(Of String, Object) From {
@@ -225,7 +212,6 @@ Public Class DBHandler
         Return ReadWithParameters(sql, parameters)
     End Function
 
-    ' Update Appointment Status
     Public Function UpdateAppointmentStatus(appointmentID As Integer, status As String) As Boolean
         Dim sql As String = "UPDATE appointments SET status = @status WHERE appointment_id = @appointmentID"
         Dim parameters As New Dictionary(Of String, Object) From {
@@ -235,8 +221,6 @@ Public Class DBHandler
         Return ExecuteNonQueryWithParameters(sql, parameters) > 0
     End Function
 
-    ' --- NEW FUNCTION: UPDATE APPOINTMENT FEE ---
-    ' Updates the fee of an existing appointment (used for billing)
     Public Function UpdateAppointmentFee(appointmentID As Integer, consultFee As Decimal) As Boolean
         Dim sql As String = "UPDATE appointments SET consult_fee = @consultFee WHERE appointment_id = @appointmentID"
         Dim parameters As New Dictionary(Of String, Object) From {
@@ -246,7 +230,6 @@ Public Class DBHandler
         Return ExecuteNonQueryWithParameters(sql, parameters) > 0
     End Function
 
-    ' Delete Appointment
     Public Function DeleteAppointment(appointmentID As Integer) As Boolean
         Dim sql As String = "DELETE FROM appointments WHERE appointment_id = @appointmentID"
         Dim parameters As New Dictionary(Of String, Object) From {
@@ -256,8 +239,6 @@ Public Class DBHandler
     End Function
 
     ' ==================== CONSULTATION METHODS ====================
-
-    ' Insert Consultation
     Public Function InsertConsultation(patientName As String, patientID As String,
                                        symptoms As String, diagnosis As String,
                                        drugsPrescription As String, doctorName As String,
@@ -286,13 +267,11 @@ Public Class DBHandler
         Return ExecuteNonQueryWithParameters(sql, parameters) > 0
     End Function
 
-    ' Get All Consultations
     Public Function GetAllConsultations() As DataTable
         Dim sql As String = "SELECT * FROM consultation ORDER BY Date DESC, Time DESC"
         Return Read(sql)
     End Function
 
-    ' Get Consultations by Patient ID
     Public Function GetConsultationsByPatientID(patientID As String) As DataTable
         Dim sql As String = "SELECT * FROM consultation WHERE Patient_ID = @patientID ORDER BY Date DESC"
         Dim parameters As New Dictionary(Of String, Object) From {
@@ -301,7 +280,6 @@ Public Class DBHandler
         Return ReadWithParameters(sql, parameters)
     End Function
 
-    ' Get Consultation by Consult ID
     Public Function GetConsultationByID(consultID As Integer) As DataTable
         Dim sql As String = "SELECT * FROM consultation WHERE Consult_ID = @consultID"
         Dim parameters As New Dictionary(Of String, Object) From {
@@ -311,8 +289,6 @@ Public Class DBHandler
     End Function
 
     ' ==================== PERSONNEL METHODS ====================
-
-    ' Insert Doctor
     Public Function InsertDoctor(personnelName As String, verifiedID As String,
                                 password As String, role As String,
                                  contactNo As String, schedule As String) As Boolean
@@ -331,7 +307,6 @@ Public Class DBHandler
         Return ExecuteNonQueryWithParameters(sql, parameters) > 0
     End Function
 
-    ' Insert Staff
     Public Function InsertStaff(personnelName As String, verifiedID As String,
                                password As String, role As String) As Boolean
         Dim sql As String = "INSERT INTO personneltable (Personnel_Name, Verified_ID, Password, Role) " &
@@ -347,13 +322,11 @@ Public Class DBHandler
         Return ExecuteNonQueryWithParameters(sql, parameters) > 0
     End Function
 
-    ' Get All Personnel
     Public Function GetAllPersonnel() As DataTable
         Dim sql As String = "SELECT * FROM personneltable ORDER BY Role, Personnel_Name"
         Return Read(sql)
     End Function
 
-    ' Get Personnel by Verified ID
     Public Function GetPersonnelByVerifiedID(verifiedID As String) As DataTable
         Dim sql As String = "SELECT * FROM personneltable WHERE Verified_ID = @verifiedID"
         Dim parameters As New Dictionary(Of String, Object) From {
@@ -362,15 +335,12 @@ Public Class DBHandler
         Return ReadWithParameters(sql, parameters)
     End Function
 
-    ' Get All Doctors
     Public Function GetAllDoctors() As DataTable
         Dim sql As String = "SELECT * FROM personneltable WHERE Role = 'doctor' ORDER BY Personnel_Name"
         Return Read(sql)
     End Function
 
     ' ==================== GENERIC METHODS ====================
-
-    ' Generic Read method - returns DataTable
     Public Function Read(sql As String) As DataTable
         Dim dt As New DataTable()
 
@@ -392,7 +362,6 @@ Public Class DBHandler
         Return dt
     End Function
 
-    ' Read method with parameters - returns DataTable
     Public Function ReadWithParameters(sql As String, parameters As Dictionary(Of String, Object)) As DataTable
         Dim dt As New DataTable()
 
@@ -418,7 +387,6 @@ Public Class DBHandler
         Return dt
     End Function
 
-    ' Generic Insert/Update/Delete method - returns number of affected rows
     Public Function ExecuteNonQuery(sql As String) As Integer
         Dim rowsAffected As Integer = 0
 
@@ -438,7 +406,6 @@ Public Class DBHandler
         Return rowsAffected
     End Function
 
-    ' Insert/Update/Delete with parameters
     Public Function ExecuteNonQueryWithParameters(sql As String, parameters As Dictionary(Of String, Object)) As Integer
         Dim rowsAffected As Integer = 0
 
@@ -462,7 +429,6 @@ Public Class DBHandler
         Return rowsAffected
     End Function
 
-    ' Insert method with parameters
     Public Function Insert(tableName As String, parameters As Dictionary(Of String, Object)) As Boolean
         Dim columns As String = String.Join(", ", parameters.Keys)
         Dim values As String = String.Join(", ", parameters.Keys.Select(Function(k) "@" & k.Replace("@", "")))
@@ -471,7 +437,6 @@ Public Class DBHandler
         Return ExecuteNonQueryWithParameters(sql, parameters) > 0
     End Function
 
-    ' Update method with parameters
     Public Function Update(tableName As String, parameters As Dictionary(Of String, Object), whereClause As String) As Boolean
         Dim setClause As String = String.Join(", ", parameters.Keys.Select(Function(k) $"{k} = @{k.Replace("@", "")}"))
         Dim sql As String = $"UPDATE {tableName} SET {setClause} WHERE {whereClause}"
@@ -479,21 +444,18 @@ Public Class DBHandler
         Return ExecuteNonQueryWithParameters(sql, parameters) > 0
     End Function
 
-    ' Delete method
     Public Function Delete(tableName As String, whereClause As String) As Boolean
         Dim sql As String = $"DELETE FROM {tableName} WHERE {whereClause}"
 
         Return ExecuteNonQuery(sql) > 0
     End Function
 
-    ' Delete method with parameters
     Public Function DeleteWithParameters(tableName As String, whereClause As String, parameters As Dictionary(Of String, Object)) As Boolean
         Dim sql As String = $"DELETE FROM {tableName} WHERE {whereClause}"
 
         Return ExecuteNonQueryWithParameters(sql, parameters) > 0
     End Function
 
-    ' Check if connection is working
     Public Function TestConnection() As Boolean
         Try
             conn.Open()
@@ -505,7 +467,6 @@ Public Class DBHandler
         End Try
     End Function
 
-    ' Dispose method to clean up resources
     Public Sub Dispose()
         If conn IsNot Nothing Then
             If conn.State = ConnectionState.Open Then
@@ -514,18 +475,16 @@ Public Class DBHandler
             conn.Dispose()
         End If
     End Sub
+
     ' Fetches the schedule string for a single doctor by their name
     Public Function GetDoctorScheduleByName(ByVal doctorName As String) As String
         Dim schedule As String = ""
         Try
-            ' Assumes conn is your MySqlConnection object
             conn.Open()
-            Dim query As String = "SELECT Schedule FROM personneltable WHERE Personnel_Name = @DoctorName AND Role = 'Doctor'"
+            Dim query As String = "SELECT Schedule FROM personneltable WHERE Personnel_Name = @DoctorName LIMIT 1"
             Using cmd As New MySqlCommand(query, conn)
                 cmd.Parameters.AddWithValue("@DoctorName", doctorName)
-
                 Dim result As Object = cmd.ExecuteScalar()
-
                 If result IsNot Nothing AndAlso Not IsDBNull(result) Then
                     schedule = result.ToString()
                 Else
