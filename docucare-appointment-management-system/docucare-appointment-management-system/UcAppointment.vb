@@ -1,4 +1,5 @@
 ﻿Imports System.Data
+Imports System.Globalization ' --- ADDED THIS LINE ---
 
 Public Class UcAppointment
     Inherits UserControl
@@ -38,26 +39,42 @@ Public Class UcAppointment
     Private Sub LoadAppointmentsFromDB()
         Try
             AppointmentList.Controls.Clear() ' Clear existing
+
             ' This assumes you have a function named "GetAllAppointments" in your DBHandler
             Dim dt As DataTable = db.GetAllAppointments()
 
             If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
                 For Each row As DataRow In dt.Rows
 
+
                     ' --- FIXED: Using correct column names and data types from your database ---
                     Dim patientName As String = row.Field(Of String)("patient_name")
                     Dim doctorName As String = row.Field(Of String)("doctor_name")
                     Dim appDate As String = row.Field(Of String)("date") ' Read as String
-                    Dim appTime As String = row.Field(Of String)("time")
+
+                    Dim appTime24 As String = row.Field(Of String)("time") ' Read the 24-hour string
+
+                    ' --- NEW: Convert 24-hour string to 12-hour string for display ---
+                    Dim appTime12 As String
+                    Try
+                        ' Parse the "HH:mm" string and format it as "hh:mm tt" (e.g., "02:30 PM")
+                        appTime12 = DateTime.ParseExact(appTime24, "HH:mm", CultureInfo.InvariantCulture).ToString("hh:mm tt")
+                    Catch ex As Exception
+                        appTime12 = appTime24 ' Fallback to raw data if parsing fails
+                    End Try
+                    ' --- END NEW ---
+
                     Dim appNotes As String = row.Field(Of String)("notes")
                     ' --- END FIX ---
 
-                    ' Call your existing function with the correct data
-                    AddAppointmentToList(patientName, doctorName, appDate, appTime, appNotes)
+                    ' Call your existing function with the correct (12-hour) data
+
+                    AddAppointmentToList(patientName, doctorName, appDate, appTime12, appNotes)
                 Next
             Else
                 ' Optional: Display a message if no appointments
                 Dim noAppsLabel As New Label()
+
                 noAppsLabel.Text = "No appointments found."
                 noAppsLabel.Font = New Font("Segoe UI", 12)
                 noAppsLabel.AutoSize = True
@@ -102,6 +119,7 @@ Public Class UcAppointment
         appointmentPanel.Height = 120
         appointmentPanel.Margin = New Padding(10)
         appointmentPanel.Padding = New Padding(15)
+
         appointmentPanel.BackColor = Color.White
         appointmentPanel.BorderStyle = BorderStyle.FixedSingle
 
@@ -112,6 +130,7 @@ Public Class UcAppointment
         layout.RowCount = 1
         layout.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 75))
         layout.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 25))
+
         layout.RowStyles.Add(New RowStyle(SizeType.Percent, 100))
         layout.Padding = New Padding(5)
 
@@ -130,6 +149,7 @@ Public Class UcAppointment
         tbl.Controls.Add(New Label() With {.Text = patient, .AutoSize = True}, 1, 0)
 
         tbl.Controls.Add(New Label() With {.Text = "Doctor:", .Font = New Font("Segoe UI", 9, FontStyle.Bold), .AutoSize = True}, 0, 1)
+
         tbl.Controls.Add(New Label() With {.Text = doctor, .AutoSize = True}, 1, 1)
 
         tbl.Controls.Add(New Label() With {.Text = "Date:", .Font = New Font("Segoe UI", 9, FontStyle.Bold), .AutoSize = True}, 0, 2)
@@ -137,6 +157,7 @@ Public Class UcAppointment
 
         tbl.Controls.Add(New Label() With {.Text = "Time:", .Font = New Font("Segoe UI", 9, FontStyle.Bold), .AutoSize = True}, 0, 3)
         tbl.Controls.Add(New Label() With {.Text = time, .AutoSize = True}, 1, 3)
+
 
         tbl.Controls.Add(New Label() With {.Text = "Notes:", .Font = New Font("Segoe UI", 9, FontStyle.Bold), .AutoSize = True}, 0, 4)
         tbl.Controls.Add(New Label() With {.Text = notes, .AutoSize = True}, 1, 4)
@@ -166,6 +187,7 @@ Public Class UcAppointment
 
         ' Add controls
         layout.Controls.Add(tbl, 0, 0)
+
         layout.Controls.Add(btnConsult, 1, 0)
         appointmentPanel.Controls.Add(layout)
 
@@ -182,16 +204,31 @@ Public Class UcAppointment
     Private Sub ConsultButton_Click(sender As Object, e As EventArgs)
         Dim btn As Button = DirectCast(sender, Button)
         Dim data As AppointmentData = DirectCast(btn.Tag, AppointmentData)
-        Dim appointmentDate As Date = Date.Parse(data.Date) ' This line might fail if the varchar(8) is not a standard date format
+        ' --- THIS LINE IS THE PROBLEM ---
+        ' It receives the 12-hour string (e.g., "02:30 PM") which parses correctly.
+        ' The Date.Parse for the date string might still fail if the format is not "MMddyyyy"
+        ' but the TIME string is now correct.
+
+        Dim appointmentDate As Date
+        Try
+            ' Try parsing the date assuming "MMddyyyy" format
+            appointmentDate = Date.ParseExact(data.Date, "MMddyyyy", CultureInfo.InvariantCulture)
+        Catch ex As Exception
+            ' Fallback to standard parsing if "MMddyyyy" fails
+            appointmentDate = Date.Parse(data.Date)
+        End Try
+
         Dim today As Date = Date.Now.Date
 
         If today < appointmentDate Then
+
             Dim result As DialogResult = MessageBox.Show(
                 $"This appointment is scheduled for {appointmentDate.ToShortDateString()}. Do you want to consult early?",
                 "Consult Early",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question
             )
+
 
             If result = DialogResult.No Then Return
         End If
@@ -203,6 +240,7 @@ Public Class UcAppointment
         form.AppointmentDate = data.Date
         form.AppointmentTime = data.Time
         form.Notes = data.Notes
+
 
         form.ShowDialog()
     End Sub
