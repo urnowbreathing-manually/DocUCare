@@ -179,13 +179,11 @@ Public Class CreateDoctor
 
         ' Keep only digits
         tb.Text = System.Text.RegularExpressions.Regex.Replace(tb.Text, "[^\d]", "")
-
-        ' Limit to 15 digits (to match database VARCHAR(15))
-        If tb.Text.Length > 15 Then
-            tb.Text = tb.Text.Substring(0, 15)
+        ' Limit to 11 characters (e.g., max age 999)
+        If tb.Text.Length > 3 Then
+            tb.Text = tb.Text.Substring(0, 11)
         End If
-
-        ' Keep cursor at the end
+        ' Fix cursor position
         tb.SelectionStart = tb.Text.Length
     End Sub
 End Class

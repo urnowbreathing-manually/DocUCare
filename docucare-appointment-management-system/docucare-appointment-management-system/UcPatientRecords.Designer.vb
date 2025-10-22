@@ -41,7 +41,7 @@ Partial Class UcPatientRecords
         Me.Panel1.Controls.Add(Me.NavbarMenu)
         Me.Panel1.Controls.Add(Me.PictureBox3)
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
-        Me.Panel1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Panel1.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(1045, 47)
         Me.Panel1.TabIndex = 6
@@ -61,7 +61,7 @@ Partial Class UcPatientRecords
         '
         Me.NavbarMenu.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.NavbarMenu.Location = New System.Drawing.Point(933, 4)
-        Me.NavbarMenu.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.NavbarMenu.Margin = New System.Windows.Forms.Padding(4)
         Me.NavbarMenu.Name = "NavbarMenu"
         Me.NavbarMenu.Size = New System.Drawing.Size(100, 36)
         Me.NavbarMenu.TabIndex = 6
@@ -74,7 +74,7 @@ Partial Class UcPatientRecords
         Me.PictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.PictureBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.PictureBox3.Location = New System.Drawing.Point(0, 0)
-        Me.PictureBox3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.PictureBox3.Margin = New System.Windows.Forms.Padding(4)
         Me.PictureBox3.Name = "PictureBox3"
         Me.PictureBox3.Size = New System.Drawing.Size(133, 43)
         Me.PictureBox3.TabIndex = 6
@@ -84,7 +84,7 @@ Partial Class UcPatientRecords
         '
         Me.addPatientBtn.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.addPatientBtn.Location = New System.Drawing.Point(4, 54)
-        Me.addPatientBtn.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.addPatientBtn.Margin = New System.Windows.Forms.Padding(4)
         Me.addPatientBtn.Name = "addPatientBtn"
         Me.addPatientBtn.Size = New System.Drawing.Size(213, 36)
         Me.addPatientBtn.TabIndex = 14
@@ -97,7 +97,7 @@ Partial Class UcPatientRecords
         Me.PatientInfoPanel.BackColor = System.Drawing.Color.WhiteSmoke
         Me.PatientInfoPanel.Controls.Add(Me.patientLayout)
         Me.PatientInfoPanel.Location = New System.Drawing.Point(0, 97)
-        Me.PatientInfoPanel.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.PatientInfoPanel.Margin = New System.Windows.Forms.Padding(4)
         Me.PatientInfoPanel.Name = "PatientInfoPanel"
         Me.PatientInfoPanel.Size = New System.Drawing.Size(1045, 514)
         Me.PatientInfoPanel.TabIndex = 13
@@ -106,10 +106,9 @@ Partial Class UcPatientRecords
         '
         Me.patientLayout.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.patientLayout.AutoScroll = True
         Me.patientLayout.AutoSize = True
         Me.patientLayout.Location = New System.Drawing.Point(24, 23)
-        Me.patientLayout.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.patientLayout.Margin = New System.Windows.Forms.Padding(4)
         Me.patientLayout.Name = "patientLayout"
         Me.patientLayout.Size = New System.Drawing.Size(991, 455)
         Me.patientLayout.TabIndex = 0
@@ -123,7 +122,7 @@ Partial Class UcPatientRecords
         Me.Controls.Add(Me.addPatientBtn)
         Me.Controls.Add(Me.PatientInfoPanel)
         Me.Controls.Add(Me.Panel1)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "UcPatientRecords"
         Me.Size = New System.Drawing.Size(1045, 617)
         Me.Panel1.ResumeLayout(False)

@@ -30,18 +30,21 @@ Partial Class MainForm
         '
         Me.MainContentPanel.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.MainContentPanel.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.MainContentPanel.Location = New System.Drawing.Point(12, 12)
+        Me.MainContentPanel.Location = New System.Drawing.Point(16, 15)
+        Me.MainContentPanel.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MainContentPanel.Name = "MainContentPanel"
-        Me.MainContentPanel.Size = New System.Drawing.Size(769, 492)
+        Me.MainContentPanel.Size = New System.Drawing.Size(1025, 606)
         Me.MainContentPanel.TabIndex = 0
         '
         'MainForm
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(782, 499)
+        Me.ClientSize = New System.Drawing.Size(1043, 614)
         Me.Controls.Add(Me.MainContentPanel)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "MainForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "DocUCare"

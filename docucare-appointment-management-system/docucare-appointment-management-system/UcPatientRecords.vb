@@ -162,4 +162,8 @@ Public Class UcPatientRecords
         ' Refresh the list after adding a new patient
         LoadPatientsFromDB()
     End Sub
+
+    Private Sub patientLayout_Paint(sender As Object, e As PaintEventArgs) Handles patientLayout.Paint
+
+    End Sub
 End Class
