@@ -85,4 +85,8 @@
 
     Private Sub VerificationID_TextChanged(sender As Object, e As EventArgs) Handles VerificationID.TextChanged
     End Sub
+
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+
+    End Sub
 End Class

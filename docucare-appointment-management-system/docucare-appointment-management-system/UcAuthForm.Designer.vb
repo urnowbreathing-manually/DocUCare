@@ -26,6 +26,7 @@ Partial Class UcAuthForm
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(UcAuthForm))
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.PasswordToggleLabel = New System.Windows.Forms.Label()
         Me.VerifiedID = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Password = New System.Windows.Forms.TextBox()
@@ -54,6 +55,7 @@ Partial Class UcAuthForm
         '
         Me.Panel2.BackColor = System.Drawing.Color.WhiteSmoke
         Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel2.Controls.Add(Me.PasswordToggleLabel)
         Me.Panel2.Controls.Add(Me.VerifiedID)
         Me.Panel2.Controls.Add(Me.Label3)
         Me.Panel2.Controls.Add(Me.Password)
@@ -67,6 +69,17 @@ Partial Class UcAuthForm
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(399, 501)
         Me.Panel2.TabIndex = 8
+        '
+        'PasswordToggleLabel
+        '
+        Me.PasswordToggleLabel.AutoSize = True
+        Me.PasswordToggleLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PasswordToggleLabel.ForeColor = System.Drawing.Color.MediumBlue
+        Me.PasswordToggleLabel.Location = New System.Drawing.Point(317, 212)
+        Me.PasswordToggleLabel.Name = "PasswordToggleLabel"
+        Me.PasswordToggleLabel.Size = New System.Drawing.Size(45, 13)
+        Me.PasswordToggleLabel.TabIndex = 15
+        Me.PasswordToggleLabel.Text = "SHOW"
         '
         'VerifiedID
         '
@@ -126,7 +139,7 @@ Partial Class UcAuthForm
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.ForeColor = System.Drawing.Color.MidnightBlue
+        Me.Label4.ForeColor = System.Drawing.Color.MediumBlue
         Me.Label4.Location = New System.Drawing.Point(32, 38)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(333, 25)
@@ -138,9 +151,9 @@ Partial Class UcAuthForm
         Me.Label2.AutoSize = True
         Me.Label2.Location = New System.Drawing.Point(22, 116)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(58, 13)
+        Me.Label2.Size = New System.Drawing.Size(57, 13)
         Me.Label2.TabIndex = 3
-        Me.Label2.Text = "Username:"
+        Me.Label2.Text = "Full Name:"
         '
         'ContextMenuStrip1
         '
@@ -174,4 +187,5 @@ Partial Class UcAuthForm
     Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
     Friend WithEvents VerifiedID As TextBox
     Friend WithEvents Label3 As Label
+    Friend WithEvents PasswordToggleLabel As Label
 End Class
