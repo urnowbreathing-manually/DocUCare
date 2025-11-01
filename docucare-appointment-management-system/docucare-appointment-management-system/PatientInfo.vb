@@ -22,6 +22,8 @@
                 Gender_Lbl.Text = "Gender: N/A"
                 ContactNo_Lbl.Text = "Contact No.: N/A"
                 EmContactNo_Lbl.Text = "Emergency Contact No.: N/A"
+                EmContactName_Lbl.Text = "Emergency Contact Name: N/A"
+                EmContactRel_Lbl.Text = "Emergency Contact Relationship: N/A"
                 BloodType_Lbl.Text = "Blood Type: N/A"
                 Allergies_Lbl.Text = "Allergies: N/A"
                 MedCond_Lbl.Text = "Medical Conditions: N/A"
@@ -30,7 +32,22 @@
 
             Dim parts() As String = UcMainMenu.patientInfo.Split("|"c)
 
-            ' Expected format: patient_id(0), firstName(1), lastName(2), age(3), height(4), weight(5), gender(6), contact(7), emContact(8), blood(9), allergies(10), medCond(11)
+            ' Expecting order (indexes):
+            ' 0 = patient_id
+            ' 1 = firstName
+            ' 2 = lastName
+            ' 3 = age
+            ' 4 = height
+            ' 5 = weight
+            ' 6 = gender
+            ' 7 = contact
+            ' 8 = emContact (number)
+            ' 9 = emContactName
+            ' 10 = emContactRelationship
+            ' 11 = blood
+            ' 12 = allergies
+            ' 13 = medCond
+
             Dim patientID = SafeField(parts, 0)
             Dim firstName = SafeField(parts, 1)
             Dim lastName = SafeField(parts, 2)
@@ -40,11 +57,34 @@
             Dim gender = SafeField(parts, 6)
             Dim contact = SafeField(parts, 7)
             Dim emContact = SafeField(parts, 8)
-            Dim blood = SafeField(parts, 9)
-            Dim allergies = SafeField(parts, 10)
-            Dim medCond = SafeField(parts, 11)
+            Dim emContactName = SafeField(parts, 9)
+            Dim emContactRel = SafeField(parts, 10)
+            Dim blood = SafeField(parts, 11)
+            Dim allergies = SafeField(parts, 12)
+            Dim medCond = SafeField(parts, 13)
 
-            ' Format full name as "Last, First" if last name exists
+            ' 🔍 Debug MessageBox to verify data
+            'MessageBox.Show(
+            '    $"ID: {patientID}" & vbCrLf &
+            '    $"First Name: {firstName}" & vbCrLf &
+            '    $"Last Name: {lastName}" & vbCrLf &
+            '    $"Age: {age}" & vbCrLf &
+            '    $"Height: {height}" & vbCrLf &
+            '    $"Weight: {weight}" & vbCrLf &
+            '    $"Gender: {gender}" & vbCrLf &
+            '    $"Contact: {contact}" & vbCrLf &
+            '    $"Emergency Contact No: {emContact}" & vbCrLf &
+            '    $"Emergency Contact Name: {emContactName}" & vbCrLf &
+            '    $"Emergency Contact Relationship: {emContactRel}" & vbCrLf &
+            '    $"Blood Type: {blood}" & vbCrLf &
+            '    $"Allergies: {allergies}" & vbCrLf &
+            '    $"Medical Conditions: {medCond}",
+            '    "DEBUG: PatientInfo Values",
+            '    MessageBoxButtons.OK,
+            '    MessageBoxIcon.Information
+            ')
+
+            ' ✅ Update labels after verifying data
             FullName_Lbl.Text = "Full Name: " & (If(String.IsNullOrWhiteSpace(lastName), firstName, lastName & ", " & firstName))
             Age_Lbl.Text = "Age: " & (If(String.IsNullOrWhiteSpace(age), "N/A", age))
             Height_Lbl.Text = "Height: " & (If(String.IsNullOrWhiteSpace(height), "N/A", height))
@@ -52,10 +92,11 @@
             Gender_Lbl.Text = "Gender: " & (If(String.IsNullOrWhiteSpace(gender), "N/A", gender))
             ContactNo_Lbl.Text = "Contact No.: " & (If(String.IsNullOrWhiteSpace(contact), "N/A", contact))
             EmContactNo_Lbl.Text = "Emergency Contact No.: " & (If(String.IsNullOrWhiteSpace(emContact), "N/A", emContact))
+            EmContactName_Lbl.Text = "Emergency Contact Name: " & (If(String.IsNullOrWhiteSpace(emContactName), "N/A", emContactName))
+            EmContactRel_Lbl.Text = "Emergency Contact Relationship: " & (If(String.IsNullOrWhiteSpace(emContactRel), "N/A", emContactRel))
             BloodType_Lbl.Text = "Blood Type: " & (If(String.IsNullOrWhiteSpace(blood), "Unknown", blood))
             Allergies_Lbl.Text = "Allergies: " & (If(String.IsNullOrWhiteSpace(allergies), "N/A", allergies))
             MedCond_Lbl.Text = "Medical Conditions: " & (If(String.IsNullOrWhiteSpace(medCond), "N/A", medCond))
-
         Catch ex As Exception
             MessageBox.Show("Error loading patient info: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -68,7 +109,7 @@
 
             Dim editForm As New EditPatientInfo()
 
-            ' Populate editor with current values (indexes shifted because patientID is at 0)
+            ' Populate editor properties (matching our expected order)
             editForm.PatientID = patientID
             editForm.TxtFirstName = If(parts.Length > 1, parts(1), "")
             editForm.TxtLastName = If(parts.Length > 2, parts(2), "")
@@ -78,20 +119,17 @@
             editForm.TxtGender = If(parts.Length > 6, parts(6), "")
             editForm.TxtContactNum = If(parts.Length > 7, parts(7), "")
             editForm.TxtEmergencyContact = If(parts.Length > 8, parts(8), "")
-            editForm.TxtBloodType = If(parts.Length > 9, parts(9), "")
-            editForm.TxtAllergies = If(parts.Length > 10, parts(10), "")
-            editForm.TxtMedicalConditions = If(parts.Length > 11, parts(11), "")
+            editForm.TxtEmContactName = If(parts.Length > 9, parts(9), "")
+            editForm.TxtEmContactRelationship = If(parts.Length > 10, parts(10), "")
+            editForm.TxtBloodType = If(parts.Length > 11, parts(11), "")
+            editForm.TxtAllergies = If(parts.Length > 12, parts(12), "")
+            editForm.TxtMedicalConditions = If(parts.Length > 13, parts(13), "")
 
-            ' Show dialog
             If editForm.ShowDialog() = DialogResult.OK Then
-                ' Persist changes to DB using DBHandler.UpdatePatient
                 Dim combinedName As String = (editForm.TxtFirstName & " " & editForm.TxtLastName).Trim()
-
-                ' Parse age to integer (safe)
                 Dim parsedAge As Integer = 0
                 Integer.TryParse(editForm.TxtAge, parsedAge)
 
-                ' Call update
                 Dim updated As Boolean = db.UpdatePatient(
                     editForm.PatientID,
                     combinedName,
@@ -99,6 +137,8 @@
                     editForm.TxtGender,
                     editForm.TxtContactNum,
                     editForm.TxtEmergencyContact,
+                    editForm.TxtEmContactName,
+                    editForm.TxtEmContactRelationship,
                     editForm.TxtBloodType,
                     editForm.TxtAllergies,
                     editForm.TxtMedicalConditions,
@@ -107,7 +147,6 @@
                 )
 
                 If updated Then
-                    ' Update global patientInfo string in same order
                     UcMainMenu.patientInfo = String.Join("|", New String() {
                         editForm.PatientID,
                         editForm.TxtFirstName,
@@ -118,23 +157,14 @@
                         editForm.TxtGender,
                         editForm.TxtContactNum,
                         editForm.TxtEmergencyContact,
+                        editForm.TxtEmContactName,
+                        editForm.TxtEmContactRelationship,
                         editForm.TxtBloodType,
                         editForm.TxtAllergies,
                         editForm.TxtMedicalConditions
                     })
 
-                    ' Reflect changes on UI
-                    FullName_Lbl.Text = "Full Name: " & (If(String.IsNullOrWhiteSpace(editForm.TxtLastName), editForm.TxtFirstName, editForm.TxtLastName & ", " & editForm.TxtFirstName))
-                    Age_Lbl.Text = "Age: " & editForm.TxtAge
-                    Height_Lbl.Text = "Height: " & editForm.TxtHeight
-                    Weight_Lbl.Text = "Weight: " & editForm.TxtWeight
-                    Gender_Lbl.Text = "Gender: " & editForm.TxtGender
-                    ContactNo_Lbl.Text = "Contact No.: " & editForm.TxtContactNum
-                    EmContactNo_Lbl.Text = "Emergency Contact No.: " & editForm.TxtEmergencyContact
-                    BloodType_Lbl.Text = "Blood Type: " & editForm.TxtBloodType
-                    Allergies_Lbl.Text = "Allergies: " & editForm.TxtAllergies
-                    MedCond_Lbl.Text = "Medical Conditions: " & editForm.TxtMedicalConditions
-
+                    RefreshUiFromMainMenu()
                     MessageBox.Show("Patient updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Else
                     MessageBox.Show("Failed to update patient. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -146,6 +176,9 @@
     End Sub
 
     Private Sub Close_Click(sender As Object, e As EventArgs) Handles CloseBtn.Click
-        Me.Close()
+        Me.Dispose()
+    End Sub
+
+    Private Sub EmContactName_Lbl_Click(sender As Object, e As EventArgs) Handles EmContactName_Lbl.Click
     End Sub
 End Class

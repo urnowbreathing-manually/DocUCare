@@ -1,8 +1,8 @@
 ﻿Public Class EditPatientInfo
-    ' Public property to hold primary key (patient_id)
+    ' Patient primary key (property only — NOT a UI textbox)
     Public Property PatientID As String
 
-    ' Patient info fields (initial values passed from caller)
+    ' Values passed from caller (properties only)
     Public Property TxtFirstName As String
     Public Property TxtLastName As String
     Public Property TxtAge As String
@@ -14,32 +14,29 @@
     Public Property TxtMedicalConditions As String
     Public Property TxtContactNum As String
     Public Property TxtEmergencyContact As String
+    Public Property TxtEmContactName As String
+    Public Property TxtEmContactRelationship As String
+
+    Private db As New DBHandler()
 
     Private Sub EditPatientInfo_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ' --- populate combos to match AddPatient form ---
+        ' Populate combo boxes to match AddPatient
         Gender.Items.Clear()
-        Gender.Items.Add("Male")
-        Gender.Items.Add("Female")
-        Gender.Items.Add("Other")
-        Gender.Items.Insert(0, "Select Gender")
-        Gender.SelectedIndex = 0
+        Gender.Items.AddRange(New String() {"Select Gender", "Male", "Female", "Other"})
         Gender.DropDownStyle = ComboBoxStyle.DropDownList
+        Gender.SelectedIndex = 0
 
         BloodType.Items.Clear()
-        BloodType.Items.Add("Unknown")
-        BloodType.Items.Add("A+")
-        BloodType.Items.Add("A-")
-        BloodType.Items.Add("B+")
-        BloodType.Items.Add("B-")
-        BloodType.Items.Add("AB+")
-        BloodType.Items.Add("AB-")
-        BloodType.Items.Add("O+")
-        BloodType.Items.Add("O-")
-        BloodType.Items.Insert(0, "Select Blood Type")
-        BloodType.SelectedIndex = 0
+        BloodType.Items.AddRange(New String() {"Select Blood Type", "Unknown", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"})
         BloodType.DropDownStyle = ComboBoxStyle.DropDownList
+        BloodType.SelectedIndex = 0
 
-        ' --- pre-fill values (if provided) ---
+        EmContactRel.Items.Clear()
+        EmContactRel.Items.AddRange(New String() {"Select Relation", "Parent", "Sibling", "Spouse", "Child", "Relative", "Friend", "Guardian", "Other"})
+        EmContactRel.DropDownStyle = ComboBoxStyle.DropDownList
+        EmContactRel.SelectedIndex = 0
+
+        ' --- Pre-fill UI controls from the properties (these are NOT database writes yet) ---
         FirstName.Text = TxtFirstName
         LastName.Text = TxtLastName
         Age.Text = TxtAge
@@ -49,30 +46,39 @@
         MedicalConditions.Text = TxtMedicalConditions
         ContactNum.Text = TxtContactNum
         EmergencyContact.Text = TxtEmergencyContact
+        EmContactName.Text = TxtEmContactName
 
-        ' Set Gender selection if matches an item
+        ' Set gender selection if present
         If Not String.IsNullOrWhiteSpace(TxtGender) Then
             Dim gi As Integer = Gender.FindStringExact(TxtGender)
-            If gi >= 0 Then
-                Gender.SelectedIndex = gi
-            Else
-                Gender.SelectedIndex = 0
-            End If
+            If gi >= 0 Then Gender.SelectedIndex = gi
         End If
 
-        ' Set BloodType selection if matches an item
+        ' Set blood type selection if present (fix truncated "unkno" -> "Unknown")
         If Not String.IsNullOrWhiteSpace(TxtBloodType) Then
-            Dim bi As Integer = BloodType.FindStringExact(TxtBloodType)
+            Dim normalized As String = TxtBloodType.Trim()
+            If normalized.Length <= 4 AndAlso normalized.ToLower().StartsWith("unk") Then
+                normalized = "Unknown"
+            End If
+            Dim bi As Integer = BloodType.FindStringExact(normalized)
             If bi >= 0 Then
                 BloodType.SelectedIndex = bi
             Else
+                ' if not found keep placeholder
                 BloodType.SelectedIndex = 0
+            End If
+        End If
+
+        ' Set emergency contact relationship selection if present
+        If Not String.IsNullOrWhiteSpace(TxtEmContactRelationship) Then
+            Dim ri As Integer = EmContactRel.FindStringExact(TxtEmContactRelationship)
+            If ri >= 0 Then
+                EmContactRel.SelectedIndex = ri
             End If
         End If
     End Sub
 
-    ' --- Live input cleaning to match AddPatient behavior ---
-
+    ' ------ Live input cleaning (same rules as AddPatient) ------
     Private Sub FirstName_TextChanged(sender As Object, e As EventArgs) Handles FirstName.TextChanged
         Dim tb As TextBox = DirectCast(sender, TextBox)
         tb.Text = System.Text.RegularExpressions.Regex.Replace(tb.Text, "[^a-zA-Z\s]", "")
@@ -88,183 +94,134 @@
     Private Sub Age_TextChanged(sender As Object, e As EventArgs) Handles Age.TextChanged
         Dim tb As TextBox = DirectCast(sender, TextBox)
         tb.Text = System.Text.RegularExpressions.Regex.Replace(tb.Text, "[^\d]", "")
-        If tb.Text.Length > 3 Then
-            tb.Text = tb.Text.Substring(0, 3)
-        End If
+        If tb.Text.Length > 3 Then tb.Text = tb.Text.Substring(0, 3)
         tb.SelectionStart = tb.Text.Length
     End Sub
 
     Private Sub ContactNum_TextChanged(sender As Object, e As EventArgs) Handles ContactNum.TextChanged
         Dim tb As TextBox = DirectCast(sender, TextBox)
         tb.Text = System.Text.RegularExpressions.Regex.Replace(tb.Text, "[^\d]", "")
-        If tb.Text.Length > 11 Then
-            tb.Text = tb.Text.Substring(0, 11)
-        End If
+        If tb.Text.Length > 11 Then tb.Text = tb.Text.Substring(0, 11)
         tb.SelectionStart = tb.Text.Length
     End Sub
 
     Private Sub Height_TextChanged(sender As Object, e As EventArgs) Handles Height.TextChanged
         Dim tb As TextBox = DirectCast(sender, TextBox)
         tb.Text = System.Text.RegularExpressions.Regex.Replace(tb.Text, "[^\d]", "")
-        If tb.Text.Length > 3 Then
-            tb.Text = tb.Text.Substring(0, 3)
-        End If
+        If tb.Text.Length > 3 Then tb.Text = tb.Text.Substring(0, 3)
         tb.SelectionStart = tb.Text.Length
     End Sub
 
     Private Sub Weight_TextChanged(sender As Object, e As EventArgs) Handles Weight.TextChanged
         Dim tb As TextBox = DirectCast(sender, TextBox)
         tb.Text = System.Text.RegularExpressions.Regex.Replace(tb.Text, "[^\d]", "")
-        If tb.Text.Length > 3 Then
-            tb.Text = tb.Text.Substring(0, 3)
-        End If
+        If tb.Text.Length > 3 Then tb.Text = tb.Text.Substring(0, 3)
         tb.SelectionStart = tb.Text.Length
     End Sub
 
     Private Sub EmergencyContact_TextChanged(sender As Object, e As EventArgs) Handles EmergencyContact.TextChanged
         Dim tb As TextBox = DirectCast(sender, TextBox)
         tb.Text = System.Text.RegularExpressions.Regex.Replace(tb.Text, "[^\d]", "")
-        If tb.Text.Length > 11 Then
-            tb.Text = tb.Text.Substring(0, 11)
-        End If
+        If tb.Text.Length > 11 Then tb.Text = tb.Text.Substring(0, 11)
         tb.SelectionStart = tb.Text.Length
     End Sub
 
-    ' Keep combo placeholders from being treated as valid choices (same pattern as AddPatient)
-    Private Sub Gender_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Gender.SelectedIndexChanged
-        If Gender.SelectedIndex = 0 Then Exit Sub
-        ' nothing else required here unless you want to react to change
+    Private Sub EmContactName_TextChanged(sender As Object, e As EventArgs) Handles EmContactName.TextChanged
+        Dim tb As TextBox = DirectCast(sender, TextBox)
+        tb.Text = System.Text.RegularExpressions.Regex.Replace(tb.Text, "[^a-zA-Z\s]", "")
+        tb.SelectionStart = tb.Text.Length
     End Sub
 
-    Private Sub BloodType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles BloodType.SelectedIndexChanged
-        If BloodType.SelectedIndex = 0 Then Exit Sub
-        ' nothing else required here
-    End Sub
-
-    ' --- Save validation (aligned with AddPatient Save) ---
+    ' ------ Validation + Save ------
     Private Sub Save_Click(sender As Object, e As EventArgs) Handles Save.Click
-        ' Required: FirstName
-        If String.IsNullOrWhiteSpace(FirstName.Text) Then
-            MessageBox.Show("First Name is required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            FirstName.Focus()
-            Exit Sub
-        End If
+        ' Basic required validations (mirrors AddPatient)
+        If String.IsNullOrWhiteSpace(FirstName.Text) Then ShowWarn("First Name is required.", FirstName) : Exit Sub
+        If String.IsNullOrWhiteSpace(LastName.Text) Then ShowWarn("Last Name is required.", LastName) : Exit Sub
+        If String.IsNullOrWhiteSpace(Age.Text) Then ShowWarn("Age is required.", Age) : Exit Sub
+        If Val(Age.Text) <= 0 Then ShowWarn("Age must be greater than 0.", Age) : Exit Sub
+        If Gender.SelectedIndex <= 0 Then ShowWarn("Please select a gender.", Gender) : Exit Sub
+        If BloodType.SelectedIndex <= 0 Then ShowWarn("Please select a blood type.", BloodType) : Exit Sub
+        If String.IsNullOrWhiteSpace(ContactNum.Text) Then ShowWarn("Contact no. is required.", ContactNum) : Exit Sub
+        If ContactNum.Text.Length < 11 Then ShowWarn("Contact Number must be 11 digits.", ContactNum) : Exit Sub
+        If String.IsNullOrWhiteSpace(Height.Text) Then ShowWarn("Height is required.", Height) : Exit Sub
+        If Height.Text.Length < 3 Then ShowWarn("Invalid Height input, should be 3 digits.", Height) : Exit Sub
+        If String.IsNullOrWhiteSpace(Weight.Text) Then ShowWarn("Weight is required.", Weight) : Exit Sub
+        If Weight.Text.Length < 2 Then ShowWarn("Invalid Weight input, should be at least 2 digits.", Weight) : Exit Sub
+        If String.IsNullOrWhiteSpace(EmergencyContact.Text) Then ShowWarn("Emergency Contact no. is required.", EmergencyContact) : Exit Sub
+        If EmergencyContact.Text.Length < 11 Then ShowWarn("Emergency Contact Number must be 11 digits.", EmergencyContact) : Exit Sub
+        If String.IsNullOrWhiteSpace(EmContactName.Text) Then ShowWarn("Emergency contact name is required.", EmContactName) : Exit Sub
+        If EmContactRel.SelectedIndex <= 0 Then ShowWarn("Please select the emergency contact's relationship.", EmContactRel) : Exit Sub
 
-        ' Required: LastName
-        If String.IsNullOrWhiteSpace(LastName.Text) Then
-            MessageBox.Show("Last Name is required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            LastName.Focus()
-            Exit Sub
-        End If
-
-        ' Required: Age (must be > 0)
-        If String.IsNullOrWhiteSpace(Age.Text) Then
-            MessageBox.Show("Age is required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Age.Focus()
-            Exit Sub
-        End If
-        If Val(Age.Text) <= 0 Then
-            MessageBox.Show("Age must be greater than 0.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Age.Focus()
-            Exit Sub
-        End If
-
-        ' Gender must be selected (index 0 is placeholder)
-        If Me.Gender.SelectedIndex = 0 Or Me.Gender.SelectedIndex = -1 Then
-            MessageBox.Show("Please select a gender.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Me.Gender.Focus()
-            Exit Sub
-        End If
-
-        ' BloodType must be selected
-        If Me.BloodType.SelectedIndex = 0 Or Me.BloodType.SelectedIndex = -1 Then
-            MessageBox.Show("Please select a blood type.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Me.BloodType.Focus()
-            Exit Sub
-        End If
-
-        ' Contact Number required and must be 11 digits
-        If String.IsNullOrWhiteSpace(ContactNum.Text) Then
-            MessageBox.Show("Contact no. is required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            ContactNum.Focus()
-            Exit Sub
-        End If
-        If ContactNum.Text.Length < 11 Then
-            MessageBox.Show("Contact Number must be 11 digits.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            ContactNum.Focus()
-            Exit Sub
-        End If
-
-        ' Height required and minimal length check (to match AddPatient)
-        If String.IsNullOrWhiteSpace(Height.Text) Then
-            MessageBox.Show("Height is required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Height.Focus()
-            Exit Sub
-        End If
-        If Height.Text.Length < 3 Then
-            MessageBox.Show("Invalid Height input, should be 3 digits.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Height.Focus()
-            Exit Sub
-        End If
-
-        ' Weight required and minimal length check
-        If String.IsNullOrWhiteSpace(Weight.Text) Then
-            MessageBox.Show("Weight is required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Weight.Focus()
-            Exit Sub
-        End If
-        If Weight.Text.Length < 2 Then
-            MessageBox.Show("Invalid Weight input, should be at least 2 digits.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Weight.Focus()
-            Exit Sub
-        End If
-
-        ' Emergency contact required and must be 11 digits
-        If String.IsNullOrWhiteSpace(EmergencyContact.Text) Then
-            MessageBox.Show("Emergency Contact no. is required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            EmergencyContact.Focus()
-            Exit Sub
-        End If
-        If EmergencyContact.Text.Length < 11 Then
-            MessageBox.Show("Emergency Contact Number must be 11 digits.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            EmergencyContact.Focus()
-            Exit Sub
-        End If
-
-        ' Validate PatientID exists before saving
         If String.IsNullOrWhiteSpace(PatientID) Then
-            MessageBox.Show("Cannot save patient: missing Patient ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Missing PatientID — cannot save.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
-        ' All validation passed — copy trimmed fields back to properties
-        TxtFirstName = FirstName.Text.Trim()
-        TxtLastName = LastName.Text.Trim()
-        TxtAge = Age.Text.Trim()
-        TxtGender = If(Gender.SelectedIndex > 0, Gender.SelectedItem.ToString(), "")
-        TxtHeight = Height.Text.Trim()
-        TxtWeight = Weight.Text.Trim()
-        TxtBloodType = If(BloodType.SelectedIndex > 0, BloodType.SelectedItem.ToString(), "")
-        TxtAllergies = If(String.IsNullOrWhiteSpace(Allergies.Text), "N/A", Allergies.Text.Trim())
-        TxtMedicalConditions = If(String.IsNullOrWhiteSpace(MedicalConditions.Text), "N/A", MedicalConditions.Text.Trim())
-        TxtContactNum = ContactNum.Text.Trim()
-        TxtEmergencyContact = EmergencyContact.Text.Trim()
+        ' Prepare fields
+        Dim combinedName As String = (FirstName.Text.Trim() & " " & LastName.Text.Trim()).Trim()
+        Dim parsedAge As Integer = 0
+        Integer.TryParse(Age.Text.Trim(), parsedAge)
+        Dim sexVal As String = If(Gender.SelectedIndex > 0, Gender.SelectedItem.ToString(), "")
+        Dim emContactVal As String = EmergencyContact.Text.Trim()
+        Dim emContactNameVal As String = EmContactName.Text.Trim()
+        Dim emContactRelVal As String = If(EmContactRel.SelectedIndex > 0, EmContactRel.SelectedItem.ToString(), "")
+        Dim bloodVal As String = If(BloodType.SelectedIndex > 0, BloodType.SelectedItem.ToString(), "")
+        Dim allergiesVal As String = If(String.IsNullOrWhiteSpace(Allergies.Text), "N/A", Allergies.Text.Trim())
+        Dim medCondVal As String = If(String.IsNullOrWhiteSpace(MedicalConditions.Text), "N/A", MedicalConditions.Text.Trim())
+        Dim heightVal As String = Height.Text.Trim()
+        Dim weightVal As String = Weight.Text.Trim()
+        Dim contactVal As String = ContactNum.Text.Trim()
 
-        ' Success: close with OK
-        Me.DialogResult = DialogResult.OK
-        Me.Close()
+        ' Call DB update with the exact parameter order the DBHandler expects:
+        Dim updated As Boolean = db.UpdatePatient(
+            PatientID,
+            combinedName,
+            parsedAge,
+            sexVal,
+            contactVal,
+            emContactVal,
+            emContactNameVal,
+            emContactRelVal,
+            bloodVal,
+            allergiesVal,
+            medCondVal,
+            heightVal,
+            weightVal
+        )
+
+        If updated Then
+            ' Update the properties so caller can read new values
+            TxtFirstName = FirstName.Text.Trim()
+            TxtLastName = LastName.Text.Trim()
+            TxtAge = Age.Text.Trim()
+            TxtGender = sexVal
+            TxtHeight = heightVal
+            TxtWeight = weightVal
+            TxtBloodType = bloodVal
+            TxtAllergies = allergiesVal
+            TxtMedicalConditions = medCondVal
+            TxtContactNum = contactVal
+            TxtEmergencyContact = emContactVal
+            TxtEmContactName = emContactNameVal
+            TxtEmContactRelationship = emContactRelVal
+
+            Me.DialogResult = DialogResult.OK
+            Me.Close()
+        Else
+            MessageBox.Show("Failed to update patient. Please try again.", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
     End Sub
 
     Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles BtnCancel.Click
-        Dim result As DialogResult = MessageBox.Show(
-            "Are you sure you want to cancel? Any unsaved changes will be lost.",
-            "Cancel Edit",
-            MessageBoxButtons.YesNo,
-            MessageBoxIcon.Warning
-        )
-        If result = DialogResult.Yes Then
+        Dim res = MessageBox.Show("Discard changes?", "Cancel", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+        If res = DialogResult.Yes Then
             Me.DialogResult = DialogResult.Cancel
             Me.Close()
         End If
+    End Sub
+
+    Private Sub ShowWarn(msg As String, ctrl As Control)
+        MessageBox.Show(msg, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        ctrl.Focus()
     End Sub
 End Class

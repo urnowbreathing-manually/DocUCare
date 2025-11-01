@@ -1,4 +1,5 @@
 ﻿Imports MySql.Data.MySqlClient
+Imports System.Data
 
 Public Class DBHandler
     Private ConnectionString As String = "server=localhost;user=root;database=DocUCare;port=3306;password=;"
@@ -8,7 +9,7 @@ Public Class DBHandler
         conn = New MySqlConnection(ConnectionString)
     End Sub
 
-    ' Method to authenticate user (unchanged)
+    ' ==================== AUTHENTICATION ====================
     Public Function AuthenticateUser(username As String, password As String, verifiedID As String) As Boolean
         Dim sql As String = "SELECT Personnel_Name, Password, Verified_ID, Role FROM personneltable WHERE Personnel_Name = @username AND Password = @password AND Verified_ID = @verifiedID"
         Dim authenticated As Boolean = False
@@ -39,14 +40,16 @@ Public Class DBHandler
     End Function
 
     ' ==================== PATIENT METHODS ====================
-
+    ' InsertPatient (now includes em_contact_name and em_contact_relationship)
     Public Function InsertPatient(patientID As String, patientName As String, age As Integer,
                                   sex As String, contact As String, emContact As String,
+                                  emContactName As String, emContactRelationship As String,
                                   bloodType As String, allergies As String,
                                   medicalConditions As String,
                                   height As String, weight As String) As Boolean
-        Dim sql As String = "INSERT INTO patient (patient_id, patient_name, age, sex, contact, em_contact, blood_type, allergies, medical_conditions, height, weight) " &
-                           "VALUES (@patientID, @patientName, @age, @sex, @contact, @emContact, @bloodType, @allergies, @medicalConditions, @height, @weight)"
+
+        Dim sql As String = "INSERT INTO patient (patient_id, patient_name, age, sex, contact, em_contact, em_contact_name, em_contact_relationship, blood_type, allergies, medical_conditions, height, weight) " &
+                           "VALUES (@patientID, @patientName, @age, @sex, @contact, @emContact, @emContactName, @emContactRelationship, @bloodType, @allergies, @medicalConditions, @height, @weight)"
 
         Dim parameters As New Dictionary(Of String, Object) From {
             {"@patientID", patientID},
@@ -55,6 +58,8 @@ Public Class DBHandler
             {"@sex", sex},
             {"@contact", contact},
             {"@emContact", emContact},
+            {"@emContactName", emContactName},
+            {"@emContactRelationship", emContactRelationship},
             {"@bloodType", bloodType},
             {"@allergies", allergies},
             {"@medicalConditions", medicalConditions},
@@ -65,7 +70,40 @@ Public Class DBHandler
         Return ExecuteNonQueryWithParameters(sql, parameters) > 0
     End Function
 
-    ' Generates a unique Patient ID in the format P-MMDDYYYY-XXXX
+    ' UpdatePatient (includes em_contact_name and em_contact_relationship)
+    Public Function UpdatePatient(patientID As String, patientName As String, age As Integer,
+                                  sex As String, contact As String, emContact As String,
+                                  emContactName As String, emContactRelationship As String,
+                                  bloodType As String, allergies As String,
+                                  medicalConditions As String, height As String, weight As String) As Boolean
+
+        Dim sql As String = "UPDATE patient SET patient_name = @patientName, age = @age, sex = @sex, " &
+                           "contact = @contact, em_contact = @emContact, em_contact_name = @emContactName, " &
+                           "em_contact_relationship = @emContactRelationship, blood_type = @bloodType, " &
+                           "allergies = @allergies, medical_conditions = @medicalConditions, " &
+                           "height = @height, weight = @weight " &
+                           "WHERE patient_id = @patientID"
+
+        Dim parameters As New Dictionary(Of String, Object) From {
+            {"@patientID", patientID},
+            {"@patientName", patientName},
+            {"@age", age},
+            {"@sex", sex},
+            {"@contact", contact},
+            {"@emContact", emContact},
+            {"@emContactName", emContactName},
+            {"@emContactRelationship", emContactRelationship},
+            {"@bloodType", bloodType},
+            {"@allergies", allergies},
+            {"@medicalConditions", medicalConditions},
+            {"@height", height},
+            {"@weight", weight}
+        }
+
+        Return ExecuteNonQueryWithParameters(sql, parameters) > 0
+    End Function
+
+    ' Get next patient id
     Public Function GetNextPatientID() As String
         Dim datePrefix As String = "P-" & DateTime.Now.ToString("MMddyyyy") & "-"
         Dim nextID As String = datePrefix & "0001" ' Default for first patient of the day
@@ -113,34 +151,6 @@ Public Class DBHandler
         Return ReadWithParameters(sql, parameters)
     End Function
 
-    ' Update Patient
-    Public Function UpdatePatient(patientID As String, patientName As String, age As Integer,
-                                  sex As String, contact As String, emContact As String,
-                                  bloodType As String, allergies As String,
-                                  medicalConditions As String, height As String, weight As String) As Boolean
-        Dim sql As String = "UPDATE patient SET patient_name = @patientName, age = @age, sex = @sex, " &
-                           "contact = @contact, em_contact = @emContact, blood_type = @bloodType, " &
-                           "allergies = @allergies, medical_conditions = @medicalConditions, " &
-                           "height = @height, weight = @weight " &
-                           "WHERE patient_id = @patientID"
-
-        Dim parameters As New Dictionary(Of String, Object) From {
-            {"@patientID", patientID},
-            {"@patientName", patientName},
-            {"@age", age},
-            {"@sex", sex},
-            {"@contact", contact},
-            {"@emContact", emContact},
-            {"@bloodType", bloodType},
-            {"@allergies", allergies},
-            {"@medicalConditions", medicalConditions},
-            {"@height", height},
-            {"@weight", weight}
-        }
-
-        Return ExecuteNonQueryWithParameters(sql, parameters) > 0
-    End Function
-
     ' Delete Patient
     Public Function DeletePatient(patientID As String) As Boolean
         Dim sql As String = "DELETE FROM patient WHERE patient_id = @patientID"
@@ -151,7 +161,6 @@ Public Class DBHandler
     End Function
 
     ' ==================== APPOINTMENT METHODS ====================
-    ' (unchanged from your original — kept for completeness)
     Public Function InsertAppointment(patientName As String, patientID As String,
                                      doctorName As String, verifiedID As String,
                                      appointmentDate As String, appointmentTime As String,

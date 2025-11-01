@@ -27,9 +27,9 @@ Partial Class UcAppointment
         Me.NavbarMenu = New System.Windows.Forms.Button()
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.PatientInfoPanel = New System.Windows.Forms.Panel()
+        Me.AppointmentList = New System.Windows.Forms.FlowLayoutPanel()
         Me.addAppointmentBtn = New System.Windows.Forms.Button()
         Me.MonthCalendar1 = New System.Windows.Forms.MonthCalendar()
-        Me.AppointmentList = New System.Windows.Forms.FlowLayoutPanel()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PatientInfoPanel.SuspendLayout()
@@ -63,7 +63,7 @@ Partial Class UcAppointment
         Me.NavbarMenu.Name = "NavbarMenu"
         Me.NavbarMenu.Size = New System.Drawing.Size(75, 29)
         Me.NavbarMenu.TabIndex = 6
-        Me.NavbarMenu.Text = "Menu"
+        Me.NavbarMenu.Text = "Back"
         Me.NavbarMenu.UseVisualStyleBackColor = True
         '
         'PictureBox3
@@ -88,6 +88,15 @@ Partial Class UcAppointment
         Me.PatientInfoPanel.Size = New System.Drawing.Size(784, 400)
         Me.PatientInfoPanel.TabIndex = 7
         '
+        'AppointmentList
+        '
+        Me.AppointmentList.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.AppointmentList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.AppointmentList.Location = New System.Drawing.Point(3, 9)
+        Me.AppointmentList.Name = "AppointmentList"
+        Me.AppointmentList.Size = New System.Drawing.Size(533, 377)
+        Me.AppointmentList.TabIndex = 14
+        '
         'addAppointmentBtn
         '
         Me.addAppointmentBtn.BackColor = System.Drawing.SystemColors.HotTrack
@@ -105,15 +114,6 @@ Partial Class UcAppointment
         Me.MonthCalendar1.Location = New System.Drawing.Point(548, 9)
         Me.MonthCalendar1.Name = "MonthCalendar1"
         Me.MonthCalendar1.TabIndex = 1
-        '
-        'AppointmentList
-        '
-        Me.AppointmentList.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.AppointmentList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.AppointmentList.Location = New System.Drawing.Point(3, 9)
-        Me.AppointmentList.Name = "AppointmentList"
-        Me.AppointmentList.Size = New System.Drawing.Size(533, 377)
-        Me.AppointmentList.TabIndex = 14
         '
         'UcAppointment
         '

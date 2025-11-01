@@ -23,10 +23,10 @@ Partial Class UcHistory
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.NavbarMenu = New System.Windows.Forms.Button()
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.PatientInfoPanel = New System.Windows.Forms.Panel()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -42,6 +42,16 @@ Partial Class UcHistory
         Me.Panel1.Size = New System.Drawing.Size(784, 38)
         Me.Panel1.TabIndex = 7
         '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(369, 12)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(58, 20)
+        Me.Label1.TabIndex = 10
+        Me.Label1.Text = "History"
+        '
         'NavbarMenu
         '
         Me.NavbarMenu.FlatStyle = System.Windows.Forms.FlatStyle.System
@@ -49,7 +59,7 @@ Partial Class UcHistory
         Me.NavbarMenu.Name = "NavbarMenu"
         Me.NavbarMenu.Size = New System.Drawing.Size(75, 29)
         Me.NavbarMenu.TabIndex = 6
-        Me.NavbarMenu.Text = "Menu"
+        Me.NavbarMenu.Text = "Back"
         Me.NavbarMenu.UseVisualStyleBackColor = True
         '
         'PictureBox3
@@ -70,16 +80,6 @@ Partial Class UcHistory
         Me.PatientInfoPanel.Name = "PatientInfoPanel"
         Me.PatientInfoPanel.Size = New System.Drawing.Size(784, 400)
         Me.PatientInfoPanel.TabIndex = 9
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(369, 12)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(58, 20)
-        Me.Label1.TabIndex = 10
-        Me.Label1.Text = "History"
         '
         'UcHistory
         '
