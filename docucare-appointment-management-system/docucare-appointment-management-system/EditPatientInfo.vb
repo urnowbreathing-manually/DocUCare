@@ -64,7 +64,6 @@
             If bi >= 0 Then
                 BloodType.SelectedIndex = bi
             Else
-                ' if not found keep placeholder
                 BloodType.SelectedIndex = 0
             End If
         End If
@@ -72,9 +71,7 @@
         ' Set emergency contact relationship selection if present
         If Not String.IsNullOrWhiteSpace(TxtEmContactRelationship) Then
             Dim ri As Integer = EmContactRel.FindStringExact(TxtEmContactRelationship)
-            If ri >= 0 Then
-                EmContactRel.SelectedIndex = ri
-            End If
+            If ri >= 0 Then EmContactRel.SelectedIndex = ri
         End If
     End Sub
 
@@ -105,18 +102,13 @@
         tb.SelectionStart = tb.Text.Length
     End Sub
 
+    ' ✅ Height & Weight now allow decimals like 170.5 or 65.75
     Private Sub Height_TextChanged(sender As Object, e As EventArgs) Handles Height.TextChanged
-        Dim tb As TextBox = DirectCast(sender, TextBox)
-        tb.Text = System.Text.RegularExpressions.Regex.Replace(tb.Text, "[^\d]", "")
-        If tb.Text.Length > 3 Then tb.Text = tb.Text.Substring(0, 3)
-        tb.SelectionStart = tb.Text.Length
+        KeepDecimalNumbers(DirectCast(sender, TextBox), 3, 2)
     End Sub
 
     Private Sub Weight_TextChanged(sender As Object, e As EventArgs) Handles Weight.TextChanged
-        Dim tb As TextBox = DirectCast(sender, TextBox)
-        tb.Text = System.Text.RegularExpressions.Regex.Replace(tb.Text, "[^\d]", "")
-        If tb.Text.Length > 3 Then tb.Text = tb.Text.Substring(0, 3)
-        tb.SelectionStart = tb.Text.Length
+        KeepDecimalNumbers(DirectCast(sender, TextBox), 3, 2)
     End Sub
 
     Private Sub EmergencyContact_TextChanged(sender As Object, e As EventArgs) Handles EmergencyContact.TextChanged
@@ -134,7 +126,6 @@
 
     ' ------ Validation + Save ------
     Private Sub Save_Click(sender As Object, e As EventArgs) Handles Save.Click
-        ' Basic required validations (mirrors AddPatient)
         If String.IsNullOrWhiteSpace(FirstName.Text) Then ShowWarn("First Name is required.", FirstName) : Exit Sub
         If String.IsNullOrWhiteSpace(LastName.Text) Then ShowWarn("Last Name is required.", LastName) : Exit Sub
         If String.IsNullOrWhiteSpace(Age.Text) Then ShowWarn("Age is required.", Age) : Exit Sub
@@ -144,9 +135,9 @@
         If String.IsNullOrWhiteSpace(ContactNum.Text) Then ShowWarn("Contact no. is required.", ContactNum) : Exit Sub
         If ContactNum.Text.Length < 11 Then ShowWarn("Contact Number must be 11 digits.", ContactNum) : Exit Sub
         If String.IsNullOrWhiteSpace(Height.Text) Then ShowWarn("Height is required.", Height) : Exit Sub
-        If Height.Text.Length < 3 Then ShowWarn("Invalid Height input, should be 3 digits.", Height) : Exit Sub
+        If Val(Height.Text) <= 0 Then ShowWarn("Invalid Height input.", Height) : Exit Sub
         If String.IsNullOrWhiteSpace(Weight.Text) Then ShowWarn("Weight is required.", Weight) : Exit Sub
-        If Weight.Text.Length < 2 Then ShowWarn("Invalid Weight input, should be at least 2 digits.", Weight) : Exit Sub
+        If Val(Weight.Text) <= 0 Then ShowWarn("Invalid Weight input.", Weight) : Exit Sub
         If String.IsNullOrWhiteSpace(EmergencyContact.Text) Then ShowWarn("Emergency Contact no. is required.", EmergencyContact) : Exit Sub
         If EmergencyContact.Text.Length < 11 Then ShowWarn("Emergency Contact Number must be 11 digits.", EmergencyContact) : Exit Sub
         If String.IsNullOrWhiteSpace(EmContactName.Text) Then ShowWarn("Emergency contact name is required.", EmContactName) : Exit Sub
@@ -172,7 +163,6 @@
         Dim weightVal As String = Weight.Text.Trim()
         Dim contactVal As String = ContactNum.Text.Trim()
 
-        ' Call DB update with the exact parameter order the DBHandler expects:
         Dim updated As Boolean = db.UpdatePatient(
             PatientID,
             combinedName,
@@ -190,7 +180,6 @@
         )
 
         If updated Then
-            ' Update the properties so caller can read new values
             TxtFirstName = FirstName.Text.Trim()
             TxtLastName = LastName.Text.Trim()
             TxtAge = Age.Text.Trim()
@@ -223,5 +212,37 @@
     Private Sub ShowWarn(msg As String, ctrl As Control)
         MessageBox.Show(msg, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         ctrl.Focus()
+    End Sub
+
+    ' ✅ Helper: Allows decimal input with max digits before/after the dot
+    Private Sub KeepDecimalNumbers(tb As TextBox, maxDigitsBefore As Integer, maxDigitsAfter As Integer)
+        Dim text As String = tb.Text
+        Dim caret As Integer = tb.SelectionStart
+        Dim cleaned As String = ""
+        Dim dotFound As Boolean = False
+
+        For Each c As Char In text
+            If Char.IsDigit(c) Then
+                cleaned &= c
+            ElseIf c = "."c AndAlso Not dotFound Then
+                cleaned &= c
+                dotFound = True
+            End If
+        Next
+
+        Dim parts() As String = cleaned.Split("."c)
+        Dim beforeDot As String = parts(0)
+        Dim afterDot As String = If(parts.Length > 1, parts(1), "")
+
+        If beforeDot.Length > maxDigitsBefore Then beforeDot = beforeDot.Substring(0, maxDigitsBefore)
+        If afterDot.Length > maxDigitsAfter Then afterDot = afterDot.Substring(0, maxDigitsAfter)
+
+        cleaned = beforeDot
+        If dotFound Then cleaned &= "." & afterDot
+
+        If tb.Text <> cleaned Then
+            tb.Text = cleaned
+            tb.SelectionStart = Math.Min(caret, tb.Text.Length)
+        End If
     End Sub
 End Class
