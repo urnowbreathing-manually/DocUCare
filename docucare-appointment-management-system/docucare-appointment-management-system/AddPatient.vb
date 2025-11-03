@@ -180,4 +180,8 @@ Public Class AddPatient
             Me.Close()
         End If
     End Sub
+
+    Private Sub Gender_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Gender.SelectedIndexChanged
+
+    End Sub
 End Class

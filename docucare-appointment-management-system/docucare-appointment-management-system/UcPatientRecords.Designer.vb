@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class UcPatientRecords
     Inherits System.Windows.Forms.UserControl
 
     'UserControl overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,15 +20,19 @@ Partial Class UcPatientRecords
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.addPatientBtn = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.NavbarMenu = New System.Windows.Forms.Button()
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.PatientInfoPanel = New System.Windows.Forms.Panel()
         Me.patientLayout = New System.Windows.Forms.FlowLayoutPanel()
-        Me.addPatientBtn = New System.Windows.Forms.Button()
+        Me.searchTextBox = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.sortComboBox = New System.Windows.Forms.ComboBox()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PatientInfoPanel.SuspendLayout()
@@ -45,6 +49,20 @@ Partial Class UcPatientRecords
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(784, 38)
         Me.Panel1.TabIndex = 6
+        '
+        'addPatientBtn
+        '
+        Me.addPatientBtn.BackColor = System.Drawing.SystemColors.HotTrack
+        Me.addPatientBtn.FlatAppearance.BorderColor = System.Drawing.Color.White
+        Me.addPatientBtn.FlatAppearance.BorderSize = 0
+        Me.addPatientBtn.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.addPatientBtn.ForeColor = System.Drawing.SystemColors.Control
+        Me.addPatientBtn.Location = New System.Drawing.Point(574, 4)
+        Me.addPatientBtn.Name = "addPatientBtn"
+        Me.addPatientBtn.Size = New System.Drawing.Size(121, 28)
+        Me.addPatientBtn.TabIndex = 14
+        Me.addPatientBtn.Text = "Add New Patient"
+        Me.addPatientBtn.UseVisualStyleBackColor = False
         '
         'Label1
         '
@@ -97,19 +115,42 @@ Partial Class UcPatientRecords
         Me.patientLayout.Size = New System.Drawing.Size(743, 370)
         Me.patientLayout.TabIndex = 0
         '
-        'addPatientBtn
+        'searchTextBox
         '
-        Me.addPatientBtn.BackColor = System.Drawing.SystemColors.HotTrack
-        Me.addPatientBtn.FlatAppearance.BorderColor = System.Drawing.Color.White
-        Me.addPatientBtn.FlatAppearance.BorderSize = 0
-        Me.addPatientBtn.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.addPatientBtn.ForeColor = System.Drawing.SystemColors.Control
-        Me.addPatientBtn.Location = New System.Drawing.Point(574, 4)
-        Me.addPatientBtn.Name = "addPatientBtn"
-        Me.addPatientBtn.Size = New System.Drawing.Size(121, 28)
-        Me.addPatientBtn.TabIndex = 14
-        Me.addPatientBtn.Text = "Add New Patient"
-        Me.addPatientBtn.UseVisualStyleBackColor = False
+        Me.searchTextBox.Location = New System.Drawing.Point(163, 50)
+        Me.searchTextBox.Name = "searchTextBox"
+        Me.searchTextBox.Size = New System.Drawing.Size(181, 20)
+        Me.searchTextBox.TabIndex = 14
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.BackColor = System.Drawing.Color.Transparent
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(21, 52)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(137, 16)
+        Me.Label2.TabIndex = 15
+        Me.Label2.Text = "Search Patient Name:"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.BackColor = System.Drawing.Color.Transparent
+        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(360, 51)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(53, 16)
+        Me.Label3.TabIndex = 16
+        Me.Label3.Text = "Sort By:"
+        '
+        'sortComboBox
+        '
+        Me.sortComboBox.FormattingEnabled = True
+        Me.sortComboBox.Location = New System.Drawing.Point(414, 49)
+        Me.sortComboBox.Name = "sortComboBox"
+        Me.sortComboBox.Size = New System.Drawing.Size(121, 21)
+        Me.sortComboBox.TabIndex = 17
         '
         'UcPatientRecords
         '
@@ -117,6 +158,10 @@ Partial Class UcPatientRecords
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = Global.docucare_appointment_management_system.My.Resources.Resources.bg_alt
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Controls.Add(Me.sortComboBox)
+        Me.Controls.Add(Me.Label3)
+        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.searchTextBox)
         Me.Controls.Add(Me.PatientInfoPanel)
         Me.Controls.Add(Me.Panel1)
         Me.Name = "UcPatientRecords"
@@ -127,6 +172,7 @@ Partial Class UcPatientRecords
         Me.PatientInfoPanel.ResumeLayout(False)
         Me.PatientInfoPanel.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -137,4 +183,8 @@ Partial Class UcPatientRecords
     Friend WithEvents PatientInfoPanel As Panel
     Friend WithEvents patientLayout As FlowLayoutPanel
     Friend WithEvents addPatientBtn As Button
+    Friend WithEvents searchTextBox As TextBox
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label3 As Label
+    Friend WithEvents sortComboBox As ComboBox
 End Class
