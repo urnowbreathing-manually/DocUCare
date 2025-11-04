@@ -30,6 +30,12 @@ Partial Class UcAppointment
         Me.AppointmentList = New System.Windows.Forms.FlowLayoutPanel()
         Me.addAppointmentBtn = New System.Windows.Forms.Button()
         Me.MonthCalendar1 = New System.Windows.Forms.MonthCalendar()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.searchDoctor = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.sortComboBox = New System.Windows.Forms.ComboBox()
+        Me.searchPatient = New System.Windows.Forms.TextBox()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PatientInfoPanel.SuspendLayout()
@@ -115,12 +121,73 @@ Partial Class UcAppointment
         Me.MonthCalendar1.Name = "MonthCalendar1"
         Me.MonthCalendar1.TabIndex = 1
         '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.BackColor = System.Drawing.Color.Transparent
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(19, 75)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(96, 16)
+        Me.Label2.TabIndex = 16
+        Me.Label2.Text = "Search Doctor:"
+        '
+        'searchDoctor
+        '
+        Me.searchDoctor.Location = New System.Drawing.Point(119, 74)
+        Me.searchDoctor.Name = "searchDoctor"
+        Me.searchDoctor.Size = New System.Drawing.Size(206, 20)
+        Me.searchDoctor.TabIndex = 17
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.BackColor = System.Drawing.Color.Transparent
+        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(357, 48)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(53, 16)
+        Me.Label3.TabIndex = 19
+        Me.Label3.Text = "Sort By:"
+        '
+        'sortComboBox
+        '
+        Me.sortComboBox.FormattingEnabled = True
+        Me.sortComboBox.Location = New System.Drawing.Point(408, 45)
+        Me.sortComboBox.Name = "sortComboBox"
+        Me.sortComboBox.Size = New System.Drawing.Size(139, 21)
+        Me.sortComboBox.TabIndex = 20
+        '
+        'searchPatient
+        '
+        Me.searchPatient.Location = New System.Drawing.Point(119, 47)
+        Me.searchPatient.Name = "searchPatient"
+        Me.searchPatient.Size = New System.Drawing.Size(206, 20)
+        Me.searchPatient.TabIndex = 22
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.BackColor = System.Drawing.Color.Transparent
+        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(21, 49)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(97, 16)
+        Me.Label4.TabIndex = 21
+        Me.Label4.Text = "Search Patient:"
+        '
         'UcAppointment
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = Global.docucare_appointment_management_system.My.Resources.Resources.bg_alt
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Controls.Add(Me.searchPatient)
+        Me.Controls.Add(Me.Label4)
+        Me.Controls.Add(Me.sortComboBox)
+        Me.Controls.Add(Me.Label3)
+        Me.Controls.Add(Me.searchDoctor)
+        Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.PatientInfoPanel)
         Me.Controls.Add(Me.Panel1)
         Me.Name = "UcAppointment"
@@ -130,6 +197,7 @@ Partial Class UcAppointment
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PatientInfoPanel.ResumeLayout(False)
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -141,4 +209,10 @@ Partial Class UcAppointment
     Friend WithEvents MonthCalendar1 As MonthCalendar
     Friend WithEvents addAppointmentBtn As Button
     Friend WithEvents AppointmentList As FlowLayoutPanel
+    Friend WithEvents Label2 As Label
+    Friend WithEvents searchDoctor As TextBox
+    Friend WithEvents Label3 As Label
+    Friend WithEvents sortComboBox As ComboBox
+    Friend WithEvents searchPatient As TextBox
+    Friend WithEvents Label4 As Label
 End Class

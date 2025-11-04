@@ -105,6 +105,7 @@ Partial Class UcMainMenu
         Me.MM_LPanel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.MM_LPanel.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.MM_LPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.MM_LPanel.Controls.Add(Me.MM_Buttons)
         Me.MM_LPanel.Controls.Add(Me.MM_Title)
         Me.MM_LPanel.Location = New System.Drawing.Point(0, 0)
@@ -128,7 +129,7 @@ Partial Class UcMainMenu
         Me.MM_Buttons.Controls.Add(Me.PatientRecordsBtn, 0, 1)
         Me.MM_Buttons.Controls.Add(Me.MM_QuitBtn, 0, 7)
         Me.MM_Buttons.Controls.Add(Me.Button2, 0, 6)
-        Me.MM_Buttons.Location = New System.Drawing.Point(0, 77)
+        Me.MM_Buttons.Location = New System.Drawing.Point(0, 78)
         Me.MM_Buttons.Name = "MM_Buttons"
         Me.MM_Buttons.RowCount = 8
         Me.MM_Buttons.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5!))
@@ -139,13 +140,13 @@ Partial Class UcMainMenu
         Me.MM_Buttons.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5!))
         Me.MM_Buttons.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5!))
         Me.MM_Buttons.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5!))
-        Me.MM_Buttons.Size = New System.Drawing.Size(227, 424)
+        Me.MM_Buttons.Size = New System.Drawing.Size(227, 421)
         Me.MM_Buttons.TabIndex = 2
         '
         'NewStaffBtn
         '
         Me.NewStaffBtn.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.NewStaffBtn.Location = New System.Drawing.Point(20, 272)
+        Me.NewStaffBtn.Location = New System.Drawing.Point(20, 266)
         Me.NewStaffBtn.Name = "NewStaffBtn"
         Me.NewStaffBtn.Size = New System.Drawing.Size(186, 39)
         Me.NewStaffBtn.TabIndex = 7
@@ -155,7 +156,7 @@ Partial Class UcMainMenu
         'NewDoctorBtn
         '
         Me.NewDoctorBtn.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.NewDoctorBtn.Location = New System.Drawing.Point(20, 219)
+        Me.NewDoctorBtn.Location = New System.Drawing.Point(20, 214)
         Me.NewDoctorBtn.Name = "NewDoctorBtn"
         Me.NewDoctorBtn.Size = New System.Drawing.Size(186, 39)
         Me.NewDoctorBtn.TabIndex = 5
@@ -165,7 +166,7 @@ Partial Class UcMainMenu
         'AddPatientBtn
         '
         Me.AddPatientBtn.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.AddPatientBtn.Location = New System.Drawing.Point(20, 7)
+        Me.AddPatientBtn.Location = New System.Drawing.Point(20, 6)
         Me.AddPatientBtn.Name = "AddPatientBtn"
         Me.AddPatientBtn.Size = New System.Drawing.Size(186, 39)
         Me.AddPatientBtn.TabIndex = 0
@@ -175,7 +176,7 @@ Partial Class UcMainMenu
         'HistoryBtn
         '
         Me.HistoryBtn.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.HistoryBtn.Location = New System.Drawing.Point(20, 166)
+        Me.HistoryBtn.Location = New System.Drawing.Point(20, 162)
         Me.HistoryBtn.Name = "HistoryBtn"
         Me.HistoryBtn.Size = New System.Drawing.Size(186, 39)
         Me.HistoryBtn.TabIndex = 3
@@ -185,7 +186,7 @@ Partial Class UcMainMenu
         'AppointmentBtn
         '
         Me.AppointmentBtn.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.AppointmentBtn.Location = New System.Drawing.Point(20, 113)
+        Me.AppointmentBtn.Location = New System.Drawing.Point(20, 110)
         Me.AppointmentBtn.Name = "AppointmentBtn"
         Me.AppointmentBtn.Size = New System.Drawing.Size(186, 39)
         Me.AppointmentBtn.TabIndex = 2
@@ -195,7 +196,7 @@ Partial Class UcMainMenu
         'PatientRecordsBtn
         '
         Me.PatientRecordsBtn.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.PatientRecordsBtn.Location = New System.Drawing.Point(20, 60)
+        Me.PatientRecordsBtn.Location = New System.Drawing.Point(20, 58)
         Me.PatientRecordsBtn.Name = "PatientRecordsBtn"
         Me.PatientRecordsBtn.Size = New System.Drawing.Size(186, 39)
         Me.PatientRecordsBtn.TabIndex = 1
@@ -206,7 +207,7 @@ Partial Class UcMainMenu
         '
         Me.MM_QuitBtn.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.MM_QuitBtn.ForeColor = System.Drawing.Color.DarkRed
-        Me.MM_QuitBtn.Location = New System.Drawing.Point(20, 378)
+        Me.MM_QuitBtn.Location = New System.Drawing.Point(20, 373)
         Me.MM_QuitBtn.Name = "MM_QuitBtn"
         Me.MM_QuitBtn.Size = New System.Drawing.Size(186, 39)
         Me.MM_QuitBtn.TabIndex = 4
@@ -217,7 +218,7 @@ Partial Class UcMainMenu
         '
         Me.Button2.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Button2.ForeColor = System.Drawing.Color.DarkRed
-        Me.Button2.Location = New System.Drawing.Point(20, 325)
+        Me.Button2.Location = New System.Drawing.Point(20, 318)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(186, 39)
         Me.Button2.TabIndex = 6

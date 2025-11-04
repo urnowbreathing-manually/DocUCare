@@ -233,4 +233,8 @@ Public Class UcPatientRecords
         addForm.ShowDialog()
         LoadPatientsFromDB()
     End Sub
+
+    Private Sub patientLayout_Paint(sender As Object, e As PaintEventArgs) Handles patientLayout.Paint
+
+    End Sub
 End Class
