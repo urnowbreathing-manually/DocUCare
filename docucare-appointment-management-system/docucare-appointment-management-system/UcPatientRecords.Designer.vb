@@ -149,7 +149,7 @@ Partial Class UcPatientRecords
         Me.sortComboBox.FormattingEnabled = True
         Me.sortComboBox.Location = New System.Drawing.Point(414, 49)
         Me.sortComboBox.Name = "sortComboBox"
-        Me.sortComboBox.Size = New System.Drawing.Size(121, 21)
+        Me.sortComboBox.Size = New System.Drawing.Size(177, 21)
         Me.sortComboBox.TabIndex = 17
         '
         'UcPatientRecords

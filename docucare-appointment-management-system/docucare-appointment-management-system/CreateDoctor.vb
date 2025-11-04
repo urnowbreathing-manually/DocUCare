@@ -174,16 +174,25 @@ Public Class CreateDoctor
     End Sub
 
     ' ----- Utility: Force Contact Number to be digits only -----
-    Private Sub ContactNum_TextChanged(sender As Object, e As EventArgs) Handles ContactNum.TextChanged
-        Dim tb As TextBox = DirectCast(sender, TextBox)
-
-        ' Keep only digits
+    Private Sub KeepNumbersOnly(tb As TextBox, maxLength As Integer)
+        Dim caret As Integer = tb.SelectionStart
         tb.Text = System.Text.RegularExpressions.Regex.Replace(tb.Text, "[^\d]", "")
-        ' Limit to 11 characters (e.g., max age 999)
-        If tb.Text.Length > 3 Then
-            tb.Text = tb.Text.Substring(0, 11)
+        If tb.Text.Length > maxLength Then
+            tb.Text = tb.Text.Substring(0, maxLength)
         End If
-        ' Fix cursor position
-        tb.SelectionStart = tb.Text.Length
+        tb.SelectionStart = Math.Min(caret, tb.Text.Length)
+    End Sub
+    Private Sub ContactNum_TextChanged(sender As Object, e As EventArgs) Handles ContactNum.TextChanged
+        'Dim tb As TextBox = DirectCast(sender, TextBox)
+
+        '' Keep only digits
+        'tb.Text = System.Text.RegularExpressions.Regex.Replace(tb.Text, "[^\d]", "")
+        '' Limit to 11 characters (e.g., max age 999)
+        'If tb.Text.Length > 3 Then
+        '    tb.Text = tb.Text.Substring(0, 11)
+        'End If
+        '' Fix cursor position
+        'tb.SelectionStart = tb.Text.Length
+        KeepNumbersOnly(DirectCast(sender, TextBox), 11)
     End Sub
 End Class
