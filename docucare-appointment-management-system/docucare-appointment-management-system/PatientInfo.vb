@@ -181,4 +181,16 @@
 
     Private Sub EmContactName_Lbl_Click(sender As Object, e As EventArgs) Handles EmContactName_Lbl.Click
     End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub Button1_Click_1(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub DeleteBtn_Click(sender As Object, e As EventArgs)
+
+    End Sub
 End Class

@@ -114,7 +114,7 @@ Partial Class PatientInfo
         Me.EditPatientBtn.FlatAppearance.BorderSize = 0
         Me.EditPatientBtn.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.EditPatientBtn.ForeColor = System.Drawing.SystemColors.Control
-        Me.EditPatientBtn.Location = New System.Drawing.Point(391, 362)
+        Me.EditPatientBtn.Location = New System.Drawing.Point(29, 362)
         Me.EditPatientBtn.Name = "EditPatientBtn"
         Me.EditPatientBtn.Size = New System.Drawing.Size(293, 36)
         Me.EditPatientBtn.TabIndex = 6
@@ -849,10 +849,10 @@ Partial Class PatientInfo
     Friend WithEvents Label20 As Label
     Friend WithEvents Label19 As Label
     Friend WithEvents Label18 As Label
-    Friend WithEvents CloseBtn As Button
     Friend WithEvents Panel1 As Panel
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents Label11 As Label
     Friend WithEvents EmContactRel_Lbl As Label
     Friend WithEvents EmContactName_Lbl As Label
+    Friend WithEvents CloseBtn As Button
 End Class
