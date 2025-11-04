@@ -134,6 +134,15 @@ Public Class UcAppointment
             AddHandler instance.Btn_Consult.Click, AddressOf ConsultHandler
             AddHandler instance.Btn_Payment.Click, AddressOf PaymentHandler
 
+            Select Case currentUser(3)
+                Case "Admin", "Staff"
+                    instance.Btn_Consult.Hide()
+                Case "Doctor"
+                    instance.Btn_Payment.Hide()
+                    instance.Btn_Resched.Hide()
+                    instance.Btn_Cancel.Hide()
+            End Select
+
             AppointmentList.Controls.Add(instance)
         Next
     End Sub
