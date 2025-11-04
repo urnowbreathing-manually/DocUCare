@@ -64,16 +64,32 @@ Public Class ConsultationForm
         ' Convert Date/Time from the labels back to correct types
         Dim pDate As Date
         Dim pTime As TimeSpan
+        'Try
+        '    ' --- FIXED PARSING LOGIC ---
+        '    ' Parse the exact formats we know we are receiving
+        '    pDate = Date.ParseExact(Me.AppointmentDate, "MMddyyyy", CultureInfo.InvariantCulture)
+        '    pTime = DateTime.ParseExact(Me.AppointmentTime, "hh:mm tt", CultureInfo.InvariantCulture).TimeOfDay
+        '    ' --- END FIX ---
+        'Catch ex As Exception
+        '    MessageBox.Show("Error parsing appointment date/time: " & ex.Message, "Data Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        '    Return
+        'End Try
         Try
-            ' --- FIXED PARSING LOGIC ---
-            ' Parse the exact formats we know we are receiving
-            pDate = Date.ParseExact(Me.AppointmentDate, "MMddyyyy", CultureInfo.InvariantCulture)
-            pTime = DateTime.ParseExact(Me.AppointmentTime, "hh:mm tt", CultureInfo.InvariantCulture).TimeOfDay
-            ' --- END FIX ---
+            ' --- FIXED AND FLEXIBLE DATE PARSING ---
+            Dim possibleDateFormats() As String = {"MMddyyyy", "yyyy-MM-dd", "MM/dd/yyyy"}
+            pDate = Date.ParseExact(Me.AppointmentDate, possibleDateFormats, CultureInfo.InvariantCulture, DateTimeStyles.None)
+
+            ' --- FIXED AND FLEXIBLE TIME PARSING ---
+            Dim possibleTimeFormats() As String = {"hh:mm tt", "HH:mm"}
+            pTime = DateTime.ParseExact(Me.AppointmentTime, possibleTimeFormats, CultureInfo.InvariantCulture, DateTimeStyles.None).TimeOfDay
         Catch ex As Exception
-            MessageBox.Show("Error parsing appointment date/time: " & ex.Message, "Data Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Error parsing appointment date/time: " & ex.Message & vbCrLf &
+                    "Raw Date: " & Me.AppointmentDate & vbCrLf &
+                    "Raw Time: " & Me.AppointmentTime,
+                    "Data Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         End Try
+
 
         ' Verify we have the required IDs
         If Me.AppointmentID <= 0 Or String.IsNullOrWhiteSpace(PatientID) Or String.IsNullOrWhiteSpace(DoctorVID) Then
@@ -99,8 +115,8 @@ Public Class ConsultationForm
             MessageBox.Show("Consultation Saved to Database", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
 
-            ' As a final step, update the original appointment status to "Completed"
-            db.UpdateAppointmentStatus(Me.AppointmentID, "Done")
+            'Status will be Pending when Consultation is made
+            db.UpdateAppointmentStatus(Me.AppointmentID, "Pending")
 
             Me.Close()
         Else

@@ -20,6 +20,7 @@ Public Class UcAppointment
         Public Property Notes As String
         Public Property PatientID As String
         Public Property DoctorVID As String
+        Public Property Status As String
     End Class
 
     ' --- CONSTRUCTOR ---
@@ -55,12 +56,10 @@ Public Class UcAppointment
         LoadAppointmentsFromDB()
 
         Select Case DataStore.currentUser(3).ToLower()
-            Case "admin"
+            Case "admin", "staff"
                 addAppointmentBtn.Show()
             Case "doctor"
                 addAppointmentBtn.Hide()
-            Case "staff"
-                addAppointmentBtn.Show()
         End Select
     End Sub
 
@@ -89,7 +88,8 @@ Public Class UcAppointment
                     .Time = row.Field(Of String)("time"),
                     .Notes = row.Field(Of String)("notes"),
                     .PatientID = row.Field(Of String)("patient_id"),
-                    .DoctorVID = row.Field(Of String)("Verified_ID")
+                    .DoctorVID = row.Field(Of String)("Verified_ID"),
+                    .Status = row.Field(Of String)("status")
                 }
                 allAppointments.Add(app)
             Next
@@ -122,12 +122,13 @@ Public Class UcAppointment
             instance.Doctor_Name_Placeholder.Text = a.Doctor
             instance.Date_Placeholder.Text = a.Date
             instance.Time_Placeholder.Text = TryFormatTime(a.Time)
+            instance.Status_Placeholder.Text = a.Status
 
-            ' Attach full data object to the Consult button
+            ' Pass appointment data
             instance.Btn_Consult.Tag = a
 
-            ' 🔹 Attach event handler for Consult click
-            AddHandler instance.Btn_Consult.Click, AddressOf Consult
+            ' 🔹 Attach handler ONLY once
+            AddHandler instance.Btn_Consult.Click, AddressOf ConsultHandler
 
             AppointmentList.Controls.Add(instance)
         Next
@@ -183,47 +184,40 @@ Public Class UcAppointment
         Select Case selected
             Case "Appointment ID (Asc)"
                 filteredAppointments = filteredAppointments.OrderBy(Function(a) a.AppointmentID).ToList()
-
             Case "Appointment ID (Desc)"
                 filteredAppointments = filteredAppointments.OrderByDescending(Function(a) a.AppointmentID).ToList()
-
             Case "Patient Name (A–Z)"
                 filteredAppointments = filteredAppointments.OrderBy(Function(a) a.Patient).ToList()
-
             Case "Patient Name (Z–A)"
                 filteredAppointments = filteredAppointments.OrderByDescending(Function(a) a.Patient).ToList()
-
             Case "Date (Asc)"
                 filteredAppointments = filteredAppointments.OrderBy(Function(a)
                                                                         Try
-                                                                            Return Date.ParseExact(a.Date, "MMddyyyy", CultureInfo.InvariantCulture)
+                                                                            Return Date.Parse(a.Date)
                                                                         Catch
                                                                             Return Date.MinValue
                                                                         End Try
                                                                     End Function).ToList()
-
             Case "Date (Desc)"
                 filteredAppointments = filteredAppointments.OrderByDescending(Function(a)
                                                                                   Try
-                                                                                      Return Date.ParseExact(a.Date, "MMddyyyy", CultureInfo.InvariantCulture)
+                                                                                      Return Date.Parse(a.Date)
                                                                                   Catch
                                                                                       Return Date.MinValue
                                                                                   End Try
                                                                               End Function).ToList()
-
             Case "Time (Asc)"
                 filteredAppointments = filteredAppointments.OrderBy(Function(a)
                                                                         Try
-                                                                            Return DateTime.ParseExact(a.Time, "HH:mm", CultureInfo.InvariantCulture)
+                                                                            Return DateTime.Parse(a.Time)
                                                                         Catch
                                                                             Return Date.MinValue
                                                                         End Try
                                                                     End Function).ToList()
-
             Case "Time (Desc)"
                 filteredAppointments = filteredAppointments.OrderByDescending(Function(a)
                                                                                   Try
-                                                                                      Return DateTime.ParseExact(a.Time, "HH:mm", CultureInfo.InvariantCulture)
+                                                                                      Return DateTime.Parse(a.Time)
                                                                                   Catch
                                                                                       Return Date.MinValue
                                                                                   End Try
@@ -231,42 +225,51 @@ Public Class UcAppointment
         End Select
     End Sub
 
-    ' --- CONSULT LOGIC (FROM ORIGINAL CODE) ---
-    Public Shared Sub Consult(sender As Object, e As EventArgs)
+    ' --- CONSULT HANDLER ---
+    Private Sub ConsultHandler(sender As Object, e As EventArgs)
         Dim btn As Button = DirectCast(sender, Button)
         Dim data As AppointmentData = DirectCast(btn.Tag, AppointmentData)
 
         Dim appointmentDate As Date
         Try
-            appointmentDate = Date.ParseExact(data.Date, "MMddyyyy", CultureInfo.InvariantCulture)
-        Catch ex As Exception
             appointmentDate = Date.Parse(data.Date)
+        Catch
+            appointmentDate = Date.Now
         End Try
 
-        Dim today As Date = Date.Now.Date
-
-        If today < appointmentDate Then
+        If Date.Now.Date < appointmentDate Then
             Dim result As DialogResult = MessageBox.Show(
                 $"This appointment is scheduled for {appointmentDate.ToShortDateString()}. Do you want to consult early?",
                 "Consult Early",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question
             )
-
             If result = DialogResult.No Then Return
         End If
 
         ' --- OPEN CONSULTATION FORM ---
-        Dim form As New ConsultationForm()
-        form.PatientName = data.Patient
-        form.DoctorName = data.Doctor
-        form.AppointmentDate = data.Date
-        form.AppointmentTime = data.Time
-        form.Notes = data.Notes
-        form.AppointmentID = data.AppointmentID
-        form.PatientID = data.PatientID
-        form.DoctorVID = data.DoctorVID
+        Dim form As New ConsultationForm() With {
+            .PatientName = data.Patient,
+            .DoctorName = data.Doctor,
+            .AppointmentDate = data.Date,
+            .AppointmentTime = data.Time,
+            .Notes = data.Notes,
+            .AppointmentID = data.AppointmentID,
+            .PatientID = data.PatientID,
+            .DoctorVID = data.DoctorVID
+        }
+
+        ' When form closes, refresh list to show updated status
+        AddHandler form.FormClosed, Sub() LoadAppointmentsFromDB()
 
         form.ShowDialog()
     End Sub
+
+    Private Sub NavbarMenu_Click(sender As Object, e As EventArgs) Handles NavbarMenu.Click
+        MainContentPanel.Controls.Clear()
+        Dim addMainMenu As New UcMainMenu(MainContentPanel)
+        addMainMenu.Dock = DockStyle.Fill
+        MainContentPanel.Controls.Add(addMainMenu)
+    End Sub
+
 End Class

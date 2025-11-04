@@ -232,7 +232,8 @@ Public Class AddAppointment
         SelectedNotes = Notes.Text
 
         Try
-            Me.NewAppointmentID = db.InsertAppointment(SelectedPatient, SelectedPatientID, SelectedDoctor, SelectedDoctorVID, SelectedDate, SelectedTime, "On-Going", SelectedNotes, 0)
+            'status will be queued by default when appointment is created
+            Me.NewAppointmentID = db.InsertAppointment(SelectedPatient, SelectedPatientID, SelectedDoctor, SelectedDoctorVID, SelectedDate, SelectedTime, "Queued", SelectedNotes, 0)
             If Me.NewAppointmentID > 0 Then
                 MessageBox.Show("Appointment saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Me.DialogResult = DialogResult.OK

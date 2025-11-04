@@ -3,7 +3,7 @@
 
     ' Consult Button
     Private Sub Btn_Consult_Click(sender As Object, e As EventArgs) Handles Btn_Consult.Click
-        UcAppointment.Consult(sender, e)
+        'UcAppointment.Consult(sender, e)
     End Sub
 
     ' Payment Button
