@@ -218,7 +218,8 @@ Public Class UcPatientRecords
             Return
         End If
 
-        MessageBox.Show(String.Join(vbCrLf, parts), "Debug: Passed Values")
+        'debug messagebox
+        'MessageBox.Show(String.Join(vbCrLf, parts), "Debug: Passed Values")
         UcMainMenu.patientInfo = String.Join("|", parts)
 
         Dim infoForm As New PatientInfo()
