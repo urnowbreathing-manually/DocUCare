@@ -17,6 +17,27 @@ Public Class UcAuthForm
         PasswordToggleLabel.Cursor = Cursors.Hand
     End Sub
 
+    Private Sub Btn_Debug_Click(sender As Object, e As EventArgs) Handles Btn_Debug.Click
+        Dim result As DialogResult = MessageBox.Show("Login As?" & vbCrLf & "       Yes: Admin" & vbCrLf & "       No: Doctor" & vbCrLf & " Cancel: Staff", "Quick Login", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information)
+        Select Case result
+            Case DialogResult.Yes
+                UserName.Text = "Wion M. Quintela"
+                Password.Text = "adminpass"
+                VerifiedID.Text = "00001-AD"
+                LoginBtn_Click(sender, e)
+            Case DialogResult.No
+                UserName.Text = "Andrei I. Zantua"
+                Password.Text = "doctor456"
+                VerifiedID.Text = "00002-DR"
+                LoginBtn_Click(sender, e)
+            Case DialogResult.Cancel
+                UserName.Text = "Kael Rivera"
+                Password.Text = "staff789"
+                VerifiedID.Text = "00001-ST"
+                LoginBtn_Click(sender, e)
+        End Select
+    End Sub
+
     Private Sub LoginBtn_Click(sender As Object, e As EventArgs) Handles LoginBtn.Click
         DataStore.currentUser = {"", "", "", ""}
 
@@ -93,7 +114,4 @@ Public Class UcAuthForm
         PasswordToggleLabel.Visible = False
     End Sub
 
-    Private Sub PasswordToggleLabel_Click_1(sender As Object, e As EventArgs) Handles PasswordToggleLabel.Click
-
-    End Sub
 End Class

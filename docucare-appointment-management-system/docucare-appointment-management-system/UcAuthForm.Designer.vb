@@ -36,6 +36,7 @@ Partial Class UcAuthForm
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.Btn_Debug = New System.Windows.Forms.Button()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
@@ -55,6 +56,7 @@ Partial Class UcAuthForm
         '
         Me.Panel2.BackColor = System.Drawing.Color.WhiteSmoke
         Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel2.Controls.Add(Me.Btn_Debug)
         Me.Panel2.Controls.Add(Me.PasswordToggleLabel)
         Me.Panel2.Controls.Add(Me.VerifiedID)
         Me.Panel2.Controls.Add(Me.Label3)
@@ -160,6 +162,21 @@ Partial Class UcAuthForm
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
         Me.ContextMenuStrip1.Size = New System.Drawing.Size(61, 4)
         '
+        'Btn_Debug
+        '
+        Me.Btn_Debug.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Btn_Debug.BackColor = System.Drawing.SystemColors.HotTrack
+        Me.Btn_Debug.FlatAppearance.BorderColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Btn_Debug.FlatAppearance.BorderSize = 0
+        Me.Btn_Debug.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Btn_Debug.ForeColor = System.Drawing.SystemColors.Control
+        Me.Btn_Debug.Location = New System.Drawing.Point(10, 460)
+        Me.Btn_Debug.Name = "Btn_Debug"
+        Me.Btn_Debug.Size = New System.Drawing.Size(140, 36)
+        Me.Btn_Debug.TabIndex = 16
+        Me.Btn_Debug.Text = "Quick Login (Debug)"
+        Me.Btn_Debug.UseVisualStyleBackColor = False
+        '
         'UcAuthForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -188,4 +205,5 @@ Partial Class UcAuthForm
     Friend WithEvents VerifiedID As TextBox
     Friend WithEvents Label3 As Label
     Friend WithEvents PasswordToggleLabel As Label
+    Friend WithEvents Btn_Debug As Button
 End Class
