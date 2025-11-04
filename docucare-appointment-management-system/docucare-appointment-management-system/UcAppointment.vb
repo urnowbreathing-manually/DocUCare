@@ -142,58 +142,22 @@ Public Class UcAppointment
     Private Sub AddAppointmentToList(patient As String, doctor As String, [date] As String, time As String, notes As String, apptID As Integer, patID As String, docVID As String)
         Dim Appointment_Instance As New Appointment_Instance()
 
+        ' Role specific controls
+        If currentUser(3) = "Admin" Then
+            Appointment_Instance.Btn_Consult.Hide()
+        ElseIf currentUser(3) = "Doctor" Then
+            Appointment_Instance.Btn_Payment.Hide()
+            Appointment_Instance.Btn_Resched.Hide()
+            Appointment_Instance.Btn_Cancel.Hide()
+        ElseIf currentUser(3) = "Staff" Then
+            Appointment_Instance.Btn_Consult.Hide()
+        End If
 
-
-
-        'appointmentPanel.Width = AppointmentList.Width - 40
-        'appointmentPanel.Height = 120
-        'appointmentPanel.Margin = New Padding(10)
-        'appointmentPanel.Padding = New Padding(15)
-
-        'appointmentPanel.BackColor = Color.White
-        'appointmentPanel.BorderStyle = BorderStyle.FixedSingle
-
-        ' Layout container for info + button
-        'Dim layout As New TableLayoutPanel()
-        ''layout.BorderStyle = BorderStyle.FixedSingle
-        'layout.Dock = DockStyle.Fill
-        'layout.ColumnCount = 4
-        'layout.RowCount = 1
-        'layout.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 75))
-        'layout.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 25))
-
-        'layout.RowStyles.Add(New RowStyle(SizeType.Percent, 100))
-        'layout.Padding = New Padding(5)
-
-        '' Inner table for text details
-        'Dim tbl As New TableLayoutPanel()
-        'tbl.Dock = DockStyle.Fill
-        'tbl.ColumnCount = 2
-        'tbl.RowCount = 5
-        'tbl.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 35))
-        'tbl.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 65))
-        'For i = 1 To 5
-        '    tbl.RowStyles.Add(New RowStyle(SizeType.Absolute, 20))
-        'Next
-
-        'tbl.Controls.Add(New Label() With {.Text = "Patient:", .Font = New Font("Segoe UI", 9, FontStyle.Bold), .AutoSize = True}, 0, 0)
-        'tbl.Controls.Add(New Label() With {.Text = patient, .AutoSize = True}, 1, 0)
+        ' Patient info placeholders
         Appointment_Instance.Patient_Name_Placeholder.Text = patient
-
-        'tbl.Controls.Add(New Label() With {.Text = "Doctor:", .Font = New Font("Segoe UI", 9, FontStyle.Bold), .AutoSize = True}, 0, 1)
-        'tbl.Controls.Add(New Label() With {.Text = doctor, .AutoSize = True}, 1, 1)
         Appointment_Instance.Doctor_Name_Placeholder.Text = doctor
-
-        'tbl.Controls.Add(New Label() With {.Text = "Date:", .Font = New Font("Segoe UI", 9, FontStyle.Bold), .AutoSize = True}, 0, 2)
-        'tbl.Controls.Add(New Label() With {.Text = [date], .AutoSize = True}, 1, 2)
         Appointment_Instance.Date_Placeholder.Text = [date]
-
-        'tbl.Controls.Add(New Label() With {.Text = "Time:", .Font = New Font("Segoe UI", 9, FontStyle.Bold), .AutoSize = True}, 0, 3)
-        'tbl.Controls.Add(New Label() With {.Text = time, .AutoSize = True}, 1, 3)
         Appointment_Instance.Time_Placeholder.Text = time
-
-        'tbl.Controls.Add(New Label() With {.Text = "Notes:", .Font = New Font("Segoe UI", 9, FontStyle.Bold), .AutoSize = True}, 0, 4)
-        'tbl.Controls.Add(New Label() With {.Text = notes, .AutoSize = True}, 1, 4)
 
         ' --- MODIFIED: Create AppointmentData object and assign all data to Tag ---
         Dim info As New AppointmentData With {
@@ -208,95 +172,21 @@ Public Class UcAppointment
         }
 
         Appointment_Instance.Btn_Consult.Tag = info
-
-        ' --- END MODIFICATION ---
-        '' "consult" button
-        'dim btnconsult as new button()
-        'btnconsult.text = "consult"
-        'btnconsult.backcolor = color.blue
-        'btnconsult.forecolor = color.white
-        'btnconsult.font = new font("microsoft sans serif", 7.0, fontstyle.bold)
-        'btnconsult.flatstyle = flatstyle.standard
-        'btnconsult.flatappearance.bordersize = 0
-        ''btnconsult.dock = dockstyle.fill
-        'btnconsult.margin = new padding(10)
-        'btnconsult.tag = info ' the 'info' object now contains all ids
-        'btnconsult.width = 60
-        'btnconsult.height = 30
-
-        'addhandler btnconsult.click, addressof consultbutton_click
-
-        '' "Payment" button
-        'Dim btnPayment As New Button()
-        'btnPayment.Text = "Payment"
-        'btnPayment.BackColor = Color.Blue
-        'btnPayment.ForeColor = Color.White
-        'btnPayment.Font = New Font("Microsoft Sans Serif", 6.75, FontStyle.Bold)
-        'btnPayment.FlatStyle = FlatStyle.Standard
-        'btnPayment.FlatAppearance.BorderSize = 0
-        ''btnPayment.Dock = DockStyle.Fill
-        'btnPayment.Margin = New Padding(10)
-        'btnPayment.Tag = info ' The 'info' object now contains all IDs
-        'btnPayment.Width = 60
-        'btnPayment.Height = 30
-
-        'AddHandler btnPayment.Click, AddressOf btnPayment_Click
-
-        '' "Modify" button
-        'Dim btnModify As New Button()
-        'btnModify.Text = "Modify"
-        'btnModify.BackColor = Color.Blue
-        'btnModify.ForeColor = Color.White
-        'btnModify.Font = New Font("Microsoft Sans Serif", 7.0, FontStyle.Bold)
-        'btnModify.FlatStyle = FlatStyle.Standard
-        'btnModify.FlatAppearance.BorderSize = 0
-        ''btnModify.Dock = DockStyle.Fill
-        'btnModify.Margin = New Padding(10)
-        'btnModify.Tag = info ' The 'info' object now contains all IDs
-        'btnModify.Width = 60
-        'btnModify.Height = 30
-
-        'AddHandler btnModify.Click, AddressOf ConsultButton_Click
-
-
-
-        '' Add controls
-        'Layout.Controls.Add(tbl, 0, 0)
-
-        'layout.Controls.Add(btnConsult, 3, 0)
-        'layout.Controls.Add(btnPayment, 2, 0)
-        'layout.Controls.Add(btnModify, 1, 0)
-        'appointmentPanel.Controls.Add(layout)
+        Appointment_Instance.Btn_Payment.Tag = info
+        Appointment_Instance.Btn_Resched.Tag = info
+        Appointment_Instance.Btn_Cancel.Tag = info
 
         ' Check if a "No appointments" label is present and remove it
         If AppointmentList.Controls.Count = 1 AndAlso TypeOf AppointmentList.Controls(0) Is Label Then
             AppointmentList.Controls.Clear()
         End If
 
-        'AppointmentList.Controls.Add(appointmentPanel)
         AppointmentList.Controls.Add(Appointment_Instance)
-
-        If currentUser(3) = "admin" Then
-            Appointment_Instance.Btn_Consult.Show()
-            Appointment_Instance.Btn_Payment.Show()
-            Appointment_Instance.Btn_Resched.Show()
-            Appointment_Instance.Btn_Cancel.Show()
-        ElseIf currentUser(3) = "doctor" Then
-            Appointment_Instance.Btn_Consult.Show()
-            Appointment_Instance.Btn_Payment.Hide()
-            Appointment_Instance.Btn_Resched.Hide()
-            Appointment_Instance.Btn_Cancel.Hide()
-        ElseIf currentUser(3) = "staff" Then
-            Appointment_Instance.Btn_Consult.Hide()
-            Appointment_Instance.Btn_Payment.Show()
-            Appointment_Instance.Btn_Resched.Show()
-            Appointment_Instance.Btn_Cancel.Show()
-        End If
 
     End Sub
 
     ' --- MODIFIED: Handle Consult button click ---
-    Public Shared Sub Consult(sender As Object, e As EventArgs)
+    Public Shared Sub ConsultationForm_Show(sender As Object, e As EventArgs)
         Dim btn As Button = DirectCast(sender, Button)
         Dim data As AppointmentData = DirectCast(btn.Tag, AppointmentData) ' Get all data
 
@@ -343,9 +233,23 @@ Public Class UcAppointment
         ' --- END MODIFICATION ---
     End Sub
 
-    Private Sub btnPayment_Click(sender As Object, e As EventArgs)
+    Public Shared Sub ConsultationFee_Show()
         Dim form As New ConsulationFee()
         form.ShowDialog()
+    End Sub
+
+    Public Shared Sub CancelAppointment(sender As Object, e As EventArgs)
+        Dim btn As Button = DirectCast(sender, Button)
+        Dim data As AppointmentData = DirectCast(btn.Tag, AppointmentData) ' Get all data
+
+        Dim result As DialogResult = MessageBox.Show("Confirm cancel appointment of " & data.Patient & "?", "Cancel Appointment", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+
+        If result = DialogResult.Yes Then
+            MessageBox.Show("Appointment successfully cancelled!", "Cancel Appointment", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            'db.DeleteAppointment(data.AppointmentID, data.Patient)
+        End If
+
     End Sub
 
 End Class

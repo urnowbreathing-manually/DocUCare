@@ -239,10 +239,11 @@ Public Class DBHandler
         Return ExecuteNonQueryWithParameters(sql, parameters) > 0
     End Function
 
-    Public Function DeleteAppointment(appointmentID As Integer) As Boolean
-        Dim sql As String = "DELETE FROM appointments WHERE appointment_id = @appointmentID"
+    Public Function DeleteAppointment(appointmentID As Integer, patientname As String) As Boolean
+        Dim sql As String = "DELETE FROM appointments WHERE (appointment_id = @appointmentID) AND (patient_name = @patientName)"
         Dim parameters As New Dictionary(Of String, Object) From {
-            {"@appointmentID", appointmentID}
+            {"@appointmentID", appointmentID},
+            {"@patientName", patientname}
         }
         Return DeleteWithParameters("appointments", "appointment_id = @appointmentID", parameters)
     End Function
