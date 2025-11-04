@@ -124,11 +124,15 @@ Public Class UcAppointment
             instance.Time_Placeholder.Text = TryFormatTime(a.Time)
             instance.Status_Placeholder.Text = a.Status
 
-            ' Pass appointment data
+            ' Tag appointment data for both buttons
             instance.Btn_Consult.Tag = a
+            instance.Btn_Payment.Tag = a
 
-            ' 🔹 Attach handler ONLY once
+            ' Attach handlers (prevent duplicates)
+            RemoveHandler instance.Btn_Consult.Click, AddressOf ConsultHandler
+            RemoveHandler instance.Btn_Payment.Click, AddressOf PaymentHandler
             AddHandler instance.Btn_Consult.Click, AddressOf ConsultHandler
+            AddHandler instance.Btn_Payment.Click, AddressOf PaymentHandler
 
             AppointmentList.Controls.Add(instance)
         Next
@@ -259,12 +263,32 @@ Public Class UcAppointment
             .DoctorVID = data.DoctorVID
         }
 
-        ' When form closes, refresh list to show updated status
+        ' Refresh appointments after consultation
         AddHandler form.FormClosed, Sub() LoadAppointmentsFromDB()
-
         form.ShowDialog()
     End Sub
 
+    ' --- PAYMENT HANDLER (NEW) ---
+    ' --- PAYMENT HANDLER ---
+    Private Sub PaymentHandler(sender As Object, e As EventArgs)
+        Dim btn As Button = DirectCast(sender, Button)
+        Dim data As AppointmentData = DirectCast(btn.Tag, AppointmentData)
+
+        ' Open the fee form and pass details
+        Dim form As New ConsulationFee(
+        data.AppointmentID,
+        data.Patient,
+        data.Date,
+        data.Time
+    )
+
+        ' Refresh appointment list after closing
+        AddHandler form.FormClosed, Sub() LoadAppointmentsFromDB()
+        form.ShowDialog()
+    End Sub
+
+
+    ' --- NAVBAR MENU ---
     Private Sub NavbarMenu_Click(sender As Object, e As EventArgs) Handles NavbarMenu.Click
         MainContentPanel.Controls.Clear()
         Dim addMainMenu As New UcMainMenu(MainContentPanel)
