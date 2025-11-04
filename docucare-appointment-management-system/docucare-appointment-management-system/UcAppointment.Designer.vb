@@ -92,9 +92,9 @@ Partial Class UcAppointment
         '
         Me.AppointmentList.BackColor = System.Drawing.Color.WhiteSmoke
         Me.AppointmentList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.AppointmentList.Location = New System.Drawing.Point(3, 9)
+        Me.AppointmentList.Location = New System.Drawing.Point(10, 10)
         Me.AppointmentList.Name = "AppointmentList"
-        Me.AppointmentList.Size = New System.Drawing.Size(533, 377)
+        Me.AppointmentList.Size = New System.Drawing.Size(530, 380)
         Me.AppointmentList.TabIndex = 14
         '
         'addAppointmentBtn

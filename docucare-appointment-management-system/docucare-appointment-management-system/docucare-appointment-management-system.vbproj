@@ -89,6 +89,12 @@
     <Compile Include="AddPatient.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Appointment_Instance.Designer.vb">
+      <DependentUpon>Appointment_Instance.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Appointment_Instance.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ConsulationFee.Designer.vb">
       <DependentUpon>ConsulationFee.vb</DependentUpon>
     </Compile>
@@ -198,6 +204,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddPatient.resx">
       <DependentUpon>AddPatient.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Appointment_Instance.resx">
+      <DependentUpon>Appointment_Instance.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConsulationFee.resx">
       <DependentUpon>ConsulationFee.vb</DependentUpon>

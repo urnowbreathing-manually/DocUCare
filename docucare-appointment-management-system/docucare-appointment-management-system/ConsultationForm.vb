@@ -123,35 +123,4 @@ Public Class ConsultationForm
         End If
     End Sub
 
-    Private Sub FlowPanelPrescriptions_Paint(sender As Object, e As PaintEventArgs)
-
-    End Sub
-
-    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles lblPatient.Click
-
-    End Sub
-
-    Private Sub Label11_Click(sender As Object, e As EventArgs) Handles lblNotes.Click
-
-    End Sub
-
-    Private Sub DrugPrescriptionNotes_TextChanged(sender As Object, e As EventArgs) Handles DrugPrescriptionNotes.TextChanged
-
-    End Sub
-
-    Private Sub Label32_Click(sender As Object, e As EventArgs) Handles Label32.Click
-
-    End Sub
-
-    Private Sub Label33_Click(sender As Object, e As EventArgs) Handles Label33.Click
-
-    End Sub
-
-    Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
-
-    End Sub
-
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
-
-    End Sub
 End Class
