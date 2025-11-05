@@ -84,6 +84,9 @@ Public Class AddAppointment
         TimeVal.CustomFormat = "hh:mm tt"
         TimeVal.ShowUpDown = True
 
+        ' 🚫 Prevent selecting past dates
+        DateVal.MinDate = DateTime.Today
+
         DateVal.Enabled = False
         TimeVal.Enabled = False
         patientDropDown.SelectedIndex = -1
@@ -95,40 +98,28 @@ Public Class AddAppointment
         Dim combo As ComboBox = DirectCast(sender, ComboBox)
         Dim text As String = combo.Text.Trim().ToLower()
 
-        ' Store current text before refreshing
         Dim currentText As String = combo.Text
         Dim cursorPos As Integer = combo.SelectionStart
 
-        ' Get matching patients without causing lag
         Dim filtered = allPatients.
         Where(Function(p) p.Name.ToLower().Contains(text)).
-        Take(20). ' safety cap
+        Take(20).
         ToList()
 
-        ' Prevent constant redraw flicker
         combo.BeginUpdate()
         combo.Items.Clear()
-
-        ' Add filtered results
         For Each p In filtered
             combo.Items.Add(p)
         Next
-
         combo.EndUpdate()
 
-        ' Keep dropdown open with filtered list
         combo.DroppedDown = filtered.Count > 0
-
-        ' Restore typed text without auto-replace
         combo.Text = currentText
         combo.SelectionStart = cursorPos
         combo.SelectionLength = 0
-
         Cursor.Current = Cursors.Default
     End Sub
 
-
-    ' Only allow valid patient names from list when leaving the ComboBox
     Private Sub patientDropDown_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles patientDropDown.Validating
         Dim inputName As String = patientDropDown.Text.Trim().ToLower()
         Dim match = allPatients.FirstOrDefault(Function(p) p.Name.ToLower() = inputName)
@@ -207,6 +198,12 @@ Public Class AddAppointment
 
     ' ---------------- SAVE BUTTON ----------------
     Private Sub Save_Click(sender As Object, e As EventArgs) Handles Save.Click
+        ' 🚫 Block saving past dates (safety check)
+        If DateVal.Value.Date < DateTime.Today Then
+            MessageBox.Show("You cannot schedule an appointment in the past.", "Invalid Date", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
         If patientDropDown.SelectedItem Is Nothing OrElse Not TypeOf patientDropDown.SelectedItem Is PatientItem Then
             MessageBox.Show("Please select a valid patient.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
@@ -232,7 +229,6 @@ Public Class AddAppointment
         SelectedNotes = Notes.Text
 
         Try
-            'status will be queued by default when appointment is created
             Me.NewAppointmentID = db.InsertAppointment(SelectedPatient, SelectedPatientID, SelectedDoctor, SelectedDoctorVID, SelectedDate, SelectedTime, "Queued", SelectedNotes, 0)
             If Me.NewAppointmentID > 0 Then
                 MessageBox.Show("Appointment saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
