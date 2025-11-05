@@ -25,6 +25,11 @@ Public Class UcPatientRecords
         sortComboBox.SelectedIndex = 0 ' Default sort A–Z
         sortComboBox.DropDownStyle = ComboBoxStyle.DropDownList
         LoadPatientsFromDB()
+
+        If currentUser(3) = "Doctor" Then
+            addPatientBtn.Hide()
+        End If
+
     End Sub
 
     Private Sub LoadPatientsFromDB()

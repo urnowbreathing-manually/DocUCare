@@ -10,6 +10,11 @@
 
     Private Sub UcPatientInfo_Load(sender As Object, e As EventArgs) Handles Me.Load
         RefreshUiFromMainMenu()
+
+        If currentUser(3) = "Doctor" Then
+            EditPatientBtn.Hide()
+        End If
+
     End Sub
 
     Public Sub RefreshUiFromMainMenu()
