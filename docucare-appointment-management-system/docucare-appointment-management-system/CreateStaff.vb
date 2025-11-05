@@ -71,22 +71,16 @@
     End Sub
 
     ' Optional: Empty text changed handlers (if you want to add validation later)
+    Private Sub CleanTextOnly(tb As TextBox)
+        tb.Text = System.Text.RegularExpressions.Regex.Replace(tb.Text, "[^a-zA-Z\s]", "")
+        tb.SelectionStart = tb.Text.Length
+    End Sub
+
     Private Sub FirstName_TextChanged(sender As Object, e As EventArgs) Handles FirstName.TextChanged
+        CleanTextOnly(DirectCast(sender, TextBox))
     End Sub
 
     Private Sub LastName_TextChanged(sender As Object, e As EventArgs) Handles LastName.TextChanged
-    End Sub
-
-    Private Sub Password_TextChanged(sender As Object, e As EventArgs) Handles Password.TextChanged
-    End Sub
-
-    Private Sub ConfirmPassword_TextChanged(sender As Object, e As EventArgs) Handles ConfirmPassword.TextChanged
-    End Sub
-
-    Private Sub VerificationID_TextChanged(sender As Object, e As EventArgs) Handles VerificationID.TextChanged
-    End Sub
-
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
-
+        CleanTextOnly(DirectCast(sender, TextBox))
     End Sub
 End Class

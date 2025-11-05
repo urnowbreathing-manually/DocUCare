@@ -183,16 +183,19 @@ Public Class CreateDoctor
         tb.SelectionStart = Math.Min(caret, tb.Text.Length)
     End Sub
     Private Sub ContactNum_TextChanged(sender As Object, e As EventArgs) Handles ContactNum.TextChanged
-        'Dim tb As TextBox = DirectCast(sender, TextBox)
-
-        '' Keep only digits
-        'tb.Text = System.Text.RegularExpressions.Regex.Replace(tb.Text, "[^\d]", "")
-        '' Limit to 11 characters (e.g., max age 999)
-        'If tb.Text.Length > 3 Then
-        '    tb.Text = tb.Text.Substring(0, 11)
-        'End If
-        '' Fix cursor position
-        'tb.SelectionStart = tb.Text.Length
         KeepNumbersOnly(DirectCast(sender, TextBox), 11)
+    End Sub
+
+    Private Sub CleanTextOnly(tb As TextBox)
+        tb.Text = System.Text.RegularExpressions.Regex.Replace(tb.Text, "[^a-zA-Z\s]", "")
+        tb.SelectionStart = tb.Text.Length
+    End Sub
+
+    Private Sub FirstName_TextChanged(sender As Object, e As EventArgs) Handles FirstName.TextChanged
+        CleanTextOnly(DirectCast(sender, TextBox))
+    End Sub
+
+    Private Sub LastName_TextChanged(sender As Object, e As EventArgs) Handles LastName.TextChanged
+        CleanTextOnly(DirectCast(sender, TextBox))
     End Sub
 End Class
