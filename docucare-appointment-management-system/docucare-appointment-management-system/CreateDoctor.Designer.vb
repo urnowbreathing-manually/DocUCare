@@ -106,7 +106,7 @@ Partial Class CreateDoctor
         'FirstName
         '
         Me.FirstName.Location = New System.Drawing.Point(22, 86)
-        Me.FirstName.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.FirstName.Margin = New System.Windows.Forms.Padding(4)
         Me.FirstName.Name = "FirstName"
         Me.FirstName.Size = New System.Drawing.Size(519, 22)
         Me.FirstName.TabIndex = 1
@@ -114,7 +114,7 @@ Partial Class CreateDoctor
         'LastName
         '
         Me.LastName.Location = New System.Drawing.Point(22, 146)
-        Me.LastName.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.LastName.Margin = New System.Windows.Forms.Padding(4)
         Me.LastName.Name = "LastName"
         Me.LastName.Size = New System.Drawing.Size(519, 22)
         Me.LastName.TabIndex = 2
@@ -142,7 +142,7 @@ Partial Class CreateDoctor
         'Password
         '
         Me.Password.Location = New System.Drawing.Point(22, 207)
-        Me.Password.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Password.Margin = New System.Windows.Forms.Padding(4)
         Me.Password.Name = "Password"
         Me.Password.Size = New System.Drawing.Size(519, 22)
         Me.Password.TabIndex = 3
@@ -150,7 +150,7 @@ Partial Class CreateDoctor
         'ConfirmPassword
         '
         Me.ConfirmPassword.Location = New System.Drawing.Point(22, 270)
-        Me.ConfirmPassword.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.ConfirmPassword.Margin = New System.Windows.Forms.Padding(4)
         Me.ConfirmPassword.Name = "ConfirmPassword"
         Me.ConfirmPassword.Size = New System.Drawing.Size(519, 22)
         Me.ConfirmPassword.TabIndex = 4
@@ -178,7 +178,7 @@ Partial Class CreateDoctor
         'ContactNum
         '
         Me.ContactNum.Location = New System.Drawing.Point(20, 389)
-        Me.ContactNum.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.ContactNum.Margin = New System.Windows.Forms.Padding(4)
         Me.ContactNum.Name = "ContactNum"
         Me.ContactNum.Size = New System.Drawing.Size(519, 22)
         Me.ContactNum.TabIndex = 6
@@ -232,7 +232,7 @@ Partial Class CreateDoctor
         Me.TableLayoutPanel1.Controls.Add(Me.checkMonday, 0, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.checkTue, 0, 2)
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(16, 458)
-        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(4)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 8
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5!))
@@ -251,7 +251,7 @@ Partial Class CreateDoctor
         Me.checkSun.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.checkSun.AutoSize = True
         Me.checkSun.Location = New System.Drawing.Point(5, 269)
-        Me.checkSun.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.checkSun.Margin = New System.Windows.Forms.Padding(4)
         Me.checkSun.Name = "checkSun"
         Me.checkSun.Size = New System.Drawing.Size(18, 20)
         Me.checkSun.TabIndex = 25
@@ -263,7 +263,7 @@ Partial Class CreateDoctor
         Me.checkSat.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.checkSat.AutoSize = True
         Me.checkSat.Location = New System.Drawing.Point(5, 231)
-        Me.checkSat.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.checkSat.Margin = New System.Windows.Forms.Padding(4)
         Me.checkSat.Name = "checkSat"
         Me.checkSat.Size = New System.Drawing.Size(18, 20)
         Me.checkSat.TabIndex = 22
@@ -275,7 +275,7 @@ Partial Class CreateDoctor
         Me.checkFri.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.checkFri.AutoSize = True
         Me.checkFri.Location = New System.Drawing.Point(5, 194)
-        Me.checkFri.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.checkFri.Margin = New System.Windows.Forms.Padding(4)
         Me.checkFri.Name = "checkFri"
         Me.checkFri.Size = New System.Drawing.Size(18, 20)
         Me.checkFri.TabIndex = 19
@@ -287,7 +287,7 @@ Partial Class CreateDoctor
         Me.checkThu.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.checkThu.AutoSize = True
         Me.checkThu.Location = New System.Drawing.Point(5, 157)
-        Me.checkThu.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.checkThu.Margin = New System.Windows.Forms.Padding(4)
         Me.checkThu.Name = "checkThu"
         Me.checkThu.Size = New System.Drawing.Size(18, 20)
         Me.checkThu.TabIndex = 16
@@ -299,7 +299,7 @@ Partial Class CreateDoctor
         Me.checkWed.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.checkWed.AutoSize = True
         Me.checkWed.Location = New System.Drawing.Point(5, 120)
-        Me.checkWed.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.checkWed.Margin = New System.Windows.Forms.Padding(4)
         Me.checkWed.Name = "checkWed"
         Me.checkWed.Size = New System.Drawing.Size(18, 20)
         Me.checkWed.TabIndex = 13
@@ -311,7 +311,7 @@ Partial Class CreateDoctor
         Me.MondayEnd.CustomFormat = "HH:mm tt"
         Me.MondayEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.MondayEnd.Location = New System.Drawing.Point(405, 42)
-        Me.MondayEnd.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.MondayEnd.Margin = New System.Windows.Forms.Padding(4)
         Me.MondayEnd.Name = "MondayEnd"
         Me.MondayEnd.ShowUpDown = True
         Me.MondayEnd.Size = New System.Drawing.Size(113, 22)
@@ -322,7 +322,7 @@ Partial Class CreateDoctor
         Me.TueEnd.CustomFormat = "HH:mm tt"
         Me.TueEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.TueEnd.Location = New System.Drawing.Point(405, 79)
-        Me.TueEnd.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TueEnd.Margin = New System.Windows.Forms.Padding(4)
         Me.TueEnd.Name = "TueEnd"
         Me.TueEnd.ShowUpDown = True
         Me.TueEnd.Size = New System.Drawing.Size(113, 22)
@@ -333,7 +333,7 @@ Partial Class CreateDoctor
         Me.WedEnd.CustomFormat = "HH:mm tt"
         Me.WedEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.WedEnd.Location = New System.Drawing.Point(405, 116)
-        Me.WedEnd.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.WedEnd.Margin = New System.Windows.Forms.Padding(4)
         Me.WedEnd.Name = "WedEnd"
         Me.WedEnd.ShowUpDown = True
         Me.WedEnd.Size = New System.Drawing.Size(113, 22)
@@ -344,7 +344,7 @@ Partial Class CreateDoctor
         Me.ThuEnd.CustomFormat = "HH:mm tt"
         Me.ThuEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.ThuEnd.Location = New System.Drawing.Point(405, 153)
-        Me.ThuEnd.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.ThuEnd.Margin = New System.Windows.Forms.Padding(4)
         Me.ThuEnd.Name = "ThuEnd"
         Me.ThuEnd.ShowUpDown = True
         Me.ThuEnd.Size = New System.Drawing.Size(113, 22)
@@ -355,7 +355,7 @@ Partial Class CreateDoctor
         Me.FridEnd.CustomFormat = "HH:mm tt"
         Me.FridEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.FridEnd.Location = New System.Drawing.Point(405, 190)
-        Me.FridEnd.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.FridEnd.Margin = New System.Windows.Forms.Padding(4)
         Me.FridEnd.Name = "FridEnd"
         Me.FridEnd.ShowUpDown = True
         Me.FridEnd.Size = New System.Drawing.Size(113, 22)
@@ -366,7 +366,7 @@ Partial Class CreateDoctor
         Me.SatEnd.CustomFormat = "HH:mm tt"
         Me.SatEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.SatEnd.Location = New System.Drawing.Point(405, 227)
-        Me.SatEnd.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.SatEnd.Margin = New System.Windows.Forms.Padding(4)
         Me.SatEnd.Name = "SatEnd"
         Me.SatEnd.ShowUpDown = True
         Me.SatEnd.Size = New System.Drawing.Size(113, 22)
@@ -377,7 +377,7 @@ Partial Class CreateDoctor
         Me.SunEnd.CustomFormat = "HH:mm tt"
         Me.SunEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.SunEnd.Location = New System.Drawing.Point(405, 264)
-        Me.SunEnd.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.SunEnd.Margin = New System.Windows.Forms.Padding(4)
         Me.SunEnd.Name = "SunEnd"
         Me.SunEnd.ShowUpDown = True
         Me.SunEnd.Size = New System.Drawing.Size(113, 22)
@@ -498,7 +498,7 @@ Partial Class CreateDoctor
         Me.MondayStart.CustomFormat = "HH:mm tt"
         Me.MondayStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.MondayStart.Location = New System.Drawing.Point(244, 42)
-        Me.MondayStart.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.MondayStart.Margin = New System.Windows.Forms.Padding(4)
         Me.MondayStart.Name = "MondayStart"
         Me.MondayStart.ShowUpDown = True
         Me.MondayStart.Size = New System.Drawing.Size(113, 22)
@@ -509,7 +509,7 @@ Partial Class CreateDoctor
         Me.TueStart.CustomFormat = "HH:mm tt"
         Me.TueStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.TueStart.Location = New System.Drawing.Point(244, 79)
-        Me.TueStart.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TueStart.Margin = New System.Windows.Forms.Padding(4)
         Me.TueStart.Name = "TueStart"
         Me.TueStart.ShowUpDown = True
         Me.TueStart.Size = New System.Drawing.Size(113, 22)
@@ -520,7 +520,7 @@ Partial Class CreateDoctor
         Me.WedStart.CustomFormat = "HH:mm tt"
         Me.WedStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.WedStart.Location = New System.Drawing.Point(244, 116)
-        Me.WedStart.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.WedStart.Margin = New System.Windows.Forms.Padding(4)
         Me.WedStart.Name = "WedStart"
         Me.WedStart.ShowUpDown = True
         Me.WedStart.Size = New System.Drawing.Size(113, 22)
@@ -531,7 +531,7 @@ Partial Class CreateDoctor
         Me.ThuStart.CustomFormat = "HH:mm tt"
         Me.ThuStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.ThuStart.Location = New System.Drawing.Point(244, 153)
-        Me.ThuStart.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.ThuStart.Margin = New System.Windows.Forms.Padding(4)
         Me.ThuStart.Name = "ThuStart"
         Me.ThuStart.ShowUpDown = True
         Me.ThuStart.Size = New System.Drawing.Size(113, 22)
@@ -542,7 +542,7 @@ Partial Class CreateDoctor
         Me.FriStart.CustomFormat = "HH:mm tt"
         Me.FriStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.FriStart.Location = New System.Drawing.Point(244, 190)
-        Me.FriStart.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.FriStart.Margin = New System.Windows.Forms.Padding(4)
         Me.FriStart.Name = "FriStart"
         Me.FriStart.ShowUpDown = True
         Me.FriStart.Size = New System.Drawing.Size(113, 22)
@@ -553,7 +553,7 @@ Partial Class CreateDoctor
         Me.SatStart.CustomFormat = "HH:mm tt"
         Me.SatStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.SatStart.Location = New System.Drawing.Point(244, 227)
-        Me.SatStart.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.SatStart.Margin = New System.Windows.Forms.Padding(4)
         Me.SatStart.Name = "SatStart"
         Me.SatStart.ShowUpDown = True
         Me.SatStart.Size = New System.Drawing.Size(113, 22)
@@ -564,7 +564,7 @@ Partial Class CreateDoctor
         Me.SunStart.CustomFormat = "HH:mm tt"
         Me.SunStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.SunStart.Location = New System.Drawing.Point(244, 264)
-        Me.SunStart.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.SunStart.Margin = New System.Windows.Forms.Padding(4)
         Me.SunStart.Name = "SunStart"
         Me.SunStart.ShowUpDown = True
         Me.SunStart.Size = New System.Drawing.Size(113, 22)
@@ -663,7 +663,7 @@ Partial Class CreateDoctor
         Me.checkMonday.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.checkMonday.AutoSize = True
         Me.checkMonday.Location = New System.Drawing.Point(5, 46)
-        Me.checkMonday.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.checkMonday.Margin = New System.Windows.Forms.Padding(4)
         Me.checkMonday.Name = "checkMonday"
         Me.checkMonday.Size = New System.Drawing.Size(18, 20)
         Me.checkMonday.TabIndex = 7
@@ -675,7 +675,7 @@ Partial Class CreateDoctor
         Me.checkTue.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.checkTue.AutoSize = True
         Me.checkTue.Location = New System.Drawing.Point(5, 83)
-        Me.checkTue.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.checkTue.Margin = New System.Windows.Forms.Padding(4)
         Me.checkTue.Name = "checkTue"
         Me.checkTue.Size = New System.Drawing.Size(18, 20)
         Me.checkTue.TabIndex = 10
@@ -701,7 +701,7 @@ Partial Class CreateDoctor
         Me.CreateDoctorBtn.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CreateDoctorBtn.ForeColor = System.Drawing.SystemColors.Control
         Me.CreateDoctorBtn.Location = New System.Drawing.Point(16, 777)
-        Me.CreateDoctorBtn.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.CreateDoctorBtn.Margin = New System.Windows.Forms.Padding(4)
         Me.CreateDoctorBtn.Name = "CreateDoctorBtn"
         Me.CreateDoctorBtn.Size = New System.Drawing.Size(321, 44)
         Me.CreateDoctorBtn.TabIndex = 28
@@ -716,7 +716,7 @@ Partial Class CreateDoctor
         Me.Cancel.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Cancel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Cancel.Location = New System.Drawing.Point(345, 777)
-        Me.Cancel.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Cancel.Margin = New System.Windows.Forms.Padding(4)
         Me.Cancel.Name = "Cancel"
         Me.Cancel.Size = New System.Drawing.Size(209, 44)
         Me.Cancel.TabIndex = 29
@@ -736,7 +736,7 @@ Partial Class CreateDoctor
         'VerificationID
         '
         Me.VerificationID.Location = New System.Drawing.Point(22, 329)
-        Me.VerificationID.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.VerificationID.Margin = New System.Windows.Forms.Padding(4)
         Me.VerificationID.Name = "VerificationID"
         Me.VerificationID.Size = New System.Drawing.Size(519, 22)
         Me.VerificationID.TabIndex = 5
@@ -888,7 +888,7 @@ Partial Class CreateDoctor
         Me.Controls.Add(Me.Label1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "CreateDoctor"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Create Doctor"
