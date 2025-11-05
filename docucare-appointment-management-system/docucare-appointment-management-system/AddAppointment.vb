@@ -198,7 +198,6 @@ Public Class AddAppointment
 
     ' ---------------- SAVE BUTTON ----------------
     Private Sub Save_Click(sender As Object, e As EventArgs) Handles Save.Click
-        ' 🚫 Block saving past dates (safety check)
         If DateVal.Value.Date < DateTime.Today Then
             MessageBox.Show("You cannot schedule an appointment in the past.", "Invalid Date", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
@@ -246,4 +245,42 @@ Public Class AddAppointment
         Me.DialogResult = DialogResult.Cancel
         Me.Close()
     End Sub
+
+    ' ---------------- VIEW PATIENT INFO ----------------
+    Private Sub ViewPatientInfo_Click(sender As Object, e As EventArgs) Handles ViewPatientInfo.Click
+        If patientDropDown.SelectedItem Is Nothing OrElse Not TypeOf patientDropDown.SelectedItem Is PatientItem Then
+            MessageBox.Show("Please select a patient first.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        Dim selectedPatient As PatientItem = CType(patientDropDown.SelectedItem, PatientItem)
+        Dim patientID As String = selectedPatient.ID
+
+        Try
+            ' Fetch full patient info from DB
+            Dim patientTable As DataTable = db.GetPatientByID(patientID)
+            If patientTable Is Nothing OrElse patientTable.Rows.Count = 0 Then
+                MessageBox.Show("Patient info not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return
+            End If
+
+            ' Extract from DataRow using correct column names from your database
+            Dim row As DataRow = patientTable.Rows(0)
+            Dim patientInfoString As String =
+                $"{row("patient_id")}|{row("patient_name")}|{row("age")}|{row("sex")}|{row("contact")}|{row("em_contact")}|{row("em_contact_name")}|{row("em_contact_relationship")}|{row("blood_type")}|{row("allergies")}|{row("medical_conditions")}|{row("height")}|{row("weight")}"
+
+            ' Store globally for PatientInfo form
+            UcMainMenu.patientInfo = patientInfoString
+
+            ' Show PatientInfo form (hide edit button)
+            Dim infoForm As New PatientInfo()
+            infoForm.HideEditButton()
+            infoForm.ShowDialog()
+
+        Catch ex As Exception
+            MessageBox.Show("Error retrieving patient info: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+
 End Class

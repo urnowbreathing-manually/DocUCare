@@ -21,15 +21,12 @@
 
 
         If currentUser = "admin" Then
-            NewDoctorBtn.Visible = True
-            NewStaffBtn.Visible = True
+            PersonnelBtn.Visible = True
+            
         ElseIf currentUser = "doctor" Then
-            AddPatientBtn.Visible = False
-            NewDoctorBtn.Visible = False
-            NewStaffBtn.Visible = False
+            PersonnelBtn.Visible = False
         ElseIf currentUser = "staff" Then
-            NewDoctorBtn.Visible = False
-            NewStaffBtn.Visible = False
+            PersonnelBtn.Visible = False
         End If
         'StartupAnimation() ' Disabled for now, no animation or sound
     End Sub
@@ -121,17 +118,13 @@
 
     End Sub
 
-    Private Sub NewDoctor_Click(sender As Object, e As EventArgs) Handles NewDoctorBtn.Click
-        'test
-        'go to create doctor form
-        Dim form As New CreateDoctor()
-        form.ShowDialog() ' blocks parent until closed
+    Private Sub NewDoctor_Click(sender As Object, e As EventArgs) Handles PersonnelBtn.Click
+        MainContentPanel.Controls.Clear()
+        Dim personnel As New UcPersonnelRecords(MainContentPanel)
+        personnel.Dock = DockStyle.Fill
+        MainContentPanel.Controls.Add(personnel)
     End Sub
 
-    Private Sub NewStaff_Click(sender As Object, e As EventArgs) Handles NewStaffBtn.Click
-        Dim form As New CreateStaff()
-        form.ShowDialog() ' blocks parent until closed
-    End Sub
 
     Private Sub WelcomeText_Click(sender As Object, e As EventArgs) Handles WelcomeText.Click
 
