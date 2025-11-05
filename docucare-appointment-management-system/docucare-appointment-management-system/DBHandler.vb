@@ -200,9 +200,12 @@ Public Class DBHandler
         End Try
     End Function
 
-    Public Function GetAllAppointments() As DataTable
-        Dim sql As String = "SELECT * FROM appointments ORDER BY date DESC, time DESC"
-        Return Read(sql)
+    Public Function GetAppointmentsByDoctor(doctorName As String) As DataTable
+        Dim sql As String = "SELECT * FROM appointments WHERE doctor_name = @doctorName ORDER BY date DESC, time DESC"
+        Dim parameters As New Dictionary(Of String, Object) From {
+            {"@doctorName", doctorName}
+        }
+        Return ReadWithParameters(sql, parameters)
     End Function
 
     Public Function GetAppointmentsByPatientID(patientID As String) As DataTable
@@ -213,7 +216,12 @@ Public Class DBHandler
         Return ReadWithParameters(sql, parameters)
     End Function
 
-    Public Function GetAppointmentsByDoctor(verifiedID As String) As DataTable
+    Public Function GetAllAppointments() As DataTable
+        Dim sql As String = "SELECT * FROM appointments ORDER BY date DESC"
+        Return Read(sql)
+    End Function
+
+    Public Function GetAppointmentsDoctor(verifiedID As String) As DataTable
         Dim sql As String = "SELECT * FROM appointments WHERE Verified_ID = @verifiedID ORDER BY date DESC"
         Dim parameters As New Dictionary(Of String, Object) From {
             {"@verifiedID", verifiedID}

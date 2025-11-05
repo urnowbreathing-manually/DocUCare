@@ -66,7 +66,15 @@ Public Class UcAppointment
         Try
             AppointmentList.Controls.Clear()
             allAppointments.Clear()
-            Dim dt As DataTable = db.GetAllAppointments()
+
+            Dim dt As DataTable
+            MsgBox(currentUser(3))
+            If currentUser(3) = "Doctor" Then
+                dt = db.GetAppointmentsByDoctor(currentUser(0))
+            Else
+                dt = db.GetAllAppointments()
+            End If
+
             If dt Is Nothing OrElse dt.Rows.Count = 0 Then
                 AppointmentList.Controls.Add(New Label() With {.Text = "No appointments found.", .Font = New Font("Segoe UI", 12), .AutoSize = True})
                 Return
