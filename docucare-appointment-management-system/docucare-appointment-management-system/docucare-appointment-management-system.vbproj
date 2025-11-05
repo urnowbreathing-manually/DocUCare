@@ -119,6 +119,7 @@
     <Compile Include="CreateStaff.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="CurrentUserSession.vb" />
     <Compile Include="DataStore.vb" />
     <Compile Include="DBHandler.vb" />
     <Compile Include="EditDoctor.Designer.vb">
