@@ -48,7 +48,10 @@ Public Class UcAppointment
             "Date (Asc)",
             "Date (Desc)",
             "Time (Asc)",
-            "Time (Desc)"
+            "Time (Desc)",
+            "Status (Queued First)",
+            "Status (Pending First)",
+            "Status (Completed First)"
         })
         sortComboBox.SelectedIndex = 0
         sortComboBox.DropDownStyle = ComboBoxStyle.DropDownList
@@ -156,7 +159,11 @@ Public Class UcAppointment
                 Case "Pending"
                     instance.Btn_Consult.BackColor = Color.DarkSalmon
                     instance.Btn_Consult.Enabled = False
-                Case "Done"
+                    instance.Btn_Resched.BackColor = Color.Salmon
+                    instance.Btn_Resched.Enabled = False
+                    instance.Btn_Cancel.BackColor = Color.Salmon
+                    instance.Btn_Cancel.Enabled = False
+                Case "Completed"
                     instance.Btn_Payment.BackColor = Color.DarkSalmon
                     instance.Btn_Payment.Enabled = False
                     instance.Btn_Consult.BackColor = Color.DarkSalmon
@@ -165,7 +172,6 @@ Public Class UcAppointment
                     instance.Btn_Resched.Enabled = False
                     instance.Btn_Cancel.BackColor = Color.Salmon
                     instance.Btn_Cancel.Enabled = False
-
             End Select
 
             AppointmentList.Controls.Add(instance)
@@ -260,6 +266,33 @@ Public Class UcAppointment
                                                                                       Return Date.MinValue
                                                                                   End Try
                                                                               End Function).ToList()
+            Case "Status (Queued First)"
+                filteredAppointments = filteredAppointments.OrderBy(Function(a)
+                                                                        Select Case a.Status
+                                                                            Case "Queued" : Return 0
+                                                                            Case "Pending" : Return 1
+                                                                            Case "Completed" : Return 2
+                                                                            Case Else : Return 3
+                                                                        End Select
+                                                                    End Function).ToList()
+            Case "Status (Pending First)"
+                filteredAppointments = filteredAppointments.OrderBy(Function(a)
+                                                                        Select Case a.Status
+                                                                            Case "Pending" : Return 0
+                                                                            Case "Queued" : Return 1
+                                                                            Case "Completed" : Return 2
+                                                                            Case Else : Return 3
+                                                                        End Select
+                                                                    End Function).ToList()
+            Case "Status (Completed First)"
+                filteredAppointments = filteredAppointments.OrderBy(Function(a)
+                                                                        Select Case a.Status
+                                                                            Case "Completed" : Return 0
+                                                                            Case "Pending" : Return 1
+                                                                            Case "Queued" : Return 2
+                                                                            Case Else : Return 3
+                                                                        End Select
+                                                                    End Function).ToList()
         End Select
     End Sub
 
@@ -334,7 +367,6 @@ Public Class UcAppointment
             Try
                 Dim query As String = $"DELETE FROM appointments WHERE appointment_id = {data.AppointmentID}"
                 Dim rowsAffected As Integer = db.ExecuteNonQuery(query)
-
 
                 If rowsAffected > 0 Then
                     MessageBox.Show("Appointment successfully cancelled!",
