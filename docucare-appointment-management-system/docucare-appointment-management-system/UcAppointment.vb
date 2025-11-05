@@ -124,15 +124,19 @@ Public Class UcAppointment
             instance.Time_Placeholder.Text = TryFormatTime(a.Time)
             instance.Status_Placeholder.Text = a.Status
 
-            ' Tag appointment data for both buttons
+            ' Tag appointment data for all buttons
             instance.Btn_Consult.Tag = a
             instance.Btn_Payment.Tag = a
+            instance.Btn_Cancel.Tag = a
 
             ' Attach handlers (prevent duplicates)
             RemoveHandler instance.Btn_Consult.Click, AddressOf ConsultHandler
             RemoveHandler instance.Btn_Payment.Click, AddressOf PaymentHandler
+            RemoveHandler instance.Btn_Cancel.Click, AddressOf CancelHandler
+
             AddHandler instance.Btn_Consult.Click, AddressOf ConsultHandler
             AddHandler instance.Btn_Payment.Click, AddressOf PaymentHandler
+            AddHandler instance.Btn_Cancel.Click, AddressOf CancelHandler
 
             ' User role-dependent button visibility
             Select Case currentUser(3)
@@ -298,25 +302,58 @@ Public Class UcAppointment
         form.ShowDialog()
     End Sub
 
-    ' --- PAYMENT HANDLER (NEW) ---
     ' --- PAYMENT HANDLER ---
     Private Sub PaymentHandler(sender As Object, e As EventArgs)
         Dim btn As Button = DirectCast(sender, Button)
         Dim data As AppointmentData = DirectCast(btn.Tag, AppointmentData)
 
-        ' Open the fee form and pass details
         Dim form As New ConsulationFee(
-        data.AppointmentID,
-        data.Patient,
-        data.Date,
-        data.Time
-    )
+            data.AppointmentID,
+            data.Patient,
+            data.Date,
+            data.Time
+        )
 
-        ' Refresh appointment list after closing
         AddHandler form.FormClosed, Sub() LoadAppointmentsFromDB()
         form.ShowDialog()
     End Sub
 
+    ' --- CANCEL HANDLER (FULLY FUNCTIONAL) ---
+    Private Sub CancelHandler(sender As Object, e As EventArgs)
+        Dim btn As Button = DirectCast(sender, Button)
+        Dim data As AppointmentData = DirectCast(btn.Tag, AppointmentData)
+
+        Dim result As DialogResult = MessageBox.Show(
+            $"Are you sure you want to cancel the appointment of {data.Patient} (ID: {data.AppointmentID})?",
+            "Cancel Appointment",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Warning
+        )
+
+        If result = DialogResult.Yes Then
+            Try
+                Dim query As String = $"DELETE FROM appointments WHERE appointment_id = {data.AppointmentID}"
+                Dim rowsAffected As Integer = db.ExecuteNonQuery(query)
+
+
+                If rowsAffected > 0 Then
+                    MessageBox.Show("Appointment successfully cancelled!",
+                                    "Cancel Appointment",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information)
+                    LoadAppointmentsFromDB()
+                Else
+                    MessageBox.Show("Failed to cancel appointment. It may have been removed already.",
+                                    "Cancel Appointment",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error)
+                End If
+            Catch ex As Exception
+                MessageBox.Show("Error cancelling appointment: " & ex.Message,
+                                "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End If
+    End Sub
 
     ' --- NAVBAR MENU ---
     Private Sub NavbarMenu_Click(sender As Object, e As EventArgs) Handles NavbarMenu.Click
@@ -324,20 +361,6 @@ Public Class UcAppointment
         Dim addMainMenu As New UcMainMenu(MainContentPanel)
         addMainMenu.Dock = DockStyle.Fill
         MainContentPanel.Controls.Add(addMainMenu)
-    End Sub
-
-    Public Shared Sub CancelAppointment(sender As Object, e As EventArgs)
-        Dim btn As Button = DirectCast(sender, Button)
-        Dim data As AppointmentData = DirectCast(btn.Tag, AppointmentData) ' Get all data
-
-        Dim result As DialogResult = MessageBox.Show("Confirm cancel appointment of " & data.Patient & "?", "Cancel Appointment", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
-
-        If result = DialogResult.Yes Then
-            MessageBox.Show("Appointment successfully cancelled!", "Cancel Appointment", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-            'db.DeleteAppointment(data.AppointmentID, data.Patient)
-        End If
-
     End Sub
 
 End Class
