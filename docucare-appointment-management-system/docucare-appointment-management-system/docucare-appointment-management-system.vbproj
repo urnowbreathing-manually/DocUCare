@@ -127,6 +127,12 @@
     <Compile Include="EditPatientInfo.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="History_Instance.Designer.vb">
+      <DependentUpon>History_Instance.vb</DependentUpon>
+    </Compile>
+    <Compile Include="History_Instance.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="MainForm.Designer.vb">
       <DependentUpon>MainForm.vb</DependentUpon>
     </Compile>
@@ -228,6 +234,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EditPatientInfo.resx">
       <DependentUpon>EditPatientInfo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="History_Instance.resx">
+      <DependentUpon>History_Instance.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.vb</DependentUpon>

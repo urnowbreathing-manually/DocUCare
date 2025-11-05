@@ -201,7 +201,7 @@ Public Class DBHandler
     End Function
 
     Public Function GetAppointmentsByDoctor(doctorName As String) As DataTable
-        Dim sql As String = "SELECT * FROM appointments WHERE doctor_name = @doctorName ORDER BY date DESC, time DESC"
+        Dim sql As String = "SELECT * FROM appointments WHERE (doctor_name = @doctorName) AND (NOT status = 'Completed') ORDER BY date DESC, time DESC"
         Dim parameters As New Dictionary(Of String, Object) From {
             {"@doctorName", doctorName}
         }
@@ -217,11 +217,11 @@ Public Class DBHandler
     End Function
 
     Public Function GetAllAppointments() As DataTable
-        Dim sql As String = "SELECT * FROM appointments ORDER BY date DESC"
+        Dim sql As String = "SELECT * FROM appointments WHERE NOT status = 'Completed' ORDER BY date DESC"
         Return Read(sql)
     End Function
 
-    Public Function GetAppointmentsDoctor(verifiedID As String) As DataTable
+    Public Function GetAppointmentsByVerifiedID(verifiedID As String) As DataTable
         Dim sql As String = "SELECT * FROM appointments WHERE Verified_ID = @verifiedID ORDER BY date DESC"
         Dim parameters As New Dictionary(Of String, Object) From {
             {"@verifiedID", verifiedID}
@@ -254,6 +254,20 @@ Public Class DBHandler
             {"@patientName", patientname}
         }
         Return DeleteWithParameters("appointments", "appointment_id = @appointmentID", parameters)
+    End Function
+
+    ' ====================== HISTORY METHODS =======================
+    Public Function GetHistoryByDoctor(doctorName As String) As DataTable
+        Dim sql As String = "SELECT * FROM appointments WHERE (doctor_name = @doctorName) AND (status = 'Completed') ORDER BY date DESC, time DESC"
+        Dim parameters As New Dictionary(Of String, Object) From {
+            {"@doctorName", doctorName}
+        }
+        Return ReadWithParameters(sql, parameters)
+    End Function
+
+    Public Function GetAllHistory() As DataTable
+        Dim sql As String = "SELECT * FROM appointments WHERE status = 'Completed' ORDER BY date DESC"
+        Return Read(sql)
     End Function
 
     ' ==================== CONSULTATION METHODS ====================
