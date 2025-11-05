@@ -134,6 +134,7 @@ Public Class UcAppointment
             AddHandler instance.Btn_Consult.Click, AddressOf ConsultHandler
             AddHandler instance.Btn_Payment.Click, AddressOf PaymentHandler
 
+            ' User role-dependent button visibility
             Select Case currentUser(3)
                 Case "Admin", "Staff"
                     instance.Btn_Consult.Hide()
@@ -141,6 +142,26 @@ Public Class UcAppointment
                     instance.Btn_Payment.Hide()
                     instance.Btn_Resched.Hide()
                     instance.Btn_Cancel.Hide()
+            End Select
+
+            ' Appointment status-dependent button interactability
+            Select Case a.Status
+                Case "Queued"
+                    instance.Btn_Payment.BackColor = Color.DarkSalmon
+                    instance.Btn_Payment.Enabled = False
+                Case "Pending"
+                    instance.Btn_Consult.BackColor = Color.DarkSalmon
+                    instance.Btn_Consult.Enabled = False
+                Case "Done"
+                    instance.Btn_Payment.BackColor = Color.DarkSalmon
+                    instance.Btn_Payment.Enabled = False
+                    instance.Btn_Consult.BackColor = Color.DarkSalmon
+                    instance.Btn_Consult.Enabled = False
+                    instance.Btn_Resched.BackColor = Color.Salmon
+                    instance.Btn_Resched.Enabled = False
+                    instance.Btn_Cancel.BackColor = Color.Salmon
+                    instance.Btn_Cancel.Enabled = False
+
             End Select
 
             AppointmentList.Controls.Add(instance)
