@@ -99,6 +99,10 @@ Public Class CreateDoctor
             Exit Sub
         End If
 
+        If checkMonday.Checked = False And checkTue.Checked = False And checkWed.Checked = False And checkThu.Checked = False And checkFri.Checked = False And checkSat.Checked = False And checkSun.Checked = False Then
+            missingFields.Add("No Schedule Selected")
+        End If
+
         ' If missing fields exist
         If missingFields.Count > 0 Then
             Dim message As String = "Please fill in the following required fields:" & vbCrLf &
