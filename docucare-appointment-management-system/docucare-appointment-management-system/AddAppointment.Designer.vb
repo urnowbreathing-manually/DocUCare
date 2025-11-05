@@ -40,10 +40,12 @@ Partial Class AddAppointment
         Me.TableLayoutPanel6 = New System.Windows.Forms.TableLayoutPanel()
         Me.TimeVal = New System.Windows.Forms.DateTimePicker()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.Label32 = New System.Windows.Forms.Label()
         Me.Label33 = New System.Windows.Forms.Label()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.ViewPatientInfo = New System.Windows.Forms.Button()
+        Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.TableLayoutPanel4.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -51,6 +53,7 @@ Partial Class AddAppointment
         Me.TableLayoutPanel6.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TableLayoutPanel3.SuspendLayout()
         Me.SuspendLayout()
         '
         'TableLayoutPanel2
@@ -158,10 +161,11 @@ Partial Class AddAppointment
         '
         'patientDropDown
         '
+        Me.patientDropDown.Dock = System.Windows.Forms.DockStyle.Fill
         Me.patientDropDown.FormattingEnabled = True
-        Me.patientDropDown.Location = New System.Drawing.Point(3, 21)
+        Me.patientDropDown.Location = New System.Drawing.Point(3, 3)
         Me.patientDropDown.Name = "patientDropDown"
-        Me.patientDropDown.Size = New System.Drawing.Size(375, 21)
+        Me.patientDropDown.Size = New System.Drawing.Size(277, 21)
         Me.patientDropDown.TabIndex = 2
         '
         'Label1
@@ -178,8 +182,8 @@ Partial Class AddAppointment
         Me.TableLayoutPanel1.ColumnCount = 1
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.Label1, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.patientDropDown, 0, 1)
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(19, 95)
+        Me.TableLayoutPanel1.Controls.Add(Me.TableLayoutPanel3, 0, 1)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(19, 75)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 2
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40.0!))
@@ -275,17 +279,6 @@ Partial Class AddAppointment
         Me.Label7.TabIndex = 1
         Me.Label7.Text = "Time:"
         '
-        'PictureBox2
-        '
-        Me.PictureBox2.BackgroundImage = Global.docucare_appointment_management_system.My.Resources.Resources.Doc_U_Care
-        Me.PictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.PictureBox2.Location = New System.Drawing.Point(21, 24)
-        Me.PictureBox2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(37, 37)
-        Me.PictureBox2.TabIndex = 43
-        Me.PictureBox2.TabStop = False
-        '
         'Label32
         '
         Me.Label32.AutoSize = True
@@ -306,16 +299,59 @@ Partial Class AddAppointment
         Me.Label33.TabIndex = 41
         Me.Label33.Text = "DocUCare"
         '
+        'PictureBox2
+        '
+        Me.PictureBox2.BackgroundImage = Global.docucare_appointment_management_system.My.Resources.Resources.Doc_U_Care
+        Me.PictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.PictureBox2.Location = New System.Drawing.Point(21, 24)
+        Me.PictureBox2.Margin = New System.Windows.Forms.Padding(2)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(37, 37)
+        Me.PictureBox2.TabIndex = 43
+        Me.PictureBox2.TabStop = False
+        '
         'PictureBox1
         '
         Me.PictureBox1.BackgroundImage = CType(resources.GetObject("PictureBox1.BackgroundImage"), System.Drawing.Image)
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.PictureBox1.Location = New System.Drawing.Point(193, 44)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(16, 16)
         Me.PictureBox1.TabIndex = 40
         Me.PictureBox1.TabStop = False
+        '
+        'ViewPatientInfo
+        '
+        Me.ViewPatientInfo.BackColor = System.Drawing.SystemColors.HotTrack
+        Me.ViewPatientInfo.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack
+        Me.ViewPatientInfo.FlatAppearance.BorderSize = 6
+        Me.ViewPatientInfo.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.HotTrack
+        Me.ViewPatientInfo.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack
+        Me.ViewPatientInfo.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ViewPatientInfo.ForeColor = System.Drawing.Color.Transparent
+        Me.ViewPatientInfo.Location = New System.Drawing.Point(283, 0)
+        Me.ViewPatientInfo.Margin = New System.Windows.Forms.Padding(0)
+        Me.ViewPatientInfo.Name = "ViewPatientInfo"
+        Me.ViewPatientInfo.Size = New System.Drawing.Size(95, 21)
+        Me.ViewPatientInfo.TabIndex = 44
+        Me.ViewPatientInfo.Text = "View"
+        Me.ViewPatientInfo.UseVisualStyleBackColor = False
+        '
+        'TableLayoutPanel3
+        '
+        Me.TableLayoutPanel3.ColumnCount = 2
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
+        Me.TableLayoutPanel3.Controls.Add(Me.ViewPatientInfo, 1, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.patientDropDown, 0, 0)
+        Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 21)
+        Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
+        Me.TableLayoutPanel3.RowCount = 1
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(378, 21)
+        Me.TableLayoutPanel3.TabIndex = 2
         '
         'AddAppointment
         '
@@ -349,6 +385,7 @@ Partial Class AddAppointment
         Me.TableLayoutPanel6.PerformLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TableLayoutPanel3.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -374,4 +411,6 @@ Partial Class AddAppointment
     Friend WithEvents Label32 As Label
     Friend WithEvents Label33 As Label
     Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents TableLayoutPanel3 As TableLayoutPanel
+    Friend WithEvents ViewPatientInfo As Button
 End Class

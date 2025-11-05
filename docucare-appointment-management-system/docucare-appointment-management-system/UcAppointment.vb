@@ -68,7 +68,7 @@ Public Class UcAppointment
             allAppointments.Clear()
 
             Dim dt As DataTable
-            MsgBox(currentUser(3))
+            'MsgBox(currentUser(3))
             If currentUser(3) = "Doctor" Then
                 dt = db.GetAppointmentsByDoctor(currentUser(0))
             Else
