@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class UcMainMenu
     Inherits System.Windows.Forms.UserControl
 
     'UserControl overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class UcMainMenu
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.MM_Panel = New System.Windows.Forms.Panel()
         Me.MM_RPanel = New System.Windows.Forms.Panel()
@@ -29,8 +29,7 @@ Partial Class UcMainMenu
         Me.MM_Calendar = New System.Windows.Forms.MonthCalendar()
         Me.MM_LPanel = New System.Windows.Forms.Panel()
         Me.MM_Buttons = New System.Windows.Forms.TableLayoutPanel()
-        Me.NewStaffBtn = New System.Windows.Forms.Button()
-        Me.NewDoctorBtn = New System.Windows.Forms.Button()
+        Me.PersonnelBtn = New System.Windows.Forms.Button()
         Me.AddPatientBtn = New System.Windows.Forms.Button()
         Me.HistoryBtn = New System.Windows.Forms.Button()
         Me.AppointmentBtn = New System.Windows.Forms.Button()
@@ -121,8 +120,7 @@ Partial Class UcMainMenu
         Me.MM_Buttons.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.MM_Buttons.ColumnCount = 1
         Me.MM_Buttons.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.MM_Buttons.Controls.Add(Me.NewStaffBtn, 0, 5)
-        Me.MM_Buttons.Controls.Add(Me.NewDoctorBtn, 0, 4)
+        Me.MM_Buttons.Controls.Add(Me.PersonnelBtn, 0, 4)
         Me.MM_Buttons.Controls.Add(Me.AddPatientBtn, 0, 0)
         Me.MM_Buttons.Controls.Add(Me.HistoryBtn, 0, 3)
         Me.MM_Buttons.Controls.Add(Me.AppointmentBtn, 0, 2)
@@ -143,25 +141,15 @@ Partial Class UcMainMenu
         Me.MM_Buttons.Size = New System.Drawing.Size(227, 421)
         Me.MM_Buttons.TabIndex = 2
         '
-        'NewStaffBtn
+        'PersonnelBtn
         '
-        Me.NewStaffBtn.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.NewStaffBtn.Location = New System.Drawing.Point(20, 266)
-        Me.NewStaffBtn.Name = "NewStaffBtn"
-        Me.NewStaffBtn.Size = New System.Drawing.Size(186, 39)
-        Me.NewStaffBtn.TabIndex = 7
-        Me.NewStaffBtn.Text = "Create New Staff Role"
-        Me.NewStaffBtn.UseVisualStyleBackColor = True
-        '
-        'NewDoctorBtn
-        '
-        Me.NewDoctorBtn.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.NewDoctorBtn.Location = New System.Drawing.Point(20, 214)
-        Me.NewDoctorBtn.Name = "NewDoctorBtn"
-        Me.NewDoctorBtn.Size = New System.Drawing.Size(186, 39)
-        Me.NewDoctorBtn.TabIndex = 5
-        Me.NewDoctorBtn.Text = "Create New Doctor Role"
-        Me.NewDoctorBtn.UseVisualStyleBackColor = True
+        Me.PersonnelBtn.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.PersonnelBtn.Location = New System.Drawing.Point(20, 214)
+        Me.PersonnelBtn.Name = "PersonnelBtn"
+        Me.PersonnelBtn.Size = New System.Drawing.Size(186, 39)
+        Me.PersonnelBtn.TabIndex = 5
+        Me.PersonnelBtn.Text = "Personnel"
+        Me.PersonnelBtn.UseVisualStyleBackColor = True
         '
         'AddPatientBtn
         '
@@ -266,8 +254,7 @@ Partial Class UcMainMenu
     Friend WithEvents PatientRecordsBtn As Button
     Friend WithEvents AddPatientBtn As Button
     Friend WithEvents MM_Title As PictureBox
-    Friend WithEvents NewDoctorBtn As Button
+    Friend WithEvents PersonnelBtn As Button
     Friend WithEvents WelcomeText As Label
     Friend WithEvents Button2 As Button
-    Friend WithEvents NewStaffBtn As Button
 End Class

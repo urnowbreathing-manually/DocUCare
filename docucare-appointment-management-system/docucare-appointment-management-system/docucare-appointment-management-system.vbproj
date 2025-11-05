@@ -127,6 +127,18 @@
     <Compile Include="EditPatientInfo.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="EditDoctor.Designer.vb">
+      <DependentUpon>EditDoctor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="EditDoctor.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditStaff.Designer.vb">
+      <DependentUpon>EditStaff.vb</DependentUpon>
+    </Compile>
+    <Compile Include="EditStaff.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MainForm.Designer.vb">
       <DependentUpon>MainForm.vb</DependentUpon>
     </Compile>
@@ -137,6 +149,12 @@
       <DependentUpon>PatientInfo.vb</DependentUpon>
     </Compile>
     <Compile Include="PatientInfo.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PersonnelInfo.Designer.vb">
+      <DependentUpon>PersonnelInfo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PersonnelInfo.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ReschedAppointment.Designer.vb">
@@ -203,6 +221,12 @@
     <Compile Include="UcMainMenu.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="UcPersonnelRecords.Designer.vb">
+      <DependentUpon>UcPersonnelRecords.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UcPersonnelRecords.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AddAppointment.resx">
@@ -226,14 +250,23 @@
     <EmbeddedResource Include="CreateStaff.resx">
       <DependentUpon>CreateStaff.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="EditDoctor.resx">
+      <DependentUpon>EditDoctor.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EditPatientInfo.resx">
       <DependentUpon>EditPatientInfo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditStaff.resx">
+      <DependentUpon>EditStaff.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PatientInfo.resx">
       <DependentUpon>PatientInfo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PersonnelInfo.resx">
+      <DependentUpon>PersonnelInfo.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Prescriptions.resx">
       <DependentUpon>Prescriptions.vb</DependentUpon>
@@ -264,6 +297,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UcPatientRecords.resx">
       <DependentUpon>UcPatientRecords.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UcPersonnelRecords.resx">
+      <DependentUpon>UcPersonnelRecords.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
