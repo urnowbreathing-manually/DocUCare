@@ -37,8 +37,8 @@ Partial Class ConsultationForm
         Me.Symptoms = New System.Windows.Forms.TextBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.DrugPrescriptionNotes = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
+        Me.DrugPrescriptionNotes = New System.Windows.Forms.TextBox()
         Me.CreateConsultation = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
@@ -68,7 +68,7 @@ Partial Class ConsultationForm
         Me.TableLayoutPanel2.Controls.Add(Me.lblPatient, 0, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.lblNotes, 0, 2)
         Me.TableLayoutPanel2.Location = New System.Drawing.Point(4, 74)
-        Me.TableLayoutPanel2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TableLayoutPanel2.Margin = New System.Windows.Forms.Padding(4)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 3
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
@@ -142,7 +142,7 @@ Partial Class ConsultationForm
         Me.TableLayoutPanel3.Controls.Add(Me.Label9, 0, 2)
         Me.TableLayoutPanel3.Controls.Add(Me.Symptoms, 0, 1)
         Me.TableLayoutPanel3.Location = New System.Drawing.Point(4, 255)
-        Me.TableLayoutPanel3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TableLayoutPanel3.Margin = New System.Windows.Forms.Padding(4)
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
         Me.TableLayoutPanel3.RowCount = 4
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.0!))
@@ -156,7 +156,7 @@ Partial Class ConsultationForm
         '
         Me.Diagnosis.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Diagnosis.Location = New System.Drawing.Point(7, 131)
-        Me.Diagnosis.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Diagnosis.Margin = New System.Windows.Forms.Padding(4)
         Me.Diagnosis.Multiline = True
         Me.Diagnosis.Name = "Diagnosis"
         Me.Diagnosis.Size = New System.Drawing.Size(823, 70)
@@ -186,7 +186,7 @@ Partial Class ConsultationForm
         '
         Me.Symptoms.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Symptoms.Location = New System.Drawing.Point(7, 27)
-        Me.Symptoms.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Symptoms.Margin = New System.Windows.Forms.Padding(4)
         Me.Symptoms.Multiline = True
         Me.Symptoms.Name = "Symptoms"
         Me.Symptoms.Size = New System.Drawing.Size(823, 70)
@@ -197,7 +197,7 @@ Partial Class ConsultationForm
         Me.Label14.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(323, 231)
+        Me.Label14.Location = New System.Drawing.Point(323, 209)
         Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(197, 20)
@@ -206,46 +206,49 @@ Partial Class ConsultationForm
         '
         'TableLayoutPanel1
         '
+        Me.TableLayoutPanel1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TableLayoutPanel1.ColumnCount = 1
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.Label10, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.DrugPrescriptionNotes, 0, 1)
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(4, 472)
-        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(4)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 2
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.028369!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 93.97163!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(837, 254)
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.259259!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90.74074!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(837, 216)
         Me.TableLayoutPanel1.TabIndex = 11
-        '
-        'DrugPrescriptionNotes
-        '
-        Me.DrugPrescriptionNotes.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.DrugPrescriptionNotes.Location = New System.Drawing.Point(7, 28)
-        Me.DrugPrescriptionNotes.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.DrugPrescriptionNotes.Multiline = True
-        Me.DrugPrescriptionNotes.Name = "DrugPrescriptionNotes"
-        Me.DrugPrescriptionNotes.Size = New System.Drawing.Size(823, 212)
-        Me.DrugPrescriptionNotes.TabIndex = 15
         '
         'Label10
         '
         Me.Label10.AutoSize = True
+        Me.Label10.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Label10.Location = New System.Drawing.Point(4, 0)
         Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(117, 15)
+        Me.Label10.Size = New System.Drawing.Size(829, 20)
         Me.Label10.TabIndex = 14
         Me.Label10.Text = "Drug Prescriptions"
+        '
+        'DrugPrescriptionNotes
+        '
+        Me.DrugPrescriptionNotes.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.DrugPrescriptionNotes.Location = New System.Drawing.Point(4, 26)
+        Me.DrugPrescriptionNotes.Margin = New System.Windows.Forms.Padding(4)
+        Me.DrugPrescriptionNotes.Multiline = True
+        Me.DrugPrescriptionNotes.Name = "DrugPrescriptionNotes"
+        Me.DrugPrescriptionNotes.Size = New System.Drawing.Size(829, 183)
+        Me.DrugPrescriptionNotes.TabIndex = 15
         '
         'CreateConsultation
         '
         Me.CreateConsultation.BackColor = System.Drawing.SystemColors.HotTrack
         Me.CreateConsultation.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CreateConsultation.ForeColor = System.Drawing.SystemColors.Control
-        Me.CreateConsultation.Location = New System.Drawing.Point(89, 734)
-        Me.CreateConsultation.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.CreateConsultation.Location = New System.Drawing.Point(89, 696)
+        Me.CreateConsultation.Margin = New System.Windows.Forms.Padding(4)
         Me.CreateConsultation.Name = "CreateConsultation"
         Me.CreateConsultation.Size = New System.Drawing.Size(397, 43)
         Me.CreateConsultation.TabIndex = 12
@@ -261,8 +264,8 @@ Partial Class ConsultationForm
         Me.Button2.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack
         Me.Button2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button2.ForeColor = System.Drawing.Color.Black
-        Me.Button2.Location = New System.Drawing.Point(494, 734)
-        Me.Button2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Button2.Location = New System.Drawing.Point(494, 696)
+        Me.Button2.Margin = New System.Windows.Forms.Padding(4)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(215, 43)
         Me.Button2.TabIndex = 13
@@ -323,7 +326,7 @@ Partial Class ConsultationForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(845, 808)
+        Me.ClientSize = New System.Drawing.Size(845, 764)
         Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.Label32)
         Me.Controls.Add(Me.Label33)
@@ -335,7 +338,7 @@ Partial Class ConsultationForm
         Me.Controls.Add(Me.TableLayoutPanel3)
         Me.Controls.Add(Me.TableLayoutPanel2)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "ConsultationForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Consultation Form"

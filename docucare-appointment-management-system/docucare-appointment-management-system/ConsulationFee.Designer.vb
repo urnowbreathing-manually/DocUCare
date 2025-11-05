@@ -52,9 +52,10 @@ Partial Class ConsulationFee
         Me.Btn_Cancel.FlatAppearance.BorderSize = 0
         Me.Btn_Cancel.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Btn_Cancel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Btn_Cancel.Location = New System.Drawing.Point(167, 266)
+        Me.Btn_Cancel.Location = New System.Drawing.Point(223, 327)
+        Me.Btn_Cancel.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Btn_Cancel.Name = "Btn_Cancel"
-        Me.Btn_Cancel.Size = New System.Drawing.Size(142, 36)
+        Me.Btn_Cancel.Size = New System.Drawing.Size(189, 44)
         Me.Btn_Cancel.TabIndex = 4
         Me.Btn_Cancel.Text = "Cancel"
         Me.Btn_Cancel.UseVisualStyleBackColor = False
@@ -66,9 +67,10 @@ Partial Class ConsulationFee
         Me.Btn_SaveFee.FlatAppearance.BorderSize = 0
         Me.Btn_SaveFee.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Btn_SaveFee.ForeColor = System.Drawing.SystemColors.Control
-        Me.Btn_SaveFee.Location = New System.Drawing.Point(14, 266)
+        Me.Btn_SaveFee.Location = New System.Drawing.Point(19, 327)
+        Me.Btn_SaveFee.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Btn_SaveFee.Name = "Btn_SaveFee"
-        Me.Btn_SaveFee.Size = New System.Drawing.Size(142, 36)
+        Me.Btn_SaveFee.Size = New System.Drawing.Size(189, 44)
         Me.Btn_SaveFee.TabIndex = 3
         Me.Btn_SaveFee.Text = "Save"
         Me.Btn_SaveFee.UseVisualStyleBackColor = False
@@ -76,86 +78,97 @@ Partial Class ConsulationFee
         'Lbl_PatientName
         '
         Me.Lbl_PatientName.AutoSize = True
-        Me.Lbl_PatientName.Location = New System.Drawing.Point(29, 101)
+        Me.Lbl_PatientName.Location = New System.Drawing.Point(39, 124)
+        Me.Lbl_PatientName.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Lbl_PatientName.Name = "Lbl_PatientName"
-        Me.Lbl_PatientName.Size = New System.Drawing.Size(77, 13)
+        Me.Lbl_PatientName.Size = New System.Drawing.Size(94, 16)
         Me.Lbl_PatientName.TabIndex = 17
         Me.Lbl_PatientName.Text = "Patient Name: "
         '
         'Lbl_Date
         '
         Me.Lbl_Date.AutoSize = True
-        Me.Lbl_Date.Location = New System.Drawing.Point(70, 131)
+        Me.Lbl_Date.Location = New System.Drawing.Point(93, 161)
+        Me.Lbl_Date.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Lbl_Date.Name = "Lbl_Date"
-        Me.Lbl_Date.Size = New System.Drawing.Size(36, 13)
+        Me.Lbl_Date.Size = New System.Drawing.Size(42, 16)
         Me.Lbl_Date.TabIndex = 18
         Me.Lbl_Date.Text = "Date: "
         '
         'Lbl_Time
         '
         Me.Lbl_Time.AutoSize = True
-        Me.Lbl_Time.Location = New System.Drawing.Point(70, 162)
+        Me.Lbl_Time.Location = New System.Drawing.Point(93, 199)
+        Me.Lbl_Time.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Lbl_Time.Name = "Lbl_Time"
-        Me.Lbl_Time.Size = New System.Drawing.Size(36, 13)
+        Me.Lbl_Time.Size = New System.Drawing.Size(44, 16)
         Me.Lbl_Time.TabIndex = 19
         Me.Lbl_Time.Text = "Time: "
         '
         'Lbl_StaffName
         '
         Me.Lbl_StaffName.AutoSize = True
-        Me.Lbl_StaffName.Location = New System.Drawing.Point(40, 193)
+        Me.Lbl_StaffName.Location = New System.Drawing.Point(53, 238)
+        Me.Lbl_StaffName.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Lbl_StaffName.Name = "Lbl_StaffName"
-        Me.Lbl_StaffName.Size = New System.Drawing.Size(66, 13)
+        Me.Lbl_StaffName.Size = New System.Drawing.Size(79, 16)
         Me.Lbl_StaffName.TabIndex = 20
         Me.Lbl_StaffName.Text = "Staff Name: "
         '
         'Lbl_ConsultationFee
         '
         Me.Lbl_ConsultationFee.AutoSize = True
-        Me.Lbl_ConsultationFee.Location = New System.Drawing.Point(14, 228)
+        Me.Lbl_ConsultationFee.Location = New System.Drawing.Point(19, 281)
+        Me.Lbl_ConsultationFee.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Lbl_ConsultationFee.Name = "Lbl_ConsultationFee"
-        Me.Lbl_ConsultationFee.Size = New System.Drawing.Size(92, 13)
+        Me.Lbl_ConsultationFee.Size = New System.Drawing.Size(113, 16)
         Me.Lbl_ConsultationFee.TabIndex = 21
         Me.Lbl_ConsultationFee.Text = "Consultation Fee: "
         '
         'staffName
         '
-        Me.staffName.Location = New System.Drawing.Point(112, 191)
+        Me.staffName.Location = New System.Drawing.Point(149, 235)
+        Me.staffName.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.staffName.Name = "staffName"
-        Me.staffName.Size = New System.Drawing.Size(197, 20)
+        Me.staffName.ReadOnly = True
+        Me.staffName.Size = New System.Drawing.Size(261, 22)
         Me.staffName.TabIndex = 1
         '
         'FeeTextBox
         '
-        Me.FeeTextBox.Location = New System.Drawing.Point(112, 225)
+        Me.FeeTextBox.Location = New System.Drawing.Point(149, 277)
+        Me.FeeTextBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.FeeTextBox.Name = "FeeTextBox"
-        Me.FeeTextBox.Size = New System.Drawing.Size(197, 20)
+        Me.FeeTextBox.Size = New System.Drawing.Size(261, 22)
         Me.FeeTextBox.TabIndex = 2
         '
         'PatientNamePlaceholder
         '
         Me.PatientNamePlaceholder.AutoSize = True
-        Me.PatientNamePlaceholder.Location = New System.Drawing.Point(110, 101)
+        Me.PatientNamePlaceholder.Location = New System.Drawing.Point(147, 124)
+        Me.PatientNamePlaceholder.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.PatientNamePlaceholder.Name = "PatientNamePlaceholder"
-        Me.PatientNamePlaceholder.Size = New System.Drawing.Size(71, 13)
+        Me.PatientNamePlaceholder.Size = New System.Drawing.Size(88, 16)
         Me.PatientNamePlaceholder.TabIndex = 22
         Me.PatientNamePlaceholder.Text = "<Name here>"
         '
         'DatePlaceholder
         '
         Me.DatePlaceholder.AutoSize = True
-        Me.DatePlaceholder.Location = New System.Drawing.Point(110, 131)
+        Me.DatePlaceholder.Location = New System.Drawing.Point(147, 161)
+        Me.DatePlaceholder.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.DatePlaceholder.Name = "DatePlaceholder"
-        Me.DatePlaceholder.Size = New System.Drawing.Size(66, 13)
+        Me.DatePlaceholder.Size = New System.Drawing.Size(80, 16)
         Me.DatePlaceholder.TabIndex = 23
         Me.DatePlaceholder.Text = "<Date here>"
         '
         'TimePlaceHolder
         '
         Me.TimePlaceHolder.AutoSize = True
-        Me.TimePlaceHolder.Location = New System.Drawing.Point(110, 162)
+        Me.TimePlaceHolder.Location = New System.Drawing.Point(147, 199)
+        Me.TimePlaceHolder.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.TimePlaceHolder.Name = "TimePlaceHolder"
-        Me.TimePlaceHolder.Size = New System.Drawing.Size(66, 13)
+        Me.TimePlaceHolder.Size = New System.Drawing.Size(82, 16)
         Me.TimePlaceHolder.TabIndex = 24
         Me.TimePlaceHolder.Text = "<Time here>"
         '
@@ -165,10 +178,9 @@ Partial Class ConsulationFee
         Me.Label9.BackColor = System.Drawing.Color.Transparent
         Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label9.ForeColor = System.Drawing.Color.Firebrick
-        Me.Label9.Location = New System.Drawing.Point(97, 191)
-        Me.Label9.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label9.Location = New System.Drawing.Point(129, 235)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(12, 15)
+        Me.Label9.Size = New System.Drawing.Size(14, 18)
         Me.Label9.TabIndex = 25
         Me.Label9.Text = "*"
         '
@@ -178,10 +190,9 @@ Partial Class ConsulationFee
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.Firebrick
-        Me.Label1.Location = New System.Drawing.Point(97, 226)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label1.Location = New System.Drawing.Point(129, 278)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(12, 15)
+        Me.Label1.Size = New System.Drawing.Size(14, 18)
         Me.Label1.TabIndex = 26
         Me.Label1.Text = "*"
         '
@@ -189,10 +200,10 @@ Partial Class ConsulationFee
         '
         Me.PictureBox2.BackgroundImage = Global.docucare_appointment_management_system.My.Resources.Resources.Doc_U_Care
         Me.PictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.PictureBox2.Location = New System.Drawing.Point(18, 17)
-        Me.PictureBox2.Margin = New System.Windows.Forms.Padding(2)
+        Me.PictureBox2.Location = New System.Drawing.Point(24, 21)
+        Me.PictureBox2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(37, 37)
+        Me.PictureBox2.Size = New System.Drawing.Size(49, 46)
         Me.PictureBox2.TabIndex = 43
         Me.PictureBox2.TabStop = False
         '
@@ -200,9 +211,10 @@ Partial Class ConsulationFee
         '
         Me.Label32.AutoSize = True
         Me.Label32.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label32.Location = New System.Drawing.Point(60, 41)
+        Me.Label32.Location = New System.Drawing.Point(80, 50)
+        Me.Label32.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label32.Name = "Label32"
-        Me.Label32.Size = New System.Drawing.Size(86, 13)
+        Me.Label32.Size = New System.Drawing.Size(107, 16)
         Me.Label32.TabIndex = 42
         Me.Label32.Text = "Consultation Fee"
         '
@@ -210,9 +222,10 @@ Partial Class ConsulationFee
         '
         Me.Label33.AutoSize = True
         Me.Label33.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label33.Location = New System.Drawing.Point(60, 17)
+        Me.Label33.Location = New System.Drawing.Point(80, 21)
+        Me.Label33.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(92, 20)
+        Me.Label33.Size = New System.Drawing.Size(112, 25)
         Me.Label33.TabIndex = 41
         Me.Label33.Text = "DocUCare"
         '
@@ -220,18 +233,18 @@ Partial Class ConsulationFee
         '
         Me.PictureBox1.BackgroundImage = CType(resources.GetObject("PictureBox1.BackgroundImage"), System.Drawing.Image)
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.PictureBox1.Location = New System.Drawing.Point(152, 37)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(2)
+        Me.PictureBox1.Location = New System.Drawing.Point(203, 46)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(16, 16)
+        Me.PictureBox1.Size = New System.Drawing.Size(21, 20)
         Me.PictureBox1.TabIndex = 40
         Me.PictureBox1.TabStop = False
         '
         'ConsulationFee
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(319, 337)
+        Me.ClientSize = New System.Drawing.Size(425, 415)
         Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.Label32)
         Me.Controls.Add(Me.Label33)
@@ -252,6 +265,7 @@ Partial Class ConsulationFee
         Me.Controls.Add(Me.Btn_SaveFee)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "ConsulationFee"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Add Consulation Fee"

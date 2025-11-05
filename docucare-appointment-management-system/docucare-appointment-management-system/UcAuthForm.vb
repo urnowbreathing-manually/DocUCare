@@ -27,7 +27,7 @@ Public Class UcAuthForm
                 LoginBtn_Click(sender, e)
             Case DialogResult.No
                 UserName.Text = "Andrei I. Zantua"
-                Password.Text = "doctor456"
+                Password.Text = "doctor4post"
                 VerifiedID.Text = "00002-DR"
                 LoginBtn_Click(sender, e)
             Case DialogResult.Cancel
@@ -39,7 +39,9 @@ Public Class UcAuthForm
     End Sub
 
     Private Sub LoginBtn_Click(sender As Object, e As EventArgs) Handles LoginBtn.Click
-        DataStore.currentUser = {"", "", "", ""}
+        ' Clear any previous user session
+        CurrentUserSession.FullName = ""
+        CurrentUserSession.Role = ""
 
         If String.IsNullOrWhiteSpace(UserName.Text) Then
             MessageBox.Show("Username is required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -60,6 +62,11 @@ Public Class UcAuthForm
         End If
 
         If dbHandler.AuthenticateUser(UserName.Text, Password.Text, VerifiedID.Text) Then
+
+            ' ⭐ SUCCESS: Save user info to the global session
+            CurrentUserSession.FullName = UserName.Text
+            CurrentUserSession.Role = CurrentUserSession.GetRoleFromID(VerifiedID.Text)
+
             MessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
             MainContentPanel.Controls.Clear()
             Dim addMainMenu As New UcMainMenu(MainContentPanel)
