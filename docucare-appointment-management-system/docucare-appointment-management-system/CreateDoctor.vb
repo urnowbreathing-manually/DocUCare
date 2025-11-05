@@ -202,4 +202,12 @@ Public Class CreateDoctor
     Private Sub LastName_TextChanged(sender As Object, e As EventArgs) Handles LastName.TextChanged
         CleanTextOnly(DirectCast(sender, TextBox))
     End Sub
+
+    Private Sub TableLayoutPanel1_Paint(sender As Object, e As PaintEventArgs) Handles TableLayoutPanel1.Paint
+
+    End Sub
+
+    Private Sub MondayStart_ValueChanged(sender As Object, e As EventArgs) Handles MondayStart.ValueChanged
+
+    End Sub
 End Class

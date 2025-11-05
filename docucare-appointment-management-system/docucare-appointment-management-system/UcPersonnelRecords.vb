@@ -67,21 +67,20 @@ Public Class UcPersonnelRecords
                     .Height = 90,
                     .BorderStyle = BorderStyle.FixedSingle,
                     .Margin = New Padding(5),
-                    .Padding = New Padding(10) ' <-- adds internal padding inside the panel
+                    .Padding = New Padding(10)
                 }
 
                 Dim lbl As New Label With {
                     .Text = $"Verified ID: {row("Verified_ID")}" & vbCrLf &
                             $"Name: {row("Personnel_Name")}" & vbCrLf &
                             $"Role: {row("Role")}",
-                    .Dock = DockStyle.Fill,      ' Fill the panel
-                    .AutoSize = False,           ' Important for DockStyle.Fill
-                    .TextAlign = ContentAlignment.MiddleLeft ' Align text nicely
+                    .Dock = DockStyle.Fill,
+                    .AutoSize = False,
+                    .TextAlign = ContentAlignment.MiddleLeft
                 }
 
                 card.Controls.Add(lbl)
 
-                ' Add View button except for admin
                 If row("Role").ToString().ToLower() <> "admin" Then
                     Dim viewBtn As New Button With {
                         .Text = "View",
@@ -96,7 +95,6 @@ Public Class UcPersonnelRecords
                 PersonnelGrid.Controls.Add(card)
             Next
 
-
         Catch ex As Exception
             MessageBox.Show("Error loading personnel: " & ex.Message)
         End Try
@@ -105,7 +103,6 @@ Public Class UcPersonnelRecords
     Private Sub ViewPersonnel_Click(sender As Object, e As EventArgs)
         Dim btn As Button = CType(sender, Button)
         Dim data As DataRow = CType(btn.Tag, DataRow)
-
         Dim infoForm As New PersonnelInfo(data, AddressOf RefreshGrid)
         infoForm.ShowDialog()
     End Sub
@@ -114,13 +111,15 @@ Public Class UcPersonnelRecords
         LoadPersonnel(showOnlyComboBox.SelectedItem.ToString(), searchTxt.Text.Trim(), sortComboBox.SelectedItem.ToString())
     End Sub
 
-    ' Search / Filter / Sort event handlers
+    ' --- Search / Filter / Sort Event Handlers ---
     Private Sub searchTxt_TextChanged(sender As Object, e As EventArgs) Handles searchTxt.TextChanged
         If isInitialized Then RefreshGrid()
     End Sub
+
     Private Sub showOnlyComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles showOnlyComboBox.SelectedIndexChanged
         If isInitialized Then RefreshGrid()
     End Sub
+
     Private Sub sortComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles sortComboBox.SelectedIndexChanged
         If isInitialized Then RefreshGrid()
     End Sub
@@ -130,5 +129,22 @@ Public Class UcPersonnelRecords
         Dim addMainMenu As New UcMainMenu(MainContentPanel)
         addMainMenu.Dock = DockStyle.Fill
         MainContentPanel.Controls.Add(addMainMenu)
+    End Sub
+
+    ' --- Add Doctor / Staff Buttons ---
+    Private Sub addDoctorBtn_Click(sender As Object, e As EventArgs) Handles addDoctorBtn.Click
+        Dim createForm As New CreateDoctor()
+        AddHandler createForm.FormClosed, Sub()
+                                              RefreshGrid()
+                                          End Sub
+        createForm.ShowDialog()
+    End Sub
+
+    Private Sub addStaffBtn_Click(sender As Object, e As EventArgs) Handles addStaffBtn.Click
+        Dim createForm As New CreateStaff()
+        AddHandler createForm.FormClosed, Sub()
+                                              RefreshGrid()
+                                          End Sub
+        createForm.ShowDialog()
     End Sub
 End Class
