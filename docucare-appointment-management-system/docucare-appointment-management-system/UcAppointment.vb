@@ -10,7 +10,6 @@ Public Class UcAppointment
     Private allAppointments As New List(Of AppointmentData)
     Private filteredAppointments As New List(Of AppointmentData)
 
-    ' --- CLASS: Appointment Data ---
     Private Class AppointmentData
         Public Property AppointmentID As Integer
         Public Property Patient As String
@@ -23,13 +22,11 @@ Public Class UcAppointment
         Public Property Status As String
     End Class
 
-    ' --- CONSTRUCTOR ---
     Public Sub New(parent As Panel)
         InitializeComponent()
         MainContentPanel = parent
     End Sub
 
-    ' --- LOAD EVENT ---
     Private Sub UcAppointment_Load(sender As Object, e As EventArgs) Handles Me.Load
         AppointmentList.AutoScroll = True
         AppointmentList.FlowDirection = FlowDirection.TopDown
@@ -38,7 +35,6 @@ Public Class UcAppointment
         AppointmentList.BorderStyle = BorderStyle.FixedSingle
         AppointmentList.Padding = New Padding(10)
 
-        ' Populate sort options
         sortComboBox.Items.Clear()
         sortComboBox.Items.AddRange({
             "Appointment ID (Asc)",
@@ -66,22 +62,15 @@ Public Class UcAppointment
         End Select
     End Sub
 
-    ' --- LOAD APPOINTMENTS ---
     Private Sub LoadAppointmentsFromDB()
         Try
             AppointmentList.Controls.Clear()
             allAppointments.Clear()
-
             Dim dt As DataTable = db.GetAllAppointments()
             If dt Is Nothing OrElse dt.Rows.Count = 0 Then
-                AppointmentList.Controls.Add(New Label() With {
-                    .Text = "No appointments found.",
-                    .Font = New Font("Segoe UI", 12),
-                    .AutoSize = True
-                })
+                AppointmentList.Controls.Add(New Label() With {.Text = "No appointments found.", .Font = New Font("Segoe UI", 12), .AutoSize = True})
                 Return
             End If
-
             For Each row As DataRow In dt.Rows
                 Dim app As New AppointmentData With {
                     .AppointmentID = row.Field(Of Integer)("appointment_id"),
@@ -96,25 +85,17 @@ Public Class UcAppointment
                 }
                 allAppointments.Add(app)
             Next
-
             filteredAppointments = allAppointments.ToList()
             DisplayAppointments(filteredAppointments)
         Catch ex As Exception
-            MessageBox.Show("Failed to load appointments: " & ex.Message,
-                            "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Failed to load appointments: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
-    ' --- DISPLAY APPOINTMENTS ---
     Private Sub DisplayAppointments(list As List(Of AppointmentData))
         AppointmentList.Controls.Clear()
-
         If list.Count = 0 Then
-            AppointmentList.Controls.Add(New Label() With {
-                .Text = "No matching appointments found.",
-                .Font = New Font("Segoe UI", 11),
-                .AutoSize = True
-            })
+            AppointmentList.Controls.Add(New Label() With {.Text = "No matching appointments found.", .Font = New Font("Segoe UI", 11), .AutoSize = True})
             Return
         End If
 
@@ -127,31 +108,30 @@ Public Class UcAppointment
             instance.Time_Placeholder.Text = TryFormatTime(a.Time)
             instance.Status_Placeholder.Text = a.Status
 
-            ' Tag appointment data for all buttons
             instance.Btn_Consult.Tag = a
             instance.Btn_Payment.Tag = a
             instance.Btn_Cancel.Tag = a
+            instance.Btn_Resched.Tag = a
 
-            ' Attach handlers (prevent duplicates)
             RemoveHandler instance.Btn_Consult.Click, AddressOf ConsultHandler
             RemoveHandler instance.Btn_Payment.Click, AddressOf PaymentHandler
             RemoveHandler instance.Btn_Cancel.Click, AddressOf CancelHandler
+            RemoveHandler instance.Btn_Resched.Click, AddressOf ReschedHandler
 
             AddHandler instance.Btn_Consult.Click, AddressOf ConsultHandler
             AddHandler instance.Btn_Payment.Click, AddressOf PaymentHandler
             AddHandler instance.Btn_Cancel.Click, AddressOf CancelHandler
+            AddHandler instance.Btn_Resched.Click, AddressOf ReschedHandler
 
-            ' User role-dependent button visibility
-            Select Case currentUser(3)
-                Case "Admin", "Staff"
+            Select Case DataStore.currentUser(3).ToLower()
+                Case "admin", "staff"
                     instance.Btn_Consult.Hide()
-                Case "Doctor"
+                Case "doctor"
                     instance.Btn_Payment.Hide()
                     instance.Btn_Resched.Hide()
                     instance.Btn_Cancel.Hide()
             End Select
 
-            ' Appointment status-dependent button interactability
             Select Case a.Status
                 Case "Queued"
                     instance.Btn_Payment.BackColor = Color.DarkSalmon
@@ -178,7 +158,6 @@ Public Class UcAppointment
         Next
     End Sub
 
-    ' --- TIME FORMATTER ---
     Private Function TryFormatTime(t As String) As String
         Try
             Return DateTime.ParseExact(t, "HH:mm", CultureInfo.InvariantCulture).ToString("hh:mm tt")
@@ -187,24 +166,15 @@ Public Class UcAppointment
         End Try
     End Function
 
-    ' --- ADD APPOINTMENT ---
     Private Sub addAppointmentBtn_Click(sender As Object, e As EventArgs) Handles addAppointmentBtn.Click
         Dim form As New AddAppointment()
-        If form.ShowDialog() = DialogResult.OK Then
-            LoadAppointmentsFromDB()
-        End If
+        If form.ShowDialog() = DialogResult.OK Then LoadAppointmentsFromDB()
     End Sub
 
-    ' --- SEARCH + SORT COMBINED ---
     Private Sub ApplySearchAndSort()
         Dim patientQuery As String = searchPatient.Text.Trim().ToLower()
         Dim doctorQuery As String = searchDoctor.Text.Trim().ToLower()
-
-        filteredAppointments = allAppointments.
-            Where(Function(a) a.Patient.ToLower().Contains(patientQuery) AndAlso
-                              a.Doctor.ToLower().Contains(doctorQuery)).
-            ToList()
-
+        filteredAppointments = allAppointments.Where(Function(a) a.Patient.ToLower().Contains(patientQuery) AndAlso a.Doctor.ToLower().Contains(doctorQuery)).ToList()
         ApplySorting()
         DisplayAppointments(filteredAppointments)
     End Sub
@@ -221,10 +191,8 @@ Public Class UcAppointment
         ApplySearchAndSort()
     End Sub
 
-    ' --- SORT LOGIC ---
     Private Sub ApplySorting()
         Dim selected As String = sortComboBox.SelectedItem.ToString()
-
         Select Case selected
             Case "Appointment ID (Asc)"
                 filteredAppointments = filteredAppointments.OrderBy(Function(a) a.AppointmentID).ToList()
@@ -235,90 +203,56 @@ Public Class UcAppointment
             Case "Patient Name (Z–A)"
                 filteredAppointments = filteredAppointments.OrderByDescending(Function(a) a.Patient).ToList()
             Case "Date (Asc)"
-                filteredAppointments = filteredAppointments.OrderBy(Function(a)
-                                                                        Try
-                                                                            Return Date.Parse(a.Date)
-                                                                        Catch
-                                                                            Return Date.MinValue
-                                                                        End Try
-                                                                    End Function).ToList()
+                filteredAppointments = filteredAppointments.OrderBy(Function(a) SafeParseDate(a.Date)).ToList()
             Case "Date (Desc)"
-                filteredAppointments = filteredAppointments.OrderByDescending(Function(a)
-                                                                                  Try
-                                                                                      Return Date.Parse(a.Date)
-                                                                                  Catch
-                                                                                      Return Date.MinValue
-                                                                                  End Try
-                                                                              End Function).ToList()
+                filteredAppointments = filteredAppointments.OrderByDescending(Function(a) SafeParseDate(a.Date)).ToList()
             Case "Time (Asc)"
-                filteredAppointments = filteredAppointments.OrderBy(Function(a)
-                                                                        Try
-                                                                            Return DateTime.Parse(a.Time)
-                                                                        Catch
-                                                                            Return Date.MinValue
-                                                                        End Try
-                                                                    End Function).ToList()
+                filteredAppointments = filteredAppointments.OrderBy(Function(a) SafeParseTime(a.Time)).ToList()
             Case "Time (Desc)"
-                filteredAppointments = filteredAppointments.OrderByDescending(Function(a)
-                                                                                  Try
-                                                                                      Return DateTime.Parse(a.Time)
-                                                                                  Catch
-                                                                                      Return Date.MinValue
-                                                                                  End Try
-                                                                              End Function).ToList()
+                filteredAppointments = filteredAppointments.OrderByDescending(Function(a) SafeParseTime(a.Time)).ToList()
             Case "Status (Queued First)"
-                filteredAppointments = filteredAppointments.OrderBy(Function(a)
-                                                                        Select Case a.Status
-                                                                            Case "Queued" : Return 0
-                                                                            Case "Pending" : Return 1
-                                                                            Case "Completed" : Return 2
-                                                                            Case Else : Return 3
-                                                                        End Select
-                                                                    End Function).ToList()
+                filteredAppointments = filteredAppointments.OrderBy(Function(a) StatusOrder(a.Status, {"Queued", "Pending", "Completed"})).ToList()
             Case "Status (Pending First)"
-                filteredAppointments = filteredAppointments.OrderBy(Function(a)
-                                                                        Select Case a.Status
-                                                                            Case "Pending" : Return 0
-                                                                            Case "Queued" : Return 1
-                                                                            Case "Completed" : Return 2
-                                                                            Case Else : Return 3
-                                                                        End Select
-                                                                    End Function).ToList()
+                filteredAppointments = filteredAppointments.OrderBy(Function(a) StatusOrder(a.Status, {"Pending", "Queued", "Completed"})).ToList()
             Case "Status (Completed First)"
-                filteredAppointments = filteredAppointments.OrderBy(Function(a)
-                                                                        Select Case a.Status
-                                                                            Case "Completed" : Return 0
-                                                                            Case "Pending" : Return 1
-                                                                            Case "Queued" : Return 2
-                                                                            Case Else : Return 3
-                                                                        End Select
-                                                                    End Function).ToList()
+                filteredAppointments = filteredAppointments.OrderBy(Function(a) StatusOrder(a.Status, {"Completed", "Pending", "Queued"})).ToList()
         End Select
     End Sub
 
-    ' --- CONSULT HANDLER ---
+    Private Function SafeParseDate(s As String) As Date
+        Try
+            Return Date.Parse(s)
+        Catch
+            Return Date.MinValue
+        End Try
+    End Function
+
+    Private Function SafeParseTime(s As String) As DateTime
+        Try
+            Return DateTime.Parse(s)
+        Catch
+            Return Date.MinValue
+        End Try
+    End Function
+
+    Private Function StatusOrder(status As String, order() As String) As Integer
+        Dim idx As Integer = Array.IndexOf(order, status)
+        If idx >= 0 Then Return idx Else Return order.Length
+    End Function
+
     Private Sub ConsultHandler(sender As Object, e As EventArgs)
         Dim btn As Button = DirectCast(sender, Button)
         Dim data As AppointmentData = DirectCast(btn.Tag, AppointmentData)
-
         Dim appointmentDate As Date
         Try
             appointmentDate = Date.Parse(data.Date)
         Catch
             appointmentDate = Date.Now
         End Try
-
         If Date.Now.Date < appointmentDate Then
-            Dim result As DialogResult = MessageBox.Show(
-                $"This appointment is scheduled for {appointmentDate.ToShortDateString()}. Do you want to consult early?",
-                "Consult Early",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question
-            )
+            Dim result As DialogResult = MessageBox.Show($"This appointment is scheduled for {appointmentDate.ToShortDateString()}. Do you want to consult early?", "Consult Early", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
             If result = DialogResult.No Then Return
         End If
-
-        ' --- OPEN CONSULTATION FORM ---
         Dim form As New ConsultationForm() With {
             .PatientName = data.Patient,
             .DoctorName = data.Doctor,
@@ -329,70 +263,57 @@ Public Class UcAppointment
             .PatientID = data.PatientID,
             .DoctorVID = data.DoctorVID
         }
-
-        ' Refresh appointments after consultation
         AddHandler form.FormClosed, Sub() LoadAppointmentsFromDB()
         form.ShowDialog()
     End Sub
 
-    ' --- PAYMENT HANDLER ---
     Private Sub PaymentHandler(sender As Object, e As EventArgs)
         Dim btn As Button = DirectCast(sender, Button)
         Dim data As AppointmentData = DirectCast(btn.Tag, AppointmentData)
-
-        Dim form As New ConsulationFee(
-            data.AppointmentID,
-            data.Patient,
-            data.Date,
-            data.Time
-        )
-
+        Dim form As New ConsulationFee(data.AppointmentID, data.Patient, data.Date, data.Time)
         AddHandler form.FormClosed, Sub() LoadAppointmentsFromDB()
         form.ShowDialog()
     End Sub
 
-    ' --- CANCEL HANDLER (FULLY FUNCTIONAL) ---
+    Private Sub ReschedHandler(sender As Object, e As EventArgs)
+        Dim btn As Button = DirectCast(sender, Button)
+        Dim data As AppointmentData = DirectCast(btn.Tag, AppointmentData)
+        Dim form As New ReschedAppointment() With {
+            .AppointmentID = data.AppointmentID,
+            .PatientName = data.Patient,
+            .DoctorName = data.Doctor,
+            .AppointmentDate = data.Date,
+            .AppointmentTime = data.Time,
+            .NotesText = data.Notes
+        }
+        AddHandler form.FormClosed, Sub() LoadAppointmentsFromDB()
+        form.ShowDialog()
+    End Sub
+
     Private Sub CancelHandler(sender As Object, e As EventArgs)
         Dim btn As Button = DirectCast(sender, Button)
         Dim data As AppointmentData = DirectCast(btn.Tag, AppointmentData)
-
-        Dim result As DialogResult = MessageBox.Show(
-            $"Are you sure you want to cancel the appointment of {data.Patient} (ID: {data.AppointmentID})?",
-            "Cancel Appointment",
-            MessageBoxButtons.YesNo,
-            MessageBoxIcon.Warning
-        )
-
+        Dim result As DialogResult = MessageBox.Show($"Are you sure you want to cancel the appointment of {data.Patient} (ID: {data.AppointmentID})?", "Cancel Appointment", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
         If result = DialogResult.Yes Then
             Try
                 Dim query As String = $"DELETE FROM appointments WHERE appointment_id = {data.AppointmentID}"
                 Dim rowsAffected As Integer = db.ExecuteNonQuery(query)
-
                 If rowsAffected > 0 Then
-                    MessageBox.Show("Appointment successfully cancelled!",
-                                    "Cancel Appointment",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Information)
+                    MessageBox.Show("Appointment successfully cancelled!", "Cancel Appointment", MessageBoxButtons.OK, MessageBoxIcon.Information)
                     LoadAppointmentsFromDB()
                 Else
-                    MessageBox.Show("Failed to cancel appointment. It may have been removed already.",
-                                    "Cancel Appointment",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error)
+                    MessageBox.Show("Failed to cancel appointment. It may have been removed already.", "Cancel Appointment", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End If
             Catch ex As Exception
-                MessageBox.Show("Error cancelling appointment: " & ex.Message,
-                                "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("Error cancelling appointment: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
         End If
     End Sub
 
-    ' --- NAVBAR MENU ---
     Private Sub NavbarMenu_Click(sender As Object, e As EventArgs) Handles NavbarMenu.Click
         MainContentPanel.Controls.Clear()
         Dim addMainMenu As New UcMainMenu(MainContentPanel)
         addMainMenu.Dock = DockStyle.Fill
         MainContentPanel.Controls.Add(addMainMenu)
     End Sub
-
 End Class

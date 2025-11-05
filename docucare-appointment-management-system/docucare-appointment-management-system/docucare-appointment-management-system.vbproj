@@ -139,6 +139,12 @@
     <Compile Include="PatientInfo.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ReschedAppointment.Designer.vb">
+      <DependentUpon>ReschedAppointment.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReschedAppointment.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="UcAuthForm.Designer.vb">
       <DependentUpon>UcAuthForm.vb</DependentUpon>
     </Compile>
@@ -231,6 +237,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Prescriptions.resx">
       <DependentUpon>Prescriptions.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReschedAppointment.resx">
+      <DependentUpon>ReschedAppointment.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Startup_Fade.resx">
       <DependentUpon>Startup_Fade.vb</DependentUpon>
